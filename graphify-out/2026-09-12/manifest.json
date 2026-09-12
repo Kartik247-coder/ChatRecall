@@ -48,9 +48,9 @@
     "semantic_hash": "d98ec377378e82bee2263292020ea617"
   },
   "src/embed.py": {
-    "mtime": 1789195622.5296745,
-    "seen": 1789195806.320831,
-    "ast_hash": "70b1a96eeaa5e82842597b246e9297ee",
+    "mtime": 1789198860.88988,
+    "seen": 1789199281.0656798,
+    "ast_hash": "221a34a6a09272a12c1ba0900ccdf54f",
     "semantic_hash": ""
   },
   "src/index.py": {
@@ -60,9 +60,9 @@
     "semantic_hash": ""
   },
   "src/retrieve.py": {
-    "mtime": 1789197802.7669227,
-    "seen": 1789197964.760844,
-    "ast_hash": "31765b01d6d9fda80138d72c3db49b9b",
+    "mtime": 1789199078.8612304,
+    "seen": 1789199281.065741,
+    "ast_hash": "75c55edf3221cd9c268278127c1fdb83",
     "semantic_hash": ""
   },
   "tests/__init__.py": {
@@ -132,9 +132,9 @@
     "semantic_hash": ""
   },
   "web/static/index.html": {
-    "mtime": 1789197904.7091503,
-    "seen": 1789197964.761299,
-    "ast_hash": "936cf1acc43653ac3edd854e0f47a111",
+    "mtime": 1789199880.5604398,
+    "seen": 1789199897.725179,
+    "ast_hash": "4920b0cfc3fcc2f54afaf0d3a844b678",
     "semantic_hash": ""
   },
   "src/parser.py": {
@@ -156,9 +156,9 @@
     "semantic_hash": ""
   },
   "eval/run_demo_eval.py": {
-    "mtime": 1789194622.0526962,
-    "seen": 1789195806.320698,
-    "ast_hash": "f1e5bb2be354082ae3cbdecfa4b34eda",
+    "mtime": 1789199156.2699628,
+    "seen": 1789199281.0654972,
+    "ast_hash": "791ee7b60c3fd6b94a4e240e20ef86d3",
     "semantic_hash": ""
   },
   "generate_demo_chat.py": {
@@ -195,6 +195,30 @@
     "mtime": 1789196901.9580235,
     "seen": 1789197964.7611551,
     "ast_hash": "8390f48525eea6e877094addb7b80528",
+    "semantic_hash": ""
+  },
+  "scratch/test_chat_3.py": {
+    "mtime": 1789198533.072523,
+    "seen": 1789199281.065583,
+    "ast_hash": "bff4fcdc1fd613600a6db9941af18a25",
+    "semantic_hash": ""
+  },
+  "scratch/test_chat_3_fix.py": {
+    "mtime": 1789198578.2485156,
+    "seen": 1789199281.065585,
+    "ast_hash": "79ccd16cd0d7666ed3ee4bb78bba35b8",
+    "semantic_hash": ""
+  },
+  "data/uploads/sample_chat_3.txt": {
+    "mtime": 1789198242.2417588,
+    "seen": 1789199281.0661278,
+    "ast_hash": "1a2a1b85e22b750a8051eb948a513924",
+    "semantic_hash": ""
+  },
+  "data/uploads/sampe_chat.txt": {
+    "mtime": 1789199399.404213,
+    "seen": 1789199897.724929,
+    "ast_hash": "f906a5d377039cad0eb2657f9f5f6caa",
     "semantic_hash": ""
   }
 }

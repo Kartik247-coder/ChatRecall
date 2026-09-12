@@ -96,9 +96,9 @@
     "semantic_hash": "4711cfd3154fb3f047958ebff791d94e"
   },
   "web/app.py": {
-    "mtime": 1789197886.7191026,
-    "seen": 1789197964.761024,
-    "ast_hash": "839ae4e6814bbaeeb508b4480230d0ed",
+    "mtime": 1789200219.9515622,
+    "seen": 1789200493.865812,
+    "ast_hash": "3fbbf35c7567415a88e8328be295c4b0",
     "semantic_hash": ""
   },
   ".agents/rules/graphify.md": {
@@ -132,9 +132,9 @@
     "semantic_hash": ""
   },
   "web/static/index.html": {
-    "mtime": 1789199880.5604398,
-    "seen": 1789199897.725179,
-    "ast_hash": "4920b0cfc3fcc2f54afaf0d3a844b678",
+    "mtime": 1789200292.116581,
+    "seen": 1789200493.866196,
+    "ast_hash": "ac166dfd9eebc9419deeb48234252441",
     "semantic_hash": ""
   },
   "src/parser.py": {

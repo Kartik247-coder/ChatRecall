@@ -6,14 +6,14 @@
   <title>ChatRecall 💬 — 3D Semantic Group Chat Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #07090e;
       --bg-surface: rgba(15, 23, 42, 0.65);
-      --bg-surface-hover: rgba(30, 41, 59, 0.75);
+      --bg-surface-hover: rgba(30, 41, 59, 0.85);
       --card-border: rgba(255, 255, 255, 0.08);
-      --card-border-glow: rgba(56, 189, 248, 0.3);
+      --card-border-glow: rgba(56, 189, 248, 0.35);
       
       --cyan-primary: #06b6d4;
       --cyan-glow: rgba(6, 182, 212, 0.4);
@@ -23,14 +23,12 @@
       --emerald-primary: #10b981;
       --emerald-glow: rgba(16, 185, 129, 0.4);
       --amber-primary: #f59e0b;
+      --rose-primary: #f43f5e;
       
       --text-pure: #ffffff;
       --text-bright: #f1f5f9;
       --text-sub: #cbd5e1;
       --text-dim: #94a3b8;
-      
-      --target-glow: rgba(16, 185, 129, 0.18);
-      --target-border: #10b981;
     }
 
     * {
@@ -50,7 +48,7 @@
       position: relative;
     }
 
-    /* Ambient 3D Volumetric Background */
+    /* Ambient 3D Volumetric Mesh */
     .bg-mesh {
       position: fixed;
       inset: 0;
@@ -61,7 +59,7 @@
         radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 55%),
         radial-gradient(circle at 80% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
-      filter: blur(40px);
+      filter: blur(45px);
     }
 
     .grid-overlay {
@@ -69,19 +67,19 @@
       inset: 0;
       background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-size: 36px 36px;
       z-index: 0;
       pointer-events: none;
-      mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
-      -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 80%);
+      mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 85%);
     }
 
     header {
       position: relative;
       z-index: 10;
-      padding: 2.5rem 1.5rem 1.5rem;
+      padding: 2.2rem 1.5rem 1.2rem;
       text-align: center;
-      max-width: 1050px;
+      max-width: 1080px;
       margin: 0 auto;
       width: 100%;
     }
@@ -91,20 +89,19 @@
       align-items: center;
       gap: 1rem;
       margin-bottom: 0.75rem;
-      position: relative;
     }
 
     .brand-logo-3d {
-      width: 52px;
-      height: 52px;
+      width: 54px;
+      height: 54px;
       background: linear-gradient(135deg, #06b6d4, #6366f1, #a855f7);
       border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       box-shadow: 
-        0 10px 25px -5px rgba(6, 182, 212, 0.5),
+        0 12px 25px -5px rgba(6, 182, 212, 0.5),
         inset 0 2px 4px rgba(255, 255, 255, 0.4),
         inset 0 -2px 4px rgba(0, 0, 0, 0.3);
       transform: perspective(400px) rotateY(-8deg) rotateX(10deg);
@@ -116,7 +113,7 @@
     }
 
     .brand-title {
-      font-size: 2.6rem;
+      font-size: 2.7rem;
       font-weight: 800;
       letter-spacing: -0.03em;
       background: linear-gradient(135deg, #ffffff 20%, #38bdf8 60%, #c084fc 100%);
@@ -128,11 +125,11 @@
     .version-tag {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
-      font-weight: 600;
+      font-weight: 700;
       color: #38bdf8;
       background: rgba(6, 182, 212, 0.12);
       border: 1px solid rgba(6, 182, 212, 0.35);
-      padding: 0.2rem 0.55rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 20px;
       vertical-align: middle;
       box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
@@ -141,10 +138,9 @@
     .subtitle {
       color: var(--text-dim);
       font-size: 1.05rem;
-      max-width: 680px;
-      margin: 0 auto 1.5rem;
+      max-width: 720px;
+      margin: 0 auto 1.4rem;
       line-height: 1.6;
-      font-weight: 400;
     }
 
     .subtitle strong {
@@ -163,7 +159,7 @@
     }
 
     .glass-btn {
-      background: rgba(30, 41, 59, 0.5);
+      background: rgba(30, 41, 59, 0.55);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -171,7 +167,7 @@
       font-family: inherit;
       font-size: 0.88rem;
       font-weight: 600;
-      padding: 0.65rem 1.25rem;
+      padding: 0.65rem 1.3rem;
       border-radius: 12px;
       cursor: pointer;
       display: inline-flex;
@@ -179,39 +175,22 @@
       gap: 0.6rem;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .glass-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.6s ease;
-    }
-
-    .glass-btn:hover::before {
-      left: 100%;
     }
 
     .glass-btn:hover {
       transform: translateY(-2px);
-      border-color: rgba(56, 189, 248, 0.4);
+      border-color: rgba(56, 189, 248, 0.5);
       box-shadow: 0 8px 25px rgba(6, 182, 212, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
       color: #38bdf8;
     }
 
     .glass-btn.reset:hover {
       border-color: rgba(244, 63, 94, 0.4);
-      box-shadow: 0 8px 25px rgba(244, 63, 94, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 25px rgba(244, 63, 94, 0.25);
       color: #fb7185;
     }
 
-    /* 3D Floating Stats Bar */
+    /* 3D Floating Stats Dock */
     .stats-dock {
       display: flex;
       justify-content: center;
@@ -234,13 +213,6 @@
       align-items: center;
       gap: 0.5rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: all 0.2s ease;
-    }
-
-    .dock-pill:hover {
-      border-color: rgba(255, 255, 255, 0.18);
-      color: var(--text-sub);
-      transform: translateY(-1px);
     }
 
     .dock-pill.active {
@@ -248,12 +220,12 @@
       border-color: rgba(16, 185, 129, 0.4);
       color: #34d399;
       font-weight: 600;
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
     }
 
     .pulse-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #10b981;
       box-shadow: 0 0 8px #10b981;
@@ -262,24 +234,24 @@
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.35); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 1; }
     }
 
-    /* Main Content Section */
+    /* Main Container */
     main {
       position: relative;
       z-index: 10;
       flex: 1;
-      max-width: 1120px;
+      max-width: 1150px;
       width: 100%;
       margin: 0 auto;
       padding: 0 1.5rem 3.5rem;
     }
 
-    /* 3D Hero Search Console */
+    /* 3D Search Console */
     .search-capsule {
       position: relative;
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.8);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -292,21 +264,21 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 1.35rem;
+      margin-bottom: 1.5rem;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .search-capsule:focus-within {
-      border-color: rgba(56, 189, 248, 0.6);
+      border-color: rgba(56, 189, 248, 0.65);
       box-shadow: 
         0 25px 60px -10px rgba(0, 0, 0, 0.7),
-        0 0 40px rgba(6, 182, 212, 0.3),
+        0 0 40px rgba(6, 182, 212, 0.35),
         inset 0 1px 1px rgba(255, 255, 255, 0.25);
       transform: translateY(-2px);
     }
 
     .search-icon-3d {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       color: #38bdf8;
       filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.4));
     }
@@ -324,7 +296,6 @@
 
     .search-input::placeholder {
       color: #64748b;
-      font-weight: 400;
     }
 
     .search-submit-btn {
@@ -348,120 +319,228 @@
 
     .search-submit-btn:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 
-        0 12px 25px -3px rgba(6, 182, 212, 0.55),
-        inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 12px 25px -3px rgba(6, 182, 212, 0.55);
     }
 
-    .search-submit-btn:active {
-      transform: translateY(0) scale(0.98);
+    /* 3D Query Type Tabs & Dynamic Suggestions */
+    .suggestions-section {
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 1.25rem 1.4rem;
+      margin-bottom: 2.2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
 
-    /* 3D Query Chips */
-    .sample-chips-row {
+    .type-tabs-nav {
       display: flex;
-      gap: 0.65rem;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.1rem;
       flex-wrap: wrap;
-      margin-bottom: 2rem;
+    }
+
+    .tabs-header-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 0.4rem;
+    }
+
+    .type-tab-btn {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.45rem 0.95rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.25s ease;
+    }
+
+    .type-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .type-tab-btn.active {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(99, 102, 241, 0.2));
+      border-color: rgba(56, 189, 248, 0.5);
+      color: #38bdf8;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+    }
+
+    .type-tab-btn.active.tab-person {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #fbbf24;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+    }
+
+    .type-tab-btn.active.tab-time {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #34d399;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+    }
+
+    .type-tab-btn.active.tab-decision {
+      background: rgba(168, 85, 247, 0.15);
+      border-color: rgba(168, 85, 247, 0.5);
+      color: #c084fc;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+    }
+
+    .dynamic-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .dynamic-query-card {
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .dynamic-query-card:hover {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
+    }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
-    .chips-label {
-      font-size: 0.82rem;
-      color: var(--text-dim);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .sample-chip {
-      background: rgba(30, 41, 59, 0.45);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--text-sub);
-      font-size: 0.84rem;
-      font-weight: 500;
-      padding: 0.4rem 0.85rem;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .sample-chip:hover {
-      background: rgba(6, 182, 212, 0.15);
-      border-color: rgba(56, 189, 248, 0.5);
+    .card-title {
+      font-size: 0.86rem;
+      font-weight: 700;
       color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(6, 182, 212, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    /* Plan & Routing Banner */
-    .plan-card-3d {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 1.15rem 1.4rem;
-      margin-bottom: 2rem;
+    .card-type-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .card-query-preview {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.35;
+      font-style: italic;
+    }
+
+    /* 3D Plan & Query Strategy Banner */
+    .strategy-banner-3d {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.6));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 1.35rem 1.6rem;
+      margin-bottom: 2.2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      gap: 1.25rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
-    .plan-badges-group {
+    .strategy-info-col {
       display: flex;
-      gap: 0.65rem;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .strategy-title-row {
+      display: flex;
       align-items: center;
+      gap: 0.75rem;
       flex-wrap: wrap;
     }
 
-    .badge-3d {
+    .strategy-hero-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 0.3rem 0.75rem;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.9rem;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.45rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     }
 
-    .badge-semantic { 
-      background: rgba(6, 182, 212, 0.15); 
-      color: #38bdf8; 
-      border: 1px solid rgba(6, 182, 212, 0.4); 
-      box-shadow: 0 0 12px rgba(6, 182, 212, 0.15);
+    .strategy-meaning {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(99, 102, 241, 0.2));
+      border: 1px solid #06b6d4;
+      color: #38bdf8;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
     }
-    .badge-person { 
-      background: rgba(245, 158, 11, 0.15); 
-      color: #fbbf24; 
-      border: 1px solid rgba(245, 158, 11, 0.4); 
-      box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+
+    .strategy-person {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.2));
+      border: 1px solid #f59e0b;
+      color: #fbbf24;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
     }
-    .badge-time { 
-      background: rgba(16, 185, 129, 0.15); 
-      color: #34d399; 
-      border: 1px solid rgba(16, 185, 129, 0.4); 
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+
+    .strategy-time {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.2));
+      border: 1px solid #10b981;
+      color: #34d399;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
     }
-    .badge-decision { 
-      background: rgba(168, 85, 247, 0.15); 
-      color: #c084fc; 
-      border: 1px solid rgba(168, 85, 247, 0.4); 
-      box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
+
+    .strategy-hybrid {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(6, 182, 212, 0.2));
+      border: 1px solid #c084fc;
+      color: #e879f9;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    }
+
+    .strategy-details-tag {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
     }
 
     /* Comparison Grid */
     .results-grid {
       display: grid;
-      grid-template-columns: 2.1fr 1fr;
+      grid-template-columns: 2.15fr 1fr;
       gap: 1.75rem;
     }
 
@@ -482,7 +561,7 @@
       color: #ffffff;
     }
 
-    /* 3D Perspective Result Card */
+    /* 3D Thread Result Card */
     .thread-card-3d {
       background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(20px);
@@ -495,7 +574,6 @@
         0 15px 35px -5px rgba(0, 0, 0, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
     }
 
     .thread-card-3d:hover {
@@ -508,8 +586,8 @@
     }
 
     .thread-card-header {
-      padding: 0.9rem 1.4rem;
-      background: linear-gradient(90deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.4));
+      padding: 0.95rem 1.4rem;
+      background: linear-gradient(90deg, rgba(30, 41, 59, 0.65), rgba(15, 23, 42, 0.45));
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -542,7 +620,6 @@
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
-      position: relative;
     }
 
     /* 3D Elevated Chat Bubbles */
@@ -555,7 +632,6 @@
       line-height: 1.45;
       transition: all 0.25s ease;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-      position: relative;
     }
 
     .msg-bubble-3d:hover {
@@ -585,9 +661,9 @@
       word-break: break-word;
     }
 
-    /* 🎯 3D TARGET POINTER (The exact answer message) */
+    /* 🎯 3D TARGET POINTER (The literal answer message) */
     .msg-bubble-3d.is-target {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(6, 182, 212, 0.08));
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.08));
       border: 1.5px solid #10b981;
       box-shadow: 
         0 8px 25px -4px rgba(16, 185, 129, 0.35),
@@ -612,12 +688,11 @@
       letter-spacing: 0.05em;
     }
 
-    /* 3D Decision Marker */
     .msg-bubble-3d.is-decision {
       border-left: 4px solid #c084fc;
     }
 
-    /* Lexical BM25 Side Card */
+    /* BM25 Baseline Card */
     .bm25-card-3d {
       background: rgba(15, 23, 42, 0.5);
       backdrop-filter: blur(12px);
@@ -685,11 +760,11 @@
     <div class="brand-container">
       <div class="brand-logo-3d">💬</div>
       <h1 class="brand-title">ChatRecall</h1>
-      <span class="version-tag">3D v2.0</span>
+      <span class="version-tag">3D v2.1</span>
     </div>
     <p class="subtitle">
-      <strong>Multi-Strategy Conversational Intelligence Engine</strong> for Group Chat Archives.
-      Upload raw WhatsApp/Telegram <code>.txt</code> exports to search with zero-word-overlap Hinglish semantics.
+      <strong>3D Conversational Intelligence Engine</strong> for Group Chat Archives.
+      Automatically routes across <strong>Meaning-Based</strong>, <strong>Person-Based</strong>, and <strong>Time-Based</strong> strategies.
     </p>
 
     <!-- Upload & Reset Controls -->
@@ -716,14 +791,14 @@
   </header>
 
   <main>
-    <!-- 3D Search Bar Console -->
+    <!-- 3D Search Capsule -->
     <div class="search-capsule">
       <span class="search-icon-3d">🔍</span>
       <input 
         type="text" 
         id="queryInput" 
         class="search-input" 
-        placeholder="Ask anything (e.g. 'how much did the washing machine cost', 'what did Zara order for food')..." 
+        placeholder="Type a query across Meaning, Person, or Time (e.g. 'how much did washing machine cost', 'what did Dev negotiate')..." 
       />
       <button class="search-submit-btn" id="searchBtn">
         <span>Search</span>
@@ -731,17 +806,23 @@
       </button>
     </div>
 
-    <!-- Quick Query Chips -->
-    <div class="sample-chips-row">
-      <span class="chips-label">Quick Queries:</span>
-      <button class="sample-chip" data-query="how much did the washing machine cost">⚡ Washing Machine Cost</button>
-      <button class="sample-chip" data-query="what did they order for food for the party">🍕 Housewarming Catering</button>
-      <button class="sample-chip" data-query="how much did rent increase after negotiation">🏠 Rent Negotiation</button>
-      <button class="sample-chip" data-query="who is moving in to the flat">👤 Cousin Moving In</button>
-      <button class="sample-chip" data-query="When did we decide on the mountain holiday?">🏔️ Mountain Holiday (Zero Overlap)</button>
-      <button class="sample-chip" data-query="What did Neha decide about the gift">🎁 Farewell Gift Resolution</button>
+    <!-- 3D Dynamic Suggestions by Query Type -->
+    <div class="suggestions-section">
+      <div class="type-tabs-nav">
+        <span class="tabs-header-label">Query Types:</span>
+        <button class="type-tab-btn active" data-tab="all">🔥 All Strategies</button>
+        <button class="type-tab-btn" data-tab="meaning">🧠 Meaning-Based (Semantic)</button>
+        <button class="type-tab-btn tab-person" data-tab="person">👤 Person-Based (Author)</button>
+        <button class="type-tab-btn tab-time" data-tab="time">📅 Time-Based (Temporal)</button>
+        <button class="type-tab-btn tab-decision" data-tab="decision">🎯 Decision & Factual</button>
+      </div>
+
+      <div class="dynamic-cards-grid" id="suggestionsGrid">
+        <!-- Dynamically populated by JS from active chat archive -->
+      </div>
     </div>
 
+    <!-- Results Display -->
     <div id="resultsContainer"></div>
   </main>
 
@@ -752,12 +833,16 @@
     const fileUploadInput = document.getElementById('fileUploadInput');
     const uploadBtn = document.getElementById('uploadBtn');
     const resetBtn = document.getElementById('resetBtn');
+    const suggestionsGrid = document.getElementById('suggestionsGrid');
 
     const sourceBadge = document.getElementById('sourceBadge');
     const msgCountBadge = document.getElementById('msgCountBadge');
     const participantBadge = document.getElementById('participantBadge');
 
-    // Fetch initial stats
+    let currentSuggestions = null;
+    let activeTab = 'all';
+
+    // Fetch initial stats & dynamic suggestions
     fetchStats();
 
     async function fetchStats() {
@@ -767,10 +852,68 @@
         sourceBadge.innerHTML = `<div class="pulse-dot"></div><span>Source: ${data.source_name}</span>`;
         msgCountBadge.textContent = `📊 ${data.total_messages.toLocaleString()} Messages`;
         participantBadge.textContent = `👥 ${data.participants.length} Participants`;
+        
+        currentSuggestions = data.suggestions;
+        renderSuggestions(activeTab);
       } catch (err) {
         console.error("Failed to fetch stats", err);
       }
     }
+
+    // Dynamic Suggestion Rendering
+    function renderSuggestions(tab) {
+      if (!currentSuggestions) return;
+      activeTab = tab;
+
+      let items = [];
+      if (tab === 'all') {
+        items = [
+          ...(currentSuggestions.meaning || []).slice(0, 2).map(x => ({...x, category: 'meaning', catName: 'Meaning-Based'})),
+          ...(currentSuggestions.person || []).slice(0, 2).map(x => ({...x, category: 'person', catName: 'Person-Based'})),
+          ...(currentSuggestions.time || []).slice(0, 2).map(x => ({...x, category: 'time', catName: 'Time-Based'})),
+          ...(currentSuggestions.decision || []).slice(0, 2).map(x => ({...x, category: 'decision', catName: 'Decision'}))
+        ];
+      } else {
+        const catMap = {
+          'meaning': 'Meaning-Based',
+          'person': 'Person-Based',
+          'time': 'Time-Based',
+          'decision': 'Decision Outcome'
+        };
+        items = (currentSuggestions[tab] || []).map(x => ({...x, category: tab, catName: catMap[tab] || tab}));
+      }
+
+      const colorMap = {
+        'meaning': 'background: rgba(6, 182, 212, 0.15); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.35);',
+        'person': 'background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);',
+        'time': 'background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);',
+        'decision': 'background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35);'
+      };
+
+      suggestionsGrid.innerHTML = items.map(item => `
+        <div class="dynamic-query-card" onclick="runSuggestedQuery('${escapeHtml(item.query)}')">
+          <div class="card-top-row">
+            <span class="card-title">${item.icon} ${item.title}</span>
+            <span class="card-type-tag" style="${colorMap[item.category] || ''}">${item.catName}</span>
+          </div>
+          <div class="card-query-preview">"${escapeHtml(item.query)}"</div>
+        </div>
+      `).join('');
+    }
+
+    // Tab Switching
+    document.querySelectorAll('.type-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.type-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSuggestions(btn.dataset.tab);
+      });
+    });
+
+    window.runSuggestedQuery = function(queryText) {
+      queryInput.value = queryText;
+      performSearch();
+    };
 
     // Upload Handler
     uploadBtn.addEventListener('click', () => fileUploadInput.click());
@@ -784,7 +927,7 @@
           <div class="spinner-3d"></div>
           <p style="font-size: 1.1rem; color: #ffffff;"><strong>Uploading & Indexing ${file.name}...</strong></p>
           <p style="font-size: 0.88rem; margin-top: 0.5rem; color: var(--text-dim);">
-            Parsing timestamps, senders, and generating bidirectional dialogue vector embeddings...
+            Generating bidirectional dialogue embeddings and updating dynamic query strategies...
           </p>
         </div>
       `;
@@ -812,7 +955,7 @@
               Indexed <strong>${data.total_messages.toLocaleString()} messages</strong> across <strong>${data.participants.length} participants</strong> from <code>${data.source_name}</code>.
             </p>
             <p style="color: var(--text-dim); font-size: 0.86rem; margin-top: 0.75rem;">
-              You can now ask questions above to retrieve factual answers and decision threads!
+              Suggestions have been automatically refreshed below with Meaning, Person, and Time strategies for this chat!
             </p>
           </div>
         `;
@@ -843,14 +986,6 @@
       }
     });
 
-    // Sample Query Chips
-    document.querySelectorAll('.sample-chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        queryInput.value = btn.dataset.query;
-        performSearch();
-      });
-    });
-
     searchBtn.addEventListener('click', performSearch);
     queryInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') performSearch();
@@ -863,7 +998,7 @@
       resultsContainer.innerHTML = `
         <div class="loading-container">
           <div class="spinner-3d"></div>
-          <p style="color: #ffffff; font-size: 1.05rem;">Routing query & searching conversational vectors...</p>
+          <p style="color: #ffffff; font-size: 1.05rem;">Routing query across 3 strategies & searching vectors...</p>
         </div>
       `;
 
@@ -881,15 +1016,32 @@
       const results = data.semantic_results;
       const lexical = data.lexical_baseline;
 
-      let badgesHtml = `<span class="badge-3d badge-${plan.strategy}">${plan.strategy}</span>`;
+      // 3 Core Query Types Presentation
+      let strategyBadgeClass = 'strategy-meaning';
+      let strategyTitle = '🧠 Meaning-Based Query (Semantic Vector Search)';
+      
+      if (plan.strategy === 'person_filtered') {
+        strategyBadgeClass = 'strategy-person';
+        strategyTitle = `👤 Person-Based Query (Author: ${plan.target_person})`;
+      } else if (plan.strategy === 'time_filtered') {
+        strategyBadgeClass = 'strategy-time';
+        strategyTitle = `📅 Time-Based Query (Temporal Constraint)`;
+      } else if (plan.strategy === 'hybrid') {
+        strategyBadgeClass = 'strategy-hybrid';
+        strategyTitle = `⚡ Hybrid Query (Person + Temporal Filter)`;
+      }
+
+      let badgesHtml = `<span class="strategy-hero-badge ${strategyBadgeClass}">${strategyTitle}</span>`;
+      
+      let detailsTags = '';
       if (plan.target_person) {
-        badgesHtml += `<span class="badge-3d badge-person">👤 ${plan.target_person}</span>`;
+        detailsTags += `<span class="strategy-details-tag">👤 Target Sender: <strong>${escapeHtml(plan.target_person)}</strong></span>`;
       }
       if (plan.time_range) {
-        badgesHtml += `<span class="badge-3d badge-time">📅 ${plan.time_range[0]} to ${plan.time_range[1]}</span>`;
+        detailsTags += `<span class="strategy-details-tag">📅 Range: <strong>${plan.time_range[0]} to ${plan.time_range[1]}</strong></span>`;
       }
       if (plan.is_decision_query) {
-        badgesHtml += `<span class="badge-3d badge-decision">🎯 Decision Resolution</span>`;
+        detailsTags += `<span class="strategy-details-tag" style="border-color: #c084fc; color: #e879f9;">🎯 Decision Resolution: Active</span>`;
       }
 
       let alertHtml = '';
@@ -903,18 +1055,21 @@
       }
 
       let html = `
-        <div class="plan-card-3d">
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <div style="font-size: 0.88rem; color: var(--text-dim);">
-              Literal Query: <strong style="color: #ffffff; font-size: 0.98rem;">"${escapeHtml(data.literal_query || data.query)}"</strong>
-            </div>
-            <div class="plan-badges-group">
-              <span style="font-size: 0.82rem; color: var(--text-dim);">Query Plan:</span>
+        <div class="strategy-banner-3d">
+          <div class="strategy-info-col">
+            <div class="strategy-title-row">
               ${badgesHtml}
             </div>
+            <div style="font-size: 0.92rem; color: #f8fafc; margin-top: 0.2rem;">
+              Literal Query: <strong>"${escapeHtml(data.literal_query || data.query)}"</strong>
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-top: 0.25rem;">
+              <span style="font-size: 0.78rem; color: var(--text-dim);">Routed Intent:</span>
+              ${detailsTags || '<span class="strategy-details-tag">Zero-Word-Overlap Semantic Search</span>'}
+            </div>
           </div>
-          <span style="font-size: 0.84rem; color: var(--text-dim); background: rgba(255,255,255,0.04); padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
-            Scored <strong>${data.candidate_count}</strong> candidates in <strong>${data.source_name || 'Active Chat'}</strong>
+          <span style="font-size: 0.84rem; color: var(--text-dim); background: rgba(255,255,255,0.04); padding: 0.45rem 0.9rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+            Evaluated <strong>${data.candidate_count}</strong> candidates in <strong>${data.source_name || 'Active Chat'}</strong>
           </span>
         </div>
 
@@ -931,9 +1086,9 @@
         html += `<p style="color: var(--text-dim); padding: 1rem;">No matching messages found.</p>`;
       } else {
         results.forEach((r) => {
-          const decBadge = r.is_decision ? `<span class="badge-3d badge-decision" style="font-size: 0.68rem; padding: 0.15rem 0.45rem;">Decision Outcome</span>` : '';
+          const decBadge = r.is_decision ? `<span class="strategy-details-tag" style="border-color: #c084fc; color: #e879f9; font-size: 0.7rem;">Decision Outcome</span>` : '';
           const confColor = r.confidence === 'high' ? '#34d399' : (r.confidence === 'medium' ? '#38bdf8' : '#fbbf24');
-          const confBadge = `<span class="badge-3d" style="background: rgba(255,255,255,0.05); color: ${confColor}; border: 1px solid ${confColor}40; font-size: 0.68rem; padding: 0.15rem 0.45rem;">${r.confidence.toUpperCase()} CONFIDENCE</span>`;
+          const confBadge = `<span class="strategy-details-tag" style="border-color: ${confColor}40; color: ${confColor}; font-size: 0.7rem; font-weight: 700;">${r.confidence.toUpperCase()} CONFIDENCE</span>`;
           
           html += `
             <div class="thread-card-3d">

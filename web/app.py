@@ -51,16 +51,105 @@ async def serve_ui():
     return HTMLResponse("<h1>ChatRecall UI</h1><p>Index file not found in static/</p>")
 
 
+def get_dynamic_suggestions(index: ChatIndex, source_name: str) -> Dict[str, List[Dict[str, str]]]:
+    """
+    Generates tailored query suggestions categorized by the 3 core query types:
+    1. Meaning-based (Semantic)
+    2. Person-based (Author entity filter)
+    3. Time-based (Temporal constraints)
+    4. Decision & Factual resolution
+    """
+    senders = sorted(list(set(m["sender"] for m in index.messages if m["sender"] and m["sender"] != "System")))
+    src_lower = source_name.lower()
+
+    if "sample_chat_3" in src_lower or any("washing machine" in m["message"].lower() for m in index.messages[:10]):
+        return {
+            "meaning": [
+                {"title": "Washing Machine Cost", "query": "how much did the washing machine cost", "icon": "⚡", "desc": "Factual price retrieval"},
+                {"title": "Housewarming Food Order", "query": "what did they order for food for the party", "icon": "🍕", "desc": "Catering outcome"},
+                {"title": "Machine Replacement Reason", "query": "why did they decide to replace the washing machine", "icon": "🔧", "desc": "Conversational rationale"},
+                {"title": "Flatmate Preference", "query": "hesitant about stranger moving in", "icon": "🏠", "desc": "Semantic zero-overlap"}
+            ],
+            "person": [
+                {"title": "Dev's Rent Negotiation", "query": "what did Dev negotiate with the landlord", "icon": "👤", "desc": "Author: Dev"},
+                {"title": "Zara's 4th Flatmate Suggestion", "query": "what did Zara suggest about the 4th flatmate", "icon": "👤", "desc": "Author: Zara"},
+                {"title": "Ishaan on New Machine", "query": "what did Ishaan say about the new machine", "icon": "👤", "desc": "Author: Ishaan"}
+            ],
+            "time": [
+                {"title": "Early January (Machine Issues)", "query": "what happened in early January", "icon": "📅", "desc": "Time: Jan 1 - Jan 10"},
+                {"title": "Mid January (Negotiations)", "query": "discussions in mid January", "icon": "📅", "desc": "Time: Jan 10 - Jan 20"},
+                {"title": "Late January (Party)", "query": "party discussion in late January", "icon": "📅", "desc": "Time: Jan 20 - Jan 31"}
+            ],
+            "decision": [
+                {"title": "Rent Increase Outcome", "query": "how much did rent increase after negotiation", "icon": "🎯", "desc": "Negotiation agreement"},
+                {"title": "Who is Moving In", "query": "who is moving in to the flat", "icon": "🎯", "desc": "Cousin flatmate resolution"},
+                {"title": "Catering Confirmation", "query": "what did Zara confirm for catering", "icon": "🎯", "desc": "Biryani & starters order"}
+            ]
+        }
+    elif "sample_chat_2" in src_lower or any("leather strap" in m["message"].lower() or "rahul" in m["message"].lower() for m in index.messages):
+        return {
+            "meaning": [
+                {"title": "Farewell Gift Resolution", "query": "Surprise reading gadget ordered for our friend moving abroad", "icon": "🎁", "desc": "Zero-word-overlap gift intent"},
+                {"title": "Owed Amount per Head", "query": "how much does each person owe for the gift", "icon": "💰", "desc": "Cost per person"},
+                {"title": "Kasol Homestay Decision", "query": "where did Amit decide to go for the trip", "icon": "🏔️", "desc": "Trip destination"}
+            ],
+            "person": [
+                {"title": "Neha's Gift Decision", "query": "what did Neha decide for Rahul's gift", "icon": "👤", "desc": "Author: Neha"},
+                {"title": "Amit's Trip Choice", "query": "where did Amit decide to go", "icon": "👤", "desc": "Author: Amit"},
+                {"title": "Pooja's Tax Reminder", "query": "what did Pooja say about investment declarations", "icon": "👤", "desc": "Author: Pooja"}
+            ],
+            "time": [
+                {"title": "Early December Discussions", "query": "what did we discuss in early December", "icon": "📅", "desc": "Time: Dec 1 - Dec 10"},
+                {"title": "Late December Tax Proofs", "query": "investment declarations due in late December", "icon": "📅", "desc": "Time: Dec 20 - Dec 31"}
+            ],
+            "decision": [
+                {"title": "Rahul Gift Locked", "query": "what did Neha decide about Rahul's gift", "icon": "🎯", "desc": "Leather strap decision"},
+                {"title": "Trip Destination Final", "query": "locking Kasol trip destination", "icon": "🎯", "desc": "Kasol homestay outcome"}
+            ]
+        }
+    else:
+        # Default Synthetic Chat / General Archive
+        p1 = senders[0] if len(senders) > 0 else "Kabir"
+        p2 = senders[1] if len(senders) > 1 else "Meera"
+        p3 = senders[2] if len(senders) > 2 else "Priya"
+
+        return {
+            "meaning": [
+                {"title": "Mountain Trip (Zero Overlap)", "query": "When did we decide on the mountain holiday?", "icon": "🏔️", "desc": "Zero-overlap semantics"},
+                {"title": "Work Trip Suggestion", "query": "did anyone suggest turning this into a work trip", "icon": "💼", "desc": "Workation query"},
+                {"title": "Pet Policy at Resort", "query": "are pets allowed at the resort", "icon": "🐾", "desc": "Zero-overlap rule check"},
+                {"title": "Power Bank Borrowing", "query": "who is bringing a power bank", "icon": "🔋", "desc": "Item query"}
+            ],
+            "person": [
+                {"title": f"What did {p1} say about resort", "query": f"what did {p1} say about the resort rooms", "icon": "👤", "desc": f"Author: {p1}"},
+                {"title": f"What did {p2} say about tickets", "query": f"what did {p2} say about flight tickets", "icon": "👤", "desc": f"Author: {p2}"},
+                {"title": f"What did {p3} say about packing", "query": f"what did {p3} say about packing", "icon": "👤", "desc": f"Author: {p3}"}
+            ],
+            "time": [
+                {"title": "Early March Discussions", "query": "what did we discuss in early March", "icon": "📅", "desc": "Time: Mar 1 - Mar 10"},
+                {"title": "Third Week of May", "query": "what happened in the chat during the third week of May", "icon": "📅", "desc": "Time: May 15 - May 22"},
+                {"title": "Discussions in June", "query": "what was discussed in June", "icon": "📅", "desc": "Time: Full Month"}
+            ],
+            "decision": [
+                {"title": "Trip Destination Finalized", "query": "was the destination ever finalized", "icon": "🎯", "desc": "Manali decision"},
+                {"title": "Travel Budget per Head", "query": "what is the budget per person for travel and stay", "icon": "🎯", "desc": "8k final number"},
+                {"title": "Rooming Arrangement", "query": "how are they splitting up the sleeping arrangements", "icon": "🎯", "desc": "Girls room outcome"}
+            ]
+        }
+
+
 @app.get("/api/stats")
 async def api_stats():
     index, _, _ = get_services()
-    senders = sorted(list(set(m["sender"] for m in index.messages)))
+    senders = sorted(list(set(m["sender"] for m in index.messages if m["sender"] and m["sender"] != "System")))
+    suggestions = get_dynamic_suggestions(index, _current_source_name)
     return {
         "source_name": _current_source_name,
         "total_messages": len(index.messages),
         "embedding_dim": index.embeddings.shape[1],
         "date_range": [index.messages[0]["timestamp"], index.messages[-1]["timestamp"]],
-        "participants": senders
+        "participants": senders,
+        "suggestions": suggestions
     }
 
 

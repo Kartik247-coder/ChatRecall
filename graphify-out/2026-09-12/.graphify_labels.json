@@ -5,7 +5,7 @@
   "3": ".get_context_window",
   "4": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
   "5": "MessageEmbedder",
-  "6": "parse_chat_txt",
+  "6": ".build_or_load",
   "7": "ChatRecall Tuning & Retrieval Evaluation Notes",
   "8": "test_hinglish_embed.py",
   "9": "run_demo_eval.py",

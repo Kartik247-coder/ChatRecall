@@ -35,8 +35,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
+      "community": 11,
+      "community_name": "RetrievalEngine",
       "file_type": "code",
       "norm_label": "retrievalengine",
       "source_file": "src/retrieve.py",
@@ -131,6 +131,18 @@
       "source_location": "L15"
     },
     {
+      "id": "src_index_chatindex_build_or_load",
+      "label": ".build_or_load()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "ChatIndex",
+      "file_type": "code",
+      "norm_label": ".build_or_load()",
+      "source_file": "src/index.py",
+      "source_location": "L67"
+    },
+    {
       "id": "src_index_chatindex_lexical_search",
       "label": ".lexical_search()",
       "_callable": true,
@@ -143,16 +155,16 @@
       "source_location": "L154"
     },
     {
-      "id": "src_retrieve_retrievalengine_init",
-      "label": ".__init__()",
+      "id": "tests_test_retrieval_engine",
+      "label": "engine()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "community_name": "ChatIndex",
       "file_type": "code",
-      "norm_label": ".__init__()",
-      "source_file": "src/retrieve.py",
-      "source_location": "L231"
+      "norm_label": "engine()",
+      "source_file": "tests/test_retrieval.py",
+      "source_location": "L11"
     },
     {
       "id": "web_app_api_search",
@@ -164,7 +176,7 @@
       "file_type": "code",
       "norm_label": "api_search()",
       "source_file": "web/app.py",
-      "source_location": "L122"
+      "source_location": "L211"
     },
     {
       "id": "web_app_api_stats",
@@ -176,7 +188,19 @@
       "file_type": "code",
       "norm_label": "api_stats()",
       "source_file": "web/app.py",
-      "source_location": "L55"
+      "source_location": "L142"
+    },
+    {
+      "id": "web_app_get_dynamic_suggestions",
+      "label": "get_dynamic_suggestions()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "ChatIndex",
+      "file_type": "code",
+      "norm_label": "get_dynamic_suggestions()",
+      "source_file": "web/app.py",
+      "source_location": "L54"
     },
     {
       "id": "web_app_get_services",
@@ -200,7 +224,7 @@
       "file_type": "code",
       "norm_label": "main()",
       "source_file": "web/app.py",
-      "source_location": "L167"
+      "source_location": "L256"
     },
     {
       "id": "web_app_reset_to_default_chat",
@@ -212,7 +236,7 @@
       "file_type": "code",
       "norm_label": "reset_to_default_chat()",
       "source_file": "web/app.py",
-      "source_location": "L104"
+      "source_location": "L193"
     },
     {
       "id": "web_app_serve_ui",
@@ -236,7 +260,7 @@
       "file_type": "code",
       "norm_label": "upload_custom_chat()",
       "source_file": "web/app.py",
-      "source_location": "L68"
+      "source_location": "L157"
     },
     {
       "id": "data_generate_chat_generate_synthetic_chat",
@@ -364,7 +388,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 11,
-      "community_name": "run_eval.py",
+      "community_name": "RetrievalEngine",
       "file_type": "code",
       "norm_label": "compute_metrics()",
       "source_file": "eval/run_eval.py",
@@ -376,7 +400,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 11,
-      "community_name": "run_eval.py",
+      "community_name": "RetrievalEngine",
       "file_type": "code",
       "norm_label": "generate_markdown_report()",
       "source_file": "eval/run_eval.py",
@@ -388,11 +412,47 @@
       "_callable": true,
       "_origin": "ast",
       "community": 11,
-      "community_name": "run_eval.py",
+      "community_name": "RetrievalEngine",
       "file_type": "code",
       "norm_label": "run_benchmark()",
       "source_file": "eval/run_eval.py",
       "source_location": "L48"
+    },
+    {
+      "id": "src_retrieve_retrievalengine_deduplicate_results",
+      "label": ".deduplicate_results()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "RetrievalEngine",
+      "file_type": "code",
+      "norm_label": ".deduplicate_results()",
+      "source_file": "src/retrieve.py",
+      "source_location": "L236"
+    },
+    {
+      "id": "src_retrieve_retrievalengine_init",
+      "label": ".__init__()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "RetrievalEngine",
+      "file_type": "code",
+      "norm_label": ".__init__()",
+      "source_file": "src/retrieve.py",
+      "source_location": "L231"
+    },
+    {
+      "id": "src_retrieve_retrievalengine_search",
+      "label": ".search()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "RetrievalEngine",
+      "file_type": "code",
+      "norm_label": ".search()",
+      "source_file": "src/retrieve.py",
+      "source_location": "L275"
     },
     {
       "id": "generate_demo_chat_words",
@@ -405,30 +465,6 @@
       "norm_label": "words()",
       "source_file": "generate_demo_chat.py",
       "source_location": "L171"
-    },
-    {
-      "id": "src_retrieve_retrievalengine_deduplicate_results",
-      "label": ".deduplicate_results()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 19,
-      "community_name": ".search",
-      "file_type": "code",
-      "norm_label": ".deduplicate_results()",
-      "source_file": "src/retrieve.py",
-      "source_location": "L236"
-    },
-    {
-      "id": "src_retrieve_retrievalengine_search",
-      "label": ".search()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 19,
-      "community_name": ".search",
-      "file_type": "code",
-      "norm_label": ".search()",
-      "source_file": "src/retrieve.py",
-      "source_location": "L275"
     },
     {
       "id": "src_retrieve_queryplan_init",
@@ -489,18 +525,6 @@
       "norm_label": ".parse_time_filter()",
       "source_file": "src/retrieve.py",
       "source_location": "L116"
-    },
-    {
-      "id": "tests_test_retrieval_engine",
-      "label": "engine()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "retrieve.py",
-      "file_type": "code",
-      "norm_label": "engine()",
-      "source_file": "tests/test_retrieval.py",
-      "source_location": "L11"
     },
     {
       "id": "tests_test_retrieval_test_context_window_deduplication_regression",
@@ -664,7 +688,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "expand_query()",
       "source_file": "scratch/test_chat_3_fix.py",
@@ -676,23 +700,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "search()",
       "source_file": "scratch/test_chat_3_fix.py",
       "source_location": "L89"
-    },
-    {
-      "id": "src_index_chatindex_build_or_load",
-      "label": ".build_or_load()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": ".build_or_load",
-      "file_type": "code",
-      "norm_label": ".build_or_load()",
-      "source_file": "src/index.py",
-      "source_location": "L67"
     },
     {
       "id": "src_parser_load_custom_txt_to_json",
@@ -700,7 +712,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "load_custom_txt_to_json()",
       "source_file": "src/parser.py",
@@ -712,7 +724,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "parse_chat_txt()",
       "source_file": "src/parser.py",
@@ -724,7 +736,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "parse_timestamp()",
       "source_file": "src/parser.py",
@@ -736,7 +748,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "test_txt_parser_and_search()",
       "source_file": "tests/test_parser.py",
@@ -837,17 +849,6 @@
       "source_location": ""
     },
     {
-      "id": "scratch_test_chat_3",
-      "label": "test_chat_3.py",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": "test_chat_3.py",
-      "source_file": "scratch/test_chat_3.py",
-      "source_location": "L1"
-    },
-    {
       "id": "src_cli",
       "label": "cli.py",
       "_origin": "ast",
@@ -870,15 +871,15 @@
       "source_location": "L1"
     },
     {
-      "id": "src_index",
-      "label": "index.py",
+      "id": "tests_test_retrieval_py_fixture",
+      "label": "fixture",
       "_origin": "ast",
       "community": 0,
       "community_name": "ChatIndex",
       "file_type": "code",
-      "norm_label": "index.py",
-      "source_file": "src/index.py",
-      "source_location": "L1"
+      "norm_label": "fixture",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "uploadfile",
@@ -925,17 +926,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_index_rationale_1",
-      "label": "Chat Indexer for ChatRecall =========================== Builds, caches, and\u2026",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "rationale",
-      "norm_label": "chat indexer for chatrecall =========================== builds, caches, and...",
-      "source_file": "src/index.py",
-      "source_location": "L1"
-    },
-    {
       "id": "src_index_rationale_160",
       "label": "Performs BM25 keyword search.",
       "_origin": "ast",
@@ -947,6 +937,17 @@
       "source_location": "L160"
     },
     {
+      "id": "src_index_rationale_73",
+      "label": "Loads chat data (from .json or .txt) and cached embeddings, or builds them if\u2026",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "ChatIndex",
+      "file_type": "rationale",
+      "norm_label": "loads chat data (from .json or .txt) and cached embeddings, or builds them if...",
+      "source_file": "src/index.py",
+      "source_location": "L73"
+    },
+    {
       "id": "web_app_rationale_1",
       "label": "FastAPI Server for ChatRecall Web Interface\u2026",
       "_origin": "ast",
@@ -956,6 +957,17 @@
       "norm_label": "fastapi server for chatrecall web interface...",
       "source_file": "web/app.py",
       "source_location": "L1"
+    },
+    {
+      "id": "web_app_rationale_55",
+      "label": "Generates tailored query suggestions categorized by the 3 core query types: 1.\u2026",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "ChatIndex",
+      "file_type": "rationale",
+      "norm_label": "generates tailored query suggestions categorized by the 3 core query types: 1....",
+      "source_file": "web/app.py",
+      "source_location": "L55"
     },
     {
       "id": "data_generate_chat",
@@ -1094,7 +1106,7 @@
       "label": "run_eval.py",
       "_origin": "ast",
       "community": 11,
-      "community_name": "run_eval.py",
+      "community_name": "RetrievalEngine",
       "file_type": "code",
       "norm_label": "run_eval.py",
       "source_file": "eval/run_eval.py",
@@ -1105,7 +1117,18 @@
       "label": "Any",
       "_origin": "ast",
       "community": 11,
-      "community_name": "run_eval.py",
+      "community_name": "RetrievalEngine",
+      "file_type": "code",
+      "norm_label": "any",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "src_retrieve_py_any",
+      "label": "Any",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "RetrievalEngine",
       "file_type": "code",
       "norm_label": "any",
       "source_file": "",
@@ -1116,11 +1139,33 @@
       "label": "Comprehensive Evaluation Runner for ChatRecall\u2026",
       "_origin": "ast",
       "community": 11,
-      "community_name": "run_eval.py",
+      "community_name": "RetrievalEngine",
       "file_type": "rationale",
       "norm_label": "comprehensive evaluation runner for chatrecall...",
       "source_file": "eval/run_eval.py",
       "source_location": "L1"
+    },
+    {
+      "id": "src_retrieve_rationale_242",
+      "label": "Suppresses candidate messages whose context window overlaps significantly\u2026",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "RetrievalEngine",
+      "file_type": "rationale",
+      "norm_label": "suppresses candidate messages whose context window overlaps significantly...",
+      "source_file": "src/retrieve.py",
+      "source_location": "L242"
+    },
+    {
+      "id": "src_retrieve_rationale_283",
+      "label": "Executes query through multi-strategy routing, contextual vector search,\u2026",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "RetrievalEngine",
+      "file_type": "rationale",
+      "norm_label": "executes query through multi-strategy routing, contextual vector search,...",
+      "source_file": "src/retrieve.py",
+      "source_location": "L283"
     },
     {
       "id": "agents_rules_graphify",
@@ -1267,39 +1312,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_retrieve_py_any",
-      "label": "Any",
-      "_origin": "ast",
-      "community": 19,
-      "community_name": ".search",
-      "file_type": "code",
-      "norm_label": "any",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "src_retrieve_rationale_242",
-      "label": "Suppresses candidate messages whose context window overlaps significantly\u2026",
-      "_origin": "ast",
-      "community": 19,
-      "community_name": ".search",
-      "file_type": "rationale",
-      "norm_label": "suppresses candidate messages whose context window overlaps significantly...",
-      "source_file": "src/retrieve.py",
-      "source_location": "L242"
-    },
-    {
-      "id": "src_retrieve_rationale_283",
-      "label": "Executes query through multi-strategy routing, contextual vector search,\u2026",
-      "_origin": "ast",
-      "community": 19,
-      "community_name": ".search",
-      "file_type": "rationale",
-      "norm_label": "executes query through multi-strategy routing, contextual vector search,...",
-      "source_file": "src/retrieve.py",
-      "source_location": "L283"
-    },
-    {
       "id": "datetime",
       "label": "datetime",
       "_origin": "ast",
@@ -1320,6 +1332,39 @@
       "norm_label": "enum",
       "source_file": "",
       "source_location": ""
+    },
+    {
+      "id": "scratch_test_chat_3",
+      "label": "test_chat_3.py",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "retrieve.py",
+      "file_type": "code",
+      "norm_label": "test_chat_3.py",
+      "source_file": "scratch/test_chat_3.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_embed",
+      "label": "embed.py",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "retrieve.py",
+      "file_type": "code",
+      "norm_label": "embed.py",
+      "source_file": "src/embed.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_index",
+      "label": "index.py",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "retrieve.py",
+      "file_type": "code",
+      "norm_label": "index.py",
+      "source_file": "src/index.py",
+      "source_location": "L1"
     },
     {
       "id": "src_retrieve",
@@ -1355,15 +1400,26 @@
       "source_location": "L1"
     },
     {
-      "id": "tests_test_retrieval_py_fixture",
-      "label": "fixture",
+      "id": "src_embed_rationale_1",
+      "label": "Embedding Pipeline for ChatRecall ================================= Provides\u2026",
       "_origin": "ast",
       "community": 2,
       "community_name": "retrieve.py",
-      "file_type": "code",
-      "norm_label": "fixture",
-      "source_file": "",
-      "source_location": ""
+      "file_type": "rationale",
+      "norm_label": "embedding pipeline for chatrecall ================================= provides...",
+      "source_file": "src/embed.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_index_rationale_1",
+      "label": "Chat Indexer for ChatRecall =========================== Builds, caches, and\u2026",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "retrieve.py",
+      "file_type": "rationale",
+      "norm_label": "chat indexer for chatrecall =========================== builds, caches, and...",
+      "source_file": "src/index.py",
+      "source_location": "L1"
     },
     {
       "id": "src_retrieve_rationale_1",
@@ -1742,17 +1798,6 @@
       "source_location": "L107"
     },
     {
-      "id": "src_embed",
-      "label": "embed.py",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "MessageEmbedder",
-      "file_type": "code",
-      "norm_label": "embed.py",
-      "source_file": "src/embed.py",
-      "source_location": "L1"
-    },
-    {
       "id": "src_embed_py_any",
       "label": "Any",
       "_origin": "ast",
@@ -1795,17 +1840,6 @@
       "norm_label": "ndarray",
       "source_file": "",
       "source_location": ""
-    },
-    {
-      "id": "src_embed_rationale_1",
-      "label": "Embedding Pipeline for ChatRecall ================================= Provides\u2026",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "MessageEmbedder",
-      "file_type": "rationale",
-      "norm_label": "embedding pipeline for chatrecall ================================= provides...",
-      "source_file": "src/embed.py",
-      "source_location": "L1"
     },
     {
       "id": "src_embed_rationale_24",
@@ -1867,7 +1901,7 @@
       "label": "test_chat_3_fix.py",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "test_chat_3_fix.py",
       "source_file": "scratch/test_chat_3_fix.py",
@@ -1878,7 +1912,7 @@
       "label": "parser.py",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "parser.py",
       "source_file": "src/parser.py",
@@ -1889,7 +1923,7 @@
       "label": "Any",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "any",
       "source_file": "",
@@ -1900,29 +1934,18 @@
       "label": "test_parser.py",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "code",
       "norm_label": "test_parser.py",
       "source_file": "tests/test_parser.py",
       "source_location": "L1"
     },
     {
-      "id": "src_index_rationale_73",
-      "label": "Loads chat data (from .json or .txt) and cached embeddings, or builds them if\u2026",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": ".build_or_load",
-      "file_type": "rationale",
-      "norm_label": "loads chat data (from .json or .txt) and cached embeddings, or builds them if...",
-      "source_file": "src/index.py",
-      "source_location": "L73"
-    },
-    {
       "id": "src_parser_rationale_1",
       "label": "Text Chat Parser for ChatRecall =============================== Parses raw\u2026",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "rationale",
       "norm_label": "text chat parser for chatrecall =============================== parses raw...",
       "source_file": "src/parser.py",
@@ -1933,7 +1956,7 @@
       "label": "Parses a .txt file and saves it as structured JSON ready for indexing.",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "rationale",
       "norm_label": "parses a .txt file and saves it as structured json ready for indexing.",
       "source_file": "src/parser.py",
@@ -1944,7 +1967,7 @@
       "label": "Attempts multiple datetime formats and normalizes to YYYY-MM-DD HH:MM:SS.",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "rationale",
       "norm_label": "attempts multiple datetime formats and normalizes to yyyy-mm-dd hh:mm:ss.",
       "source_file": "src/parser.py",
@@ -1955,7 +1978,7 @@
       "label": "Parses any exported text file (.txt) into a list of structured messages.",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "rationale",
       "norm_label": "parses any exported text file (.txt) into a list of structured messages.",
       "source_file": "src/parser.py",
@@ -1966,7 +1989,7 @@
       "label": "Unit tests for Text Chat Parser (.txt export support)",
       "_origin": "ast",
       "community": 6,
-      "community_name": ".build_or_load",
+      "community_name": "parse_chat_txt",
       "file_type": "rationale",
       "norm_label": "unit tests for text chat parser (.txt export support)",
       "source_file": "tests/test_parser.py",
@@ -2682,7 +2705,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "web/app.py",
-      "source_location": "L127",
+      "source_location": "L216",
       "weight": 1.0
     },
     {
@@ -2694,7 +2717,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "web/app.py",
-      "source_location": "L56",
+      "source_location": "L143",
+      "weight": 1.0
+    },
+    {
+      "source": "web_app_api_stats",
+      "target": "web_app_get_dynamic_suggestions",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "web/app.py",
+      "source_location": "L145",
       "weight": 1.0
     },
     {
@@ -2742,7 +2777,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "web/app.py",
-      "source_location": "L106",
+      "source_location": "L195",
       "weight": 1.0
     },
     {
@@ -2754,7 +2789,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "web/app.py",
-      "source_location": "L81",
+      "source_location": "L170",
       "weight": 1.0
     },
     {
@@ -2802,7 +2837,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "web/app.py",
-      "source_location": "L121",
+      "source_location": "L210",
       "weight": 1.0
     },
     {
@@ -2814,7 +2849,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "web/app.py",
-      "source_location": "L54",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -2826,7 +2861,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "web/app.py",
-      "source_location": "L103",
+      "source_location": "L192",
       "weight": 1.0
     },
     {
@@ -2850,7 +2885,7 @@
       "confidence_score": 1.0,
       "context": "decorator",
       "source_file": "web/app.py",
-      "source_location": "L67",
+      "source_location": "L156",
       "weight": 1.0
     },
     {
@@ -3798,7 +3833,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "web/app.py",
-      "source_location": "L68",
+      "source_location": "L157",
       "weight": 1.0
     },
     {
@@ -4641,13 +4676,35 @@
     },
     {
       "source": "web_app",
+      "target": "web_app_api_stats",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "web/app.py",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "web_app",
+      "target": "web_app_upload_custom_chat",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "web/app.py",
+      "source_location": "L157",
+      "weight": 1.0
+    },
+    {
+      "source": "web_app",
       "target": "web_app_reset_to_default_chat",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/app.py",
-      "source_location": "L104",
+      "source_location": "L193",
       "weight": 1.0
     },
     {
@@ -4658,7 +4715,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/app.py",
-      "source_location": "L122",
+      "source_location": "L211",
       "weight": 1.0
     },
     {
@@ -4669,7 +4726,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/app.py",
-      "source_location": "L167",
+      "source_location": "L256",
       "weight": 1.0
     },
     {
@@ -4696,24 +4753,13 @@
     },
     {
       "source": "web_app",
-      "target": "web_app_api_stats",
+      "target": "web_app_get_dynamic_suggestions",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/app.py",
-      "source_location": "L55",
-      "weight": 1.0
-    },
-    {
-      "source": "web_app",
-      "target": "web_app_upload_custom_chat",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "web/app.py",
-      "source_location": "L68",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -5399,6 +5445,17 @@
       "weight": 1.0
     },
     {
+      "source": "web_app_rationale_55",
+      "target": "web_app_get_dynamic_suggestions",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "web/app.py",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
       "source": "web_init_rationale_1",
       "target": "web_init",
       "relation": "rationale_for",
@@ -5454,6 +5511,18 @@
       "context": "parameter_type",
       "source_file": "src/cli.py",
       "source_location": "L23",
+      "weight": 0.8
+    },
+    {
+      "source": "web_app_get_dynamic_suggestions",
+      "target": "src_index_chatindex",
+      "relation": "uses",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "context": "parameter_type",
+      "source_file": "web/app.py",
+      "source_location": "L54",
       "weight": 0.8
     },
     {
@@ -5585,7 +5654,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "web/app.py",
-      "source_location": "L106",
+      "source_location": "L195",
       "weight": 0.8
     },
     {
@@ -5596,7 +5665,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "web/app.py",
-      "source_location": "L107",
+      "source_location": "L196",
       "weight": 0.8
     },
     {
@@ -5607,7 +5676,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "web/app.py",
-      "source_location": "L108",
+      "source_location": "L197",
       "weight": 0.8
     },
     {
@@ -5618,7 +5687,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "web/app.py",
-      "source_location": "L81",
+      "source_location": "L170",
       "weight": 0.8
     },
     {
@@ -5629,7 +5698,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "web/app.py",
-      "source_location": "L86",
+      "source_location": "L175",
       "weight": 0.8
     },
     {
@@ -5640,10 +5709,10 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "web/app.py",
-      "source_location": "L87",
+      "source_location": "L176",
       "weight": 0.8
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "7b728757a44506c86fd95cc2c44e983a4801ddd7"
+  "built_at_commit": "6f53b6d51781c823aeaeaf97ce08a0fd7cdef88e"
 }
