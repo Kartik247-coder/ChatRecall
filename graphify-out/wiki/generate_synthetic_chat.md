@@ -1,12 +1,11 @@
 # generate_synthetic_chat
 
-> 19 nodes · cohesion 0.16
+> 18 nodes · cohesion 0.16
 
 ## Key Concepts
 
 - **generate_synthetic_chat()** (11 connections) — `data/generate_chat.py`
 - **test_generator.py** (9 connections) — `tests/test_generator.py`
-- **datetime** (8 connections)
 - **generate_chat.py** (5 connections) — `data/generate_chat.py`
 - **test_generator_decision_threads()** (3 connections) — `tests/test_generator.py`
 - **test_generator_deterministic()** (3 connections) — `tests/test_generator.py`
@@ -27,7 +26,6 @@
 ## Relationships
 
 - [retrieve.py](retrieve.py.md) (3 shared connections)
-- [ChatIndex](ChatIndex.md) (2 shared connections)
 
 ## Source Files
 
@@ -36,8 +34,8 @@
 
 ## Audit Trail
 
-- EXTRACTED: 31 (97%)
-- INFERRED: 1 (3%)
+- EXTRACTED: 26 (96%)
+- INFERRED: 1 (4%)
 - AMBIGUOUS: 0 (0%)
 
 ---

@@ -1,10 +1,10 @@
 # ChatRecall 💬🔍
 
-> 14 nodes · cohesion 0.14
+> 13 nodes · cohesion 0.15
 
 ## Key Concepts
 
-- **ChatRecall 💬🔍** (8 connections) — `README.md`
+- **ChatRecall 💬🔍** (7 connections) — `README.md`
 - **🚀 Quick Start & Usage** (5 connections) — `README.md`
 - **3. Run Search** (3 connections) — `README.md`
 - **1. Installation** (1 connections) — `README.md`
@@ -13,7 +13,6 @@
 - **🏗️ Architecture & Pipeline** (1 connections) — `README.md`
 - **📊 Evaluation & Benchmark Results** (1 connections) — `README.md`
 - **✨ Key Capabilities** (1 connections) — `README.md`
-- **📜 License** (1 connections) — `README.md`
 - **Modern Web UI** (1 connections) — `README.md`
 - **🎯 Problem Statement** (1 connections) — `README.md`
 - **📁 Repository Structure** (1 connections) — `README.md`
@@ -29,7 +28,7 @@
 
 ## Audit Trail
 
-- EXTRACTED: 14 (100%)
+- EXTRACTED: 13 (100%)
 - INFERRED: 0 (0%)
 - AMBIGUOUS: 0 (0%)
 

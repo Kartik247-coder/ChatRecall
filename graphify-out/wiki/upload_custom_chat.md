@@ -1,19 +1,22 @@
-# run_benchmark()
+# upload_custom_chat()
 
-> God node · 6 connections · `eval/run_eval.py`
+> God node · 7 connections · `web/app.py`
 
-**Community:** [RetrievalEngine](RetrievalEngine.md)
+**Community:** [ChatIndex](ChatIndex.md)
 
 ## Connections by Relation
 
 ### calls
 - [RetrievalEngine](RetrievalEngine.md) `EXTRACTED`
 - .build_or_load() `EXTRACTED`
-- compute_metrics() `EXTRACTED`
-- generate_markdown_report() `EXTRACTED`
+- [ThreadContextBuilder](ThreadContextBuilder.md) `EXTRACTED`
 
 ### contains
-- run_eval.py `EXTRACTED`
+- [app.py](app.py.md) `EXTRACTED`
+
+### references
+- post `EXTRACTED`
+- UploadFile `EXTRACTED`
 
 ### uses
 - [ChatIndex](ChatIndex.md) `INFERRED`

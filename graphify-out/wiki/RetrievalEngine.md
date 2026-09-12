@@ -1,38 +1,33 @@
 # RetrievalEngine
 
-> 12 nodes · cohesion 0.21
+> God node · 13 connections · `src/retrieve.py`
 
-## Key Concepts
+**Community:** [ChatIndex](ChatIndex.md)
 
-- **RetrievalEngine** (12 connections) — `src/retrieve.py`
-- **run_eval.py** (8 connections) — `eval/run_eval.py`
-- **run_benchmark()** (6 connections) — `eval/run_eval.py`
-- **engine()** (5 connections) — `tests/test_retrieval.py`
-- **compute_metrics()** (3 connections) — `eval/run_eval.py`
-- **.search()** (3 connections) — `src/retrieve.py`
-- **generate_markdown_report()** (2 connections) — `eval/run_eval.py`
-- **Any** (1 connections)
-- **Comprehensive Evaluation Runner for ChatRecall…** (1 connections) — `eval/run_eval.py`
-- **Any** (1 connections)
-- **Executes query through the router and multi-strategy retrieval pipeline.** (1 connections) — `src/retrieve.py`
-- **fixture** (1 connections)
+## Connections by Relation
 
-## Relationships
+### calls
+- [get_services()](get_services.md) `EXTRACTED`
+- [upload_custom_chat()](upload_custom_chat.md) `EXTRACTED`
+- run_benchmark() `EXTRACTED`
+- main() `EXTRACTED`
+- reset_to_default_chat() `EXTRACTED`
+- test_txt_parser_and_search() `EXTRACTED`
 
-- [ChatIndex](ChatIndex.md) (11 shared connections)
-- [retrieve.py](retrieve.py.md) (5 shared connections)
+### contains
+- [retrieve.py](retrieve.py.md) `EXTRACTED`
 
-## Source Files
+### imports
+- test_retrieval.py `EXTRACTED`
+- run_eval.py `EXTRACTED`
 
-- `eval/run_eval.py`
-- `src/retrieve.py`
-- `tests/test_retrieval.py`
+### method
+- .__init__() `EXTRACTED`
+- .search() `EXTRACTED`
 
-## Audit Trail
-
-- EXTRACTED: 26 (87%)
-- INFERRED: 4 (13%)
-- AMBIGUOUS: 0 (0%)
+### uses
+- [ChatIndex](ChatIndex.md) `INFERRED`
+- engine() `INFERRED`
 
 ---
 

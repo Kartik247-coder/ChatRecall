@@ -37,9 +37,9 @@
   },
   "src/cli.py": {
     "mtime": 1789193632.0327737,
-    "seen": 1789194029.022156,
+    "seen": 1789194193.362735,
     "ast_hash": "1dd72b1298efe6aabff1dd62f269cbd8",
-    "semantic_hash": ""
+    "semantic_hash": "1dd72b1298efe6aabff1dd62f269cbd8"
   },
   "src/context.py": {
     "mtime": 1789192698.602869,
@@ -55,9 +55,9 @@
   },
   "src/index.py": {
     "mtime": 1789193632.033233,
-    "seen": 1789194029.0222158,
+    "seen": 1789194193.362883,
     "ast_hash": "90305849415df71def33d1c6670a186a",
-    "semantic_hash": ""
+    "semantic_hash": "90305849415df71def33d1c6670a186a"
   },
   "src/retrieve.py": {
     "mtime": 1789192698.6038225,
@@ -97,9 +97,9 @@
   },
   "web/app.py": {
     "mtime": 1789193941.779359,
-    "seen": 1789194029.0224252,
+    "seen": 1789194193.3633249,
     "ast_hash": "07fd52589f35d202eba398822c7993ed",
-    "semantic_hash": ""
+    "semantic_hash": "07fd52589f35d202eba398822c7993ed"
   },
   ".agents/rules/graphify.md": {
     "mtime": 1789190392.8870978,
@@ -139,15 +139,15 @@
   },
   "src/parser.py": {
     "mtime": 1789193632.0336187,
-    "seen": 1789194029.022217,
+    "seen": 1789194193.3628852,
     "ast_hash": "fb15799efd10052820243fee642e4921",
-    "semantic_hash": ""
+    "semantic_hash": "fb15799efd10052820243fee642e4921"
   },
   "tests/test_parser.py": {
     "mtime": 1789193632.0338697,
-    "seen": 1789194029.0223382,
+    "seen": 1789194193.363179,
     "ast_hash": "e371ab7a939f0de768ac40da1c1140f2",
-    "semantic_hash": ""
+    "semantic_hash": "e371ab7a939f0de768ac40da1c1140f2"
   },
   "data/uploads/sample_upload_test.txt": {
     "mtime": 1789194001.1607568,

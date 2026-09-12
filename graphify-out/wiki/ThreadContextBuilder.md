@@ -1,21 +1,18 @@
 # ThreadContextBuilder
 
-> God node · 9 connections · `src/context.py`
+> God node · 7 connections · `src/context.py`
 
-**Community:** [ChatIndex](ChatIndex.md)
+**Community:** [app.py](app.py.md)
 
 ## Connections by Relation
 
 ### calls
 - [get_services()](get_services.md) `EXTRACTED`
-- [main()](main.md) `EXTRACTED`
+- [upload_custom_chat()](upload_custom_chat.md) `EXTRACTED`
+- reset_to_default_chat() `EXTRACTED`
 
 ### contains
 - context.py `EXTRACTED`
-
-### imports
-- app.py `EXTRACTED`
-- cli.py `EXTRACTED`
 
 ### method
 - .get_context_window() `EXTRACTED`
@@ -23,7 +20,6 @@
 
 ### uses
 - [ChatIndex](ChatIndex.md) `INFERRED`
-- display_results() `INFERRED`
 
 ---
 

@@ -1,6 +1,6 @@
 # ChatRecall 💬🔍
 
-> God node · 8 connections · `README.md`
+> God node · 7 connections · `README.md`
 
 **Community:** [ChatRecall 💬🔍](ChatRecall_💬🔍.md)
 
@@ -11,7 +11,6 @@
 - README.md `EXTRACTED`
 - 🎯 Problem Statement `EXTRACTED`
 - 📁 Repository Structure `EXTRACTED`
-- 📜 License `EXTRACTED`
 - ✨ Key Capabilities `EXTRACTED`
 - 📊 Evaluation & Benchmark Results `EXTRACTED`
 - 🏗️ Architecture & Pipeline `EXTRACTED`

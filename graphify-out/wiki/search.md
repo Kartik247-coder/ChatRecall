@@ -1,12 +1,12 @@
-# .get_context_window
+# .search
 
 > 3 nodes · cohesion 0.67
 
 ## Key Concepts
 
-- **.get_context_window()** (3 connections) — `src/context.py`
+- **.search()** (3 connections) — `src/retrieve.py`
 - **Any** (1 connections)
-- **Extracts surrounding conversational messages around target index `msg_idx`. If…** (1 connections) — `src/context.py`
+- **Executes query through the router and multi-strategy retrieval pipeline.** (1 connections) — `src/retrieve.py`
 
 ## Relationships
 
@@ -14,7 +14,7 @@
 
 ## Source Files
 
-- `src/context.py`
+- `src/retrieve.py`
 
 ## Audit Trail
 

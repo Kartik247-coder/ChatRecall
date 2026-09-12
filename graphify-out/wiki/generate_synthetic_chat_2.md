@@ -13,7 +13,7 @@
 - test_generator_messiness_artifacts() `EXTRACTED`
 - test_generator_time_range_and_chronology() `EXTRACTED`
 - test_generator_volume_and_participants() `EXTRACTED`
-- [main()](main.md) `EXTRACTED`
+- main() `EXTRACTED`
 
 ### contains
 - generate_chat.py `EXTRACTED`
