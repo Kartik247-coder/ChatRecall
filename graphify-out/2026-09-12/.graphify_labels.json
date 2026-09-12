@@ -1,1 +1,21 @@
-{"0": "ChatIndex", "1": "generate_synthetic_chat", "2": "retrieve.py", "3": "app.py", "4": "ChatRecall 💬🔍", "5": "MessageEmbedder", "6": "Evaluation Report: ChatRecall Semantic Retrieval Performance", "7": "index.py", "8": "test_hinglish_embed.py", "9": ".__init__", "10": "generate_queries.py", "11": ".search", "12": "rules/graphify.md", "13": "workflows/graphify.md", "14": "src/__init__.py", "15": "web/__init__.py", "16": "data/__init__.py", "17": "ndarray", "18": "tests/__init__.py"}
+{
+  "0": "ChatIndex",
+  "1": "generate_synthetic_chat",
+  "2": "retrieve.py",
+  "3": ".get_context_window",
+  "4": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
+  "5": "MessageEmbedder",
+  "6": "datetime",
+  "7": "ChatRecall Tuning & Retrieval Evaluation Notes",
+  "8": "test_hinglish_embed.py",
+  "9": "run_demo_eval.py",
+  "10": "generate_queries.py",
+  "11": "run_eval.py",
+  "12": "rules/graphify.md",
+  "13": "workflows/graphify.md",
+  "14": "src/__init__.py",
+  "15": "web/__init__.py",
+  "16": "data/__init__.py",
+  "17": "generate_demo_chat.py",
+  "18": "tests/__init__.py"
+}
