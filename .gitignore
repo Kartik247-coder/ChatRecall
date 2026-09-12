@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and virtual environments
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Embedding cache / model weights (if large)
+*.bin
+*.pt
+*.safetensors
+.cache/
+
+# Graphify build outputs (if any local AST cache)
+graphify-out/
