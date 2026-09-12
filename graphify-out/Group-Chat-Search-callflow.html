@@ -60,23 +60,24 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>Group Chat Search — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 156 nodes, 237 edges, 19 communities. Commit: 4700fb4</p>
+<p class="subtitle">Generated from graphify knowledge graph: 184 nodes, 292 edges, 19 communities. Commit: 5269ab1</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
     <a href="#extract-pipeline">Extraction Pipeline</a>
     <a href="#analysis-clustering">Analysis &amp; Clustering</a>
-    <a href="#cli-skills">CLI &amp; Skill Installers</a>
     <a href="#serve-api">Serving API</a>
     <a href="#tests-fixtures">Tests &amp; Fixtures</a>
-    <a href="#chatrecall">ChatRecall 💬🔍</a>
+    <a href="#chatrecall-tuning-retrieval-evaluation-notes">ChatRecall Tuning &amp; Retrieval Evaluation Notes</a>
+    <a href="#run-demo-eval-py">run_demo_eval.py</a>
     <a href="#generate-queries-py">generate_queries.py</a>
+    <a href="#generate-demo-chat-py">generate_demo_chat.py</a>
+    <a href="#get-context-window">.get_context_window</a>
     <a href="#rules-graphify-md">rules/graphify.md</a>
     <a href="#workflows-graphify-md">workflows/graphify.md</a>
     <a href="#src-init-py">src/__init__.py</a>
     <a href="#web-init-py">web/__init__.py</a>
     <a href="#data-init-py">data/__init__.py</a>
-    <a href="#ndarray">ndarray</a>
 </div>
 
 <!-- ====== Architecture Overview ====== -->
@@ -86,20 +87,24 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>31 nodes</small>")
+    EXTRACT_PIPELINE_5F350230("Extraction Pipeline<br/><small>14 nodes</small>")
     class EXTRACT_PIPELINE_5F350230 module;
-    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>23 nodes</small>")
+    ANALYSIS_CLUSTERING_C79796DA("Analysis &amp; Clustering<br/><small>33 nodes</small>")
     class ANALYSIS_CLUSTERING_C79796DA module;
-    CLI_SKILLS_9964CBB8("CLI &amp; Skill Installers<br/><small>10 nodes</small>")
-    class CLI_SKILLS_9964CBB8 module;
-    SERVE_API_35EC8E86("Serving API<br/><small>22 nodes</small>")
+    SERVE_API_35EC8E86("Serving API<br/><small>19 nodes</small>")
     class SERVE_API_35EC8E86 module;
-    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>43 nodes</small>")
+    TESTS_FIXTURES_B84B1DCC("Tests &amp; Fixtures<br/><small>80 nodes</small>")
     class TESTS_FIXTURES_B84B1DCC module;
-    CHATRECALL_FA204F79("ChatRecall 💬🔍<br/><small>13 nodes</small>")
-    class CHATRECALL_FA204F79 module;
+    CHATRECALL_TUNING_RETRIEVAL_EVALUATION_NOTES_73C7E960("ChatRecall Tuning &amp; Retrieval Evaluation Notes<br/><small>14 nodes</small>")
+    class CHATRECALL_TUNING_RETRIEVAL_EVALUATION_NOTES_73C7E960 module;
+    RUN_DEMO_EVAL_PY_194B4083("run_demo_eval.py<br/><small>5 nodes</small>")
+    class RUN_DEMO_EVAL_PY_194B4083 module;
     GENERATE_QUERIES_PY_BE07A1F7("generate_queries.py<br/><small>4 nodes</small>")
     class GENERATE_QUERIES_PY_BE07A1F7 module;
+    GENERATE_DEMO_CHAT_PY_A44EE865("generate_demo_chat.py<br/><small>3 nodes</small>")
+    class GENERATE_DEMO_CHAT_PY_A44EE865 module;
+    GET_CONTEXT_WINDOW_84EC9928(".get_context_window<br/><small>3 nodes</small>")
+    class GET_CONTEXT_WINDOW_84EC9928 module;
     RULES_GRAPHIFY_MD_3459230E("rules/graphify.md<br/><small>2 nodes</small>")
     class RULES_GRAPHIFY_MD_3459230E module;
     WORKFLOWS_GRAPHIFY_MD_C6A40BAC("workflows/graphify.md<br/><small>2 nodes</small>")
@@ -110,20 +115,13 @@ flowchart LR
     class WEB_INIT_PY_B3080FEA module;
     DATA_INIT_PY_941C1F3B("data/__init__.py<br/><small>1 nodes</small>")
     class DATA_INIT_PY_941C1F3B module;
-    NDARRAY_848C1BAF("ndarray<br/><small>1 nodes</small>")
-    class NDARRAY_848C1BAF module;
-    SERVE_API_35EC8E86 -->|uses x10| EXTRACT_PIPELINE_5F350230
-    CLI_SKILLS_9964CBB8 -->|calls x8| EXTRACT_PIPELINE_5F350230
-    EXTRACT_PIPELINE_5F350230 -->|method x6| SERVE_API_35EC8E86
-    TESTS_FIXTURES_B84B1DCC -->|imports x5| EXTRACT_PIPELINE_5F350230
-    EXTRACT_PIPELINE_5F350230 -->|imports x4| TESTS_FIXTURES_B84B1DCC
-    CLI_SKILLS_9964CBB8 -->|imports x3| TESTS_FIXTURES_B84B1DCC
-    EXTRACT_PIPELINE_5F350230 -->|imports x2| CLI_SKILLS_9964CBB8
-    TESTS_FIXTURES_B84B1DCC -->|imports x2| CLI_SKILLS_9964CBB8
-    SERVE_API_35EC8E86 -->|imports x2| CLI_SKILLS_9964CBB8
-    SERVE_API_35EC8E86 -->|imports| TESTS_FIXTURES_B84B1DCC
-    ANALYSIS_CLUSTERING_C79796DA -->|contains| CHATRECALL_FA204F79
-    CLI_SKILLS_9964CBB8 -->|contains| SERVE_API_35EC8E86
+    TESTS_FIXTURES_B84B1DCC -->|imports x18| EXTRACT_PIPELINE_5F350230
+    ANALYSIS_CLUSTERING_C79796DA -->|calls x7| TESTS_FIXTURES_B84B1DCC
+    RUN_DEMO_EVAL_PY_194B4083 -->|calls x7| TESTS_FIXTURES_B84B1DCC
+    TESTS_FIXTURES_B84B1DCC -->|method x6| SERVE_API_35EC8E86
+    TESTS_FIXTURES_B84B1DCC -->|method| GET_CONTEXT_WINDOW_84EC9928
+    TESTS_FIXTURES_B84B1DCC -->|method| ANALYSIS_CLUSTERING_C79796DA
+    SERVE_API_35EC8E86 -->|imports| EXTRACT_PIPELINE_5F350230
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -140,23 +138,23 @@ flowchart LR
     <h4>Architecture Layers</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>Layer</th><th>Nodes</th><th>Communities</th></tr>
-      <tr><td>Extraction Pipeline</td><td>31</td><td><code>0</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>23</td><td><code>5, 6</code></td></tr><tr><td>CLI &amp; Skill Installers</td><td>10</td><td><code>7</code></td></tr><tr><td>Serving API</td><td>22</td><td><code>3, 9, 11</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>43</td><td><code>1, 2, 8, 18</code></td></tr><tr><td>ChatRecall 💬🔍</td><td>13</td><td><code>4</code></td></tr><tr><td>generate_queries.py</td><td>4</td><td><code>10</code></td></tr><tr><td>rules/graphify.md</td><td>2</td><td><code>12</code></td></tr><tr><td>workflows/graphify.md</td><td>2</td><td><code>13</code></td></tr><tr><td>src/__init__.py</td><td>2</td><td><code>14</code></td></tr><tr><td>web/__init__.py</td><td>2</td><td><code>15</code></td></tr><tr><td>data/__init__.py</td><td>1</td><td><code>16</code></td></tr><tr><td>ndarray</td><td>1</td><td><code>17</code></td></tr>
+      <tr><td>Extraction Pipeline</td><td>14</td><td><code>6</code></td></tr><tr><td>Analysis &amp; Clustering</td><td>33</td><td><code>4, 11</code></td></tr><tr><td>Serving API</td><td>19</td><td><code>5</code></td></tr><tr><td>Tests &amp; Fixtures</td><td>80</td><td><code>0, 2, 1, 8, 18</code></td></tr><tr><td>ChatRecall Tuning &amp; Retrieval Evaluation Notes</td><td>14</td><td><code>7</code></td></tr><tr><td>run_demo_eval.py</td><td>5</td><td><code>9</code></td></tr><tr><td>generate_queries.py</td><td>4</td><td><code>10</code></td></tr><tr><td>generate_demo_chat.py</td><td>3</td><td><code>17</code></td></tr><tr><td>.get_context_window</td><td>3</td><td><code>3</code></td></tr><tr><td>rules/graphify.md</td><td>2</td><td><code>12</code></td></tr><tr><td>workflows/graphify.md</td><td>2</td><td><code>13</code></td></tr><tr><td>src/__init__.py</td><td>2</td><td><code>14</code></td></tr><tr><td>web/__init__.py</td><td>2</td><td><code>15</code></td></tr><tr><td>data/__init__.py</td><td>1</td><td><code>16</code></td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Core Flow</h4>
-    <div class="arrow-chain">generate_queries.py -&gt; Extraction Pipeline -&gt; Serving API -&gt; CLI &amp; Skill Installers -&gt; Tests &amp; Fixtures -&gt; Analysis &amp; Clustering -&gt; ChatRecall 💬🔍</div>
+    <div class="arrow-chain">ChatRecall Tuning &amp; Retrieval Evaluation Notes -&gt; Extraction Pipeline -&gt; Analysis &amp; Clustering -&gt; Tests &amp; Fixtures -&gt; Serving API -&gt; run_demo_eval.py -&gt; generate_queries.py</div>
   </div>
 </div>
 <div class="grid">
   <div class="card">
     <h4>Graph Report Highlights</h4>
     <ul>
-      <li>156 nodes · 237 edges · 19 communities (11 shown, 6 thin omitted)</li>
-      <li>Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.94)</li>
+      <li>184 nodes · 292 edges · 19 communities (11 shown, 6 thin omitted)</li>
+      <li>Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 21 edges (avg confidence: 0.94)</li>
       <li>Token cost: 0 input · 0 output</li>
-      <li>1. `ChatIndex` - 23 edges</li>
-      <li>2. `RetrievalEngine` - 13 edges</li>
+      <li>1. `ChatIndex` - 26 edges</li>
+      <li>2. `RetrievalEngine` - 18 edges</li>
       <li>3. `generate_synthetic_chat()` - 11 edges</li>
     </ul>
   </div>
@@ -164,85 +162,55 @@ flowchart LR
 <hr>
 <!-- ====== 2. Extraction Pipeline ====== -->
 <h2 id="extract-pipeline">2. Extraction Pipeline</h2>
-<p>Extraction Pipeline groups implementation around parserpy, run, txt, evalpy, mostly in src/parser.py, src/index.py, eval/run_eval.py. This section covers 31 nodes and 53 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Extraction Pipeline groups implementation around parserpy, test, pipelinepy, scratch, mostly in src/parser.py, scratch/test_pipeline.py. This section covers 14 nodes and 20 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Extraction Pipeline (31 nodes, 53 edges)
-    subgraph extract_pipeline_eval_run_eval_py_47aa9ce8["eval/run_eval.py"]
-        eval_run_eval_run_benchmark_bc472b89("run_benchmark()<br/><small>eval/run_eval.py</small>")
-        eval_run_eval_compute_metrics_950b6c64("compute_metrics()<br/><small>eval/run_eval.py</small>")
-        eval_run_eval_generate_markdown_report_99a73aad("generate_markdown_report()<br/><small>eval/run_eval.py</small>")
-        eval_run_eval_743240ec("run_eval.py")
-    end
+    %% Section: Extraction Pipeline (14 nodes, 20 edges)
     subgraph extract_pipeline_src_parser_py_c28457ca["src/parser.py"]
-        src_parser_parse_chat_txt_3a9cd1c6("parse_chat_txt()<br/><small>src/parser.py</small>")
         src_parser_load_custom_txt_to_json_aa82c93b("load_custom_txt_to_json()<br/><small>src/parser.py</small>")
-        src_parser_parse_timestamp_024da367("parse_timestamp()<br/><small>src/parser.py</small>")
         src_parser_fb30bf3b("parser.py")
+        src_parser_parse_chat_txt_3a9cd1c6("parse_chat_txt()<br/><small>src/parser.py</small>")
+        src_parser_parse_timestamp_024da367("parse_timestamp()<br/><small>src/parser.py</small>")
+        src_parser_rationale_31_820ec93f("Attempts multiple datetime formats and...<br/><small>src/parser.py</small>")
+        src_parser_rationale_125_6b76ef19("Parses a .txt file and saves it as stru...<br/><small>src/parser.py</small>")
+        src_parser_rationale_56_ed8e5960("Parses any exported text file (.txt) in...<br/><small>src/parser.py</small>")
+        src_parser_rationale_1_b3e64588("Text Chat Parser for ChatRecall =======...<br/><small>src/parser.py</small>")
     end
-    subgraph extract_pipeline_src_index_py_ef7bdac8["src/index.py"]
-        src_index_chatindex_69d6c9f0("ChatIndex<br/><small>src/index.py</small>")
-        src_index_chatindex_lexical_search_1a6cbe43("lexical_search()<br/><small>src/index.py</small>")
-        src_index_chatindex_build_or_load_e10f3142("build_or_load()<br/><small>src/index.py</small>")
+    subgraph extract_pipeline_scratch_test_pipeline_py_b03a91da["scratch/test_pipeline.py"]
+        scratch_test_pipeline_308c812c("test_pipeline.py")
+        scratch_test_pipeline_route_and_search_257cecff("route_and_search()<br/><small>scratch/test_pipeline.py</small>")
+        scratch_test_pipeline_parse_time_filter_348d0179("parse_time_filter()<br/><small>scratch/test_pipeline.py</small>")
+        scratch_test_pipeline_expand_query_ec377907("expand_query()<br/><small>scratch/test_pipeline.py</small>")
     end
-    subgraph extract_pipeline_src_retrieve_py_2c946b2d["src/retrieve.py"]
-        src_retrieve_retrievalengine_17766aff("RetrievalEngine<br/><small>src/retrieve.py</small>")
-        src_retrieve_retrievalengine_init_eb533c24("__init__()<br/><small>src/retrieve.py</small>")
+    subgraph extract_pipeline_External_generated_e23197dc["External / generated"]
+        datetime_89ffad08("datetime")
+        src_parser_py_any_205a37d3("Any")
     end
-    subgraph extract_pipeline_tests_test_parser_py_9c74cdcc["tests/test_parser.py"]
-        tests_test_parser_2daef370("test_parser.py")
-        tests_test_parser_test_txt_parser_and_search_280a22fd("test_txt_parser_and_search()<br/><small>tests/test_parser.py</small>")
-    end
-    subgraph extract_pipeline_web_app_py_b370b7b8["web/app.py"]
-        web_app_reset_to_default_chat_efe1a37e("reset_to_default_chat()<br/><small>web/app.py</small>")
-        web_app_upload_custom_chat_be7d874e("upload_custom_chat()<br/><small>web/app.py</small>")
-    end
-    tests_test_retrieval_engine_eaa91702("engine()<br/><small>tests/test_retrieval.py</small>")
-    src_index_chatindex_69d6c9f0 -->|method| src_index_chatindex_lexical_search_1a6cbe43
-    src_index_chatindex_69d6c9f0 -->|method| src_index_chatindex_build_or_load_e10f3142
-    src_retrieve_retrievalengine_17766aff -->|method| src_retrieve_retrievalengine_init_eb533c24
-    eval_run_eval_run_benchmark_bc472b89 -->|calls| eval_run_eval_compute_metrics_950b6c64
-    eval_run_eval_run_benchmark_bc472b89 -->|calls| eval_run_eval_generate_markdown_report_99a73aad
-    eval_run_eval_run_benchmark_bc472b89 -->|calls| src_index_chatindex_build_or_load_e10f3142
-    eval_run_eval_run_benchmark_bc472b89 -->|calls| src_retrieve_retrievalengine_17766aff
-    src_index_chatindex_build_or_load_e10f3142 -->|calls| src_parser_parse_chat_txt_3a9cd1c6
+    scratch_test_pipeline_route_and_search_257cecff -->|calls| scratch_test_pipeline_parse_time_filter_348d0179
+    scratch_test_pipeline_route_and_search_257cecff -->|calls| scratch_test_pipeline_expand_query_ec377907
     src_parser_load_custom_txt_to_json_aa82c93b -->|calls| src_parser_parse_chat_txt_3a9cd1c6
     src_parser_parse_chat_txt_3a9cd1c6 -->|calls| src_parser_parse_timestamp_024da367
-    tests_test_parser_test_txt_parser_and_search_280a22fd -->|calls| src_parser_parse_chat_txt_3a9cd1c6
-    tests_test_parser_test_txt_parser_and_search_280a22fd -->|calls| src_index_chatindex_build_or_load_e10f3142
-    tests_test_parser_test_txt_parser_and_search_280a22fd -->|calls| src_retrieve_retrievalengine_17766aff
-    tests_test_retrieval_engine_eaa91702 -->|calls| src_index_chatindex_build_or_load_e10f3142
-    web_app_reset_to_default_chat_efe1a37e -->|calls| src_index_chatindex_build_or_load_e10f3142
-    web_app_reset_to_default_chat_efe1a37e -->|calls| src_retrieve_retrievalengine_17766aff
-    web_app_upload_custom_chat_be7d874e -->|calls| src_index_chatindex_build_or_load_e10f3142
-    web_app_upload_custom_chat_be7d874e -->|calls| src_retrieve_retrievalengine_17766aff
-    eval_run_eval_743240ec -->|imports| src_index_chatindex_69d6c9f0
-    eval_run_eval_743240ec -->|imports| src_retrieve_retrievalengine_17766aff
-    tests_test_parser_2daef370 -->|imports| src_parser_parse_chat_txt_3a9cd1c6
-    tests_test_parser_2daef370 -->|imports| src_parser_parse_timestamp_024da367
-    tests_test_parser_2daef370 -->|imports| src_index_chatindex_69d6c9f0
-    tests_test_parser_2daef370 -->|imports| src_parser_fb30bf3b
-    %% Omitted for readability: 13 nodes, 7 edges
-    class eval_run_eval_run_benchmark_bc472b89 function;
-    class eval_run_eval_compute_metrics_950b6c64 function;
-    class eval_run_eval_generate_markdown_report_99a73aad function;
-    class eval_run_eval_743240ec module;
-    class src_parser_parse_chat_txt_3a9cd1c6 function;
+    scratch_test_pipeline_308c812c -->|imports| src_parser_parse_chat_txt_3a9cd1c6
+    scratch_test_pipeline_308c812c -->|imports| datetime_89ffad08
+    scratch_test_pipeline_308c812c -->|imports| src_parser_fb30bf3b
+    src_parser_fb30bf3b -->|imports| datetime_89ffad08
+    scratch_test_pipeline_parse_time_filter_348d0179 -->|calls| datetime_89ffad08
     class src_parser_load_custom_txt_to_json_aa82c93b function;
-    class src_parser_parse_timestamp_024da367 function;
     class src_parser_fb30bf3b module;
-    class src_index_chatindex_69d6c9f0 klass;
-    class src_index_chatindex_lexical_search_1a6cbe43 function;
-    class src_index_chatindex_build_or_load_e10f3142 function;
-    class src_retrieve_retrievalengine_17766aff klass;
-    class src_retrieve_retrievalengine_init_eb533c24 function;
-    class tests_test_parser_2daef370 test;
-    class tests_test_parser_test_txt_parser_and_search_280a22fd test;
-    class web_app_reset_to_default_chat_efe1a37e function;
-    class web_app_upload_custom_chat_be7d874e function;
-    class tests_test_retrieval_engine_eaa91702 test;
+    class src_parser_parse_chat_txt_3a9cd1c6 function;
+    class src_parser_parse_timestamp_024da367 function;
+    class src_parser_rationale_31_820ec93f concept;
+    class src_parser_rationale_125_6b76ef19 concept;
+    class src_parser_rationale_56_ed8e5960 concept;
+    class src_parser_rationale_1_b3e64588 concept;
+    class scratch_test_pipeline_308c812c test;
+    class scratch_test_pipeline_route_and_search_257cecff test;
+    class scratch_test_pipeline_parse_time_filter_348d0179 test;
+    class scratch_test_pipeline_expand_query_ec377907 test;
+    class datetime_89ffad08 function;
+    class src_parser_py_any_205a37d3 klass;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
     classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
@@ -266,62 +234,30 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br>+13 more</td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>dense_search()</code><br><small style="color:var(--muted)">src/index.py</small><br>+1 more</td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+  <td><code>expand_query()</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>route_and_search()</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>expand_query() node in scratch/test_pipeline.py.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>engine()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small><br><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small><br><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small><br>+6 more</td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">src/retrieve.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>search()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>RetrievalEngine node in src/retrieve.py.</td>
+  <td><code>parse_time_filter()</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td><code>route_and_search()</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
+  <td><code>datetime</code></td>
+  <td>parse_time_filter() node in scratch/test_pipeline.py.</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><code>compute_metrics()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>run_benchmark()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>compute_metrics() node in eval/run_eval.py.</td>
+  <td><code>route_and_search()</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>expand_query()</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small><br><code>parse_time_filter()</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
+  <td>route_and_search() node in scratch/test_pipeline.py.</td>
 </tr>
 <tr>
   <td>4</td>
-  <td><code>generate_markdown_report()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>run_benchmark()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>Exports documentation data to a target format.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>run_benchmark()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>compute_metrics()</code><br><small style="color:var(--muted)">eval/run_eval.py</small><br>+2 more</td>
-  <td>run_benchmark() node in eval/run_eval.py.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>.build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>engine()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small><br><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small><br>+6 more</td>
-  <td><code>MessageEmbedder</code><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small></td>
-  <td>.build_or_load() node in src/index.py.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>.lexical_search()</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.lexical_search() node in src/index.py.</td>
-</tr>
-<tr>
-  <td>8</td>
   <td><code>load_custom_txt_to_json()</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td>External entry / no inbound edge</td>
@@ -329,15 +265,15 @@ flowchart LR
   <td>load_custom_txt_to_json() node in src/parser.py.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>5</td>
   <td><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br>+3 more</td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br>+4 more</td>
   <td><code>parse_timestamp()</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>6</td>
   <td><code>parse_timestamp()</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-func">Function</span></td>
   <td><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small><br><code>test_parser.py</code><br><small style="color:var(--muted)">tests/test_parser.py</small></td>
@@ -345,79 +281,31 @@ flowchart LR
   <td>parse_timestamp() node in src/parser.py.</td>
 </tr>
 <tr>
-  <td>11</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td>7</td>
+  <td><code>datetime</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-func">Function</span></td>
-  <td><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><code>QueryRouter</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>.__init__() node in src/retrieve.py.</td>
+  <td><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br><code>embed.py</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>generate_chat.py</code><br><small style="color:var(--muted)">data/generate_chat.py</small><br>+9 more</td>
+  <td>No direct outbound edge</td>
+  <td>datetime node in project.</td>
 </tr>
 <tr>
-  <td>12</td>
-  <td><code>test_txt_parser_and_search()</code><br><small style="color:var(--muted)">tests/test_parser.py</small></td>
+  <td>8</td>
+  <td><code>test_pipeline.py</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
   <td><span class="tag tag-func">Test</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small><br>+1 more</td>
-  <td>Verifies imports, entry points, or version behavior.</td>
+  <td><code>datetime</code><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small><br><code>parser.py</code><br><small style="color:var(--muted)">src/parser.py</small></td>
+  <td>Module file in scratch/test_pipeline.py.</td>
 </tr>
 <tr>
-  <td>13</td>
-  <td><code>engine()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>engine() node in tests/test_retrieval.py.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>reset_to_default_chat()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>upload_custom_chat()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>run_eval.py</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
-  <td>Module file in eval/run_eval.py.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Any node in project.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>post</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>post node in project.</td>
-</tr>
-<tr>
-  <td>19</td>
+  <td>9</td>
   <td><code>parser.py</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-class">Module</span></td>
-  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>test_parser.py</code><br><small style="color:var(--muted)">tests/test_parser.py</small></td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>test_parser.py</code><br><small style="color:var(--muted)">tests/test_parser.py</small><br><code>test_pipeline.py</code><br><small style="color:var(--muted)">scratch/test_pipeline.py</small></td>
   <td><code>datetime</code></td>
   <td>Module file in src/parser.py.</td>
 </tr>
 <tr>
-  <td>20</td>
+  <td>10</td>
   <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
   <td><span class="tag tag-class">Class</span></td>
   <td>External entry / no inbound edge</td>
@@ -425,55 +313,7 @@ flowchart LR
   <td>Any node in project.</td>
 </tr>
 <tr>
-  <td>21</td>
-  <td><code>test_parser.py</code><br><small style="color:var(--muted)">tests/test_parser.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small><br>+3 more</td>
-  <td>Module file in tests/test_parser.py.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>fixture</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>fixture node in project.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>UploadFile</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>UploadFile node in project.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>Comprehensive Evaluation Runner for ChatRecall…</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Comprehensive Evaluation Runner for ChatRecall….</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>Performs BM25 keyword search.</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Performs BM25 keyword search..</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>Loads chat data (from .json or .txt) and cached embeddings, or builds them if…</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Loads chat data (from .json or .txt) and cached embeddings, or builds them if….</td>
-</tr>
-<tr>
-  <td>27</td>
+  <td>11</td>
   <td><code>Text Chat Parser for ChatRecall =============================== Parses raw…</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -481,7 +321,7 @@ flowchart LR
   <td>Design note for Text Chat Parser for ChatRecall =============================== Parses raw….</td>
 </tr>
 <tr>
-  <td>28</td>
+  <td>12</td>
   <td><code>Parses a .txt file and saves it as structured JSON ready for indexing.</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -489,7 +329,7 @@ flowchart LR
   <td>Design note for Parses a .txt file and saves it as structured JSON ready for indexing..</td>
 </tr>
 <tr>
-  <td>29</td>
+  <td>13</td>
   <td><code>Attempts multiple datetime formats and normalizes to YYYY-MM-DD HH:MM:SS.</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -497,7 +337,7 @@ flowchart LR
   <td>Design note for Attempts multiple datetime formats and normalizes to YYYY-MM-DD HH:MM:SS..</td>
 </tr>
 <tr>
-  <td>30</td>
+  <td>14</td>
   <td><code>Parses any exported text file (.txt) into a list of structured messages.</code><br><small style="color:var(--muted)">src/parser.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -512,518 +352,68 @@ flowchart LR
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
       <tr><td><code>src/parser.py</code></td><td>8 nodes</td></tr>
-<tr><td><code>eval/run_eval.py</code></td><td>5 nodes</td></tr>
-<tr><td><code>src/index.py</code></td><td>5 nodes</td></tr>
-<tr><td><code>tests/test_parser.py</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/retrieve.py</code></td><td>2 nodes</td></tr>
-<tr><td><code>web/app.py</code></td><td>2 nodes</td></tr>
-<tr><td><code>tests/test_retrieval.py</code></td><td>1 nodes</td></tr>
+<tr><td><code>scratch/test_pipeline.py</code></td><td>4 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: calls x15, explains x8, uses x7, references x7. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x6, calls x5, explains x4, imports x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
 
 <!-- ====== 3. Analysis & Clustering ====== -->
 <h2 id="analysis-clustering">3. Analysis &amp; Clustering</h2>
-<p>Analysis &amp; Clustering groups implementation around embedpy, resultsmd, eval, query, mostly in src/embed.py, eval/results.md, README.md. This section covers 23 nodes and 24 internal edges; the diagram shows only representative relationships to stay readable.</p>
+<p>Analysis &amp; Clustering groups implementation around eval, readmemd, resultsmd, run, mostly in README.md, eval/results.md, eval/run_eval.py. This section covers 33 nodes and 32 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
 %%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
 flowchart LR
-    %% Section: Analysis &amp; Clustering (23 nodes, 24 edges)
-    subgraph analysis_clustering_eval_results_md_ea6ac355["eval/results.md"]
-        eval_results_1_executive_summary_caf039e0("1. Executive Summary<br/><small>eval/results.md</small>")
-        eval_results_2_core_benchmark_results_64420a4a("2. Core Benchmark Results<br/><small>eval/results.md</small>")
-        eval_results_3_the_honest_accuracy_gap_analysis_cda9aaee("3. The Honest Accuracy Gap Analysis<br/><small>eval/results.md</small>")
-        eval_results_3_1_the_zero_word_overlap_collapse_fe7e3f42("3.1 The Zero-Word-Overlap Collapse of K...<br/><small>eval/results.md</small>")
-        eval_results_3_2_the_performance_gap_de4f027a("3.2 The Performance Gap<br/><small>eval/results.md</small>")
-        eval_results_4_breakdown_by_category_query_shape_d6f35a5e("4. Breakdown by Category &amp; Query Shape<br/><small>eval/results.md</small>")
-        eval_results_5_detailed_query_by_query_evaluatio_ba88818d("5. Detailed Query-by-Query Evaluation Log<br/><small>eval/results.md</small>")
-        eval_results_6_latency_system_throughput_d4cab4d3("6. Latency &amp; System Throughput<br/><small>eval/results.md</small>")
-        eval_results_evaluation_report_chatrecall_semant_68b62907("Evaluation Report: ChatRecall Semantic...<br/><small>eval/results.md</small>")
+    %% Section: Analysis &amp; Clustering (33 nodes, 32 edges)
+    subgraph analysis_clustering_README_md_f885348d["README.md"]
+        readme_1_installation_921f6ca2("1. Installation<br/><small>README.md</small>")
+        readme_2_generate_dataset_build_index_b486d83f("2. Generate Dataset &amp; Build Index<br/><small>README.md</small>")
+        readme_3_run_search_5c1d0c9b("3. Run Search<br/><small>README.md</small>")
+        readme_4_run_automated_evaluation_77ad80f3("4. Run Automated Evaluation<br/><small>README.md</small>")
+        readme_chatrecall_a38414ad("ChatRecall 💬🔍<br/><small>README.md</small>")
+        readme_modern_web_ui_7f4e932e("Modern Web UI<br/><small>README.md</small>")
+        readme_f78a71af("README.md")
+        readme_terminal_cli_rich_interactive_thread_view_a2a254b7("Terminal CLI (Rich Interactive Thread V...<br/><small>README.md</small>")
+        readme_key_capabilities_15e9445b("✨ Key Capabilities<br/><small>README.md</small>")
+        readme_problem_statement_ab963809("🎯 Problem Statement<br/><small>README.md</small>")
+        readme_architecture_pipeline_c7228f5d("🏗️ Architecture &amp; Pipeline<br/><small>README.md</small>")
     end
-    subgraph analysis_clustering_src_embed_py_b233e86f["src/embed.py"]
-        src_embed_messageembedder_d366613e("MessageEmbedder<br/><small>src/embed.py</small>")
-        src_embed_messageembedder_encode_messages_909a2d7b("encode_messages()<br/><small>src/embed.py</small>")
-        src_embed_messageembedder_init_2b7c4212("__init__()<br/><small>src/embed.py</small>")
-        src_embed_messageembedder_format_message_for_emb_f3066256("format_message_for_embedding()<br/><small>src/embed.py</small>")
-        src_embed_messageembedder_encode_query_f3bfd53d("encode_query()<br/><small>src/embed.py</small>")
-        src_embed_8b47bb13("embed.py")
+    subgraph analysis_clustering_eval_run_eval_py_9d8549d9["eval/run_eval.py"]
+        eval_run_eval_run_benchmark_bc472b89("run_benchmark()<br/><small>eval/run_eval.py</small>")
+        eval_run_eval_compute_metrics_950b6c64("compute_metrics()<br/><small>eval/run_eval.py</small>")
+        eval_run_eval_generate_markdown_report_99a73aad("generate_markdown_report()<br/><small>eval/run_eval.py</small>")
+        eval_run_eval_743240ec("run_eval.py")
     end
     subgraph analysis_clustering_External_generated_9ee0240b["External / generated"]
-        src_embed_py_any_5b646d45("Any")
-        src_embed_py_ndarray_de6e8e65("ndarray")
-    end
-    readme_f78a71af("README.md")
-    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_init_2b7c4212
-    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_format_message_for_emb_f3066256
-    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_encode_query_f3bfd53d
-    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_encode_messages_909a2d7b
-    src_embed_messageembedder_encode_messages_909a2d7b -->|calls| src_embed_messageembedder_format_message_for_emb_f3066256
-    %% Omitted for readability: 5 nodes, 0 edges
-    class eval_results_1_executive_summary_caf039e0 concept;
-    class eval_results_2_core_benchmark_results_64420a4a concept;
-    class eval_results_3_the_honest_accuracy_gap_analysis_cda9aaee concept;
-    class eval_results_3_1_the_zero_word_overlap_collapse_fe7e3f42 concept;
-    class eval_results_3_2_the_performance_gap_de4f027a concept;
-    class eval_results_4_breakdown_by_category_query_shape_d6f35a5e concept;
-    class eval_results_5_detailed_query_by_query_evaluatio_ba88818d concept;
-    class eval_results_6_latency_system_throughput_d4cab4d3 concept;
-    class eval_results_evaluation_report_chatrecall_semant_68b62907 concept;
-    class src_embed_messageembedder_d366613e klass;
-    class src_embed_messageembedder_encode_messages_909a2d7b function;
-    class src_embed_messageembedder_init_2b7c4212 function;
-    class src_embed_messageembedder_format_message_for_emb_f3066256 function;
-    class src_embed_messageembedder_encode_query_f3bfd53d function;
-    class src_embed_8b47bb13 module;
-    class src_embed_py_any_5b646d45 klass;
-    class src_embed_py_ndarray_de6e8e65 function;
-    class readme_f78a71af concept;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>encode_messages()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>encode_query()</code><br><small style="color:var(--muted)">src/embed.py</small><br>+1 more</td>
-  <td>MessageEmbedder node in src/embed.py.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>.encode_messages()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><code>format_message_for_embedding()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td>.encode_messages() node in src/embed.py.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>.encode_query()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.encode_query() node in src/embed.py.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>.format_message_for_embedding()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>encode_messages()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.format_message_for_embedding() node in src/embed.py.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.__init__() node in src/embed.py.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>embed.py</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>Module file in src/embed.py.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Any node in project.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>ndarray</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>ndarray node in project.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>Embedding Pipeline for ChatRecall ================================= Provides…</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Embedding Pipeline for ChatRecall ================================= Provides….</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>Formats a chat message with rich contextual metadata before vector encoding.…</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Formats a chat message with rich contextual metadata before vector encoding.….</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>Encodes a single natural language search query into a normalized vector.</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Encodes a single natural language search query into a normalized vector..</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>Encodes a list of chat message dictionaries into an (N, D) normalized numpy…</code><br><small style="color:var(--muted)">src/embed.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Encodes a list of chat message dictionaries into an (N, D) normalized numpy….</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>results.md</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing results.md.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>1. Executive Summary</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 1. Executive Summary.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>2. Core Benchmark Results</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 2. Core Benchmark Results.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>3.1 The Zero-Word-Overlap Collapse of Keyword Search</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 3.1 The Zero-Word-Overlap Collapse of Keyword Search.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>3.2 The Performance Gap</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 3.2 The Performance Gap.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>3. The Honest Accuracy Gap Analysis</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 3. The Honest Accuracy Gap Analysis.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>4. Breakdown by Category &amp; Query Shape</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 4. Breakdown by Category &amp; Query Shape.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>5. Detailed Query-by-Query Evaluation Log</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 5. Detailed Query-by-Query Evaluation Log.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>6. Latency &amp; System Throughput</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing 6. Latency &amp; System Throughput.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>Evaluation Report: ChatRecall Semantic Retrieval Performance</code><br><small style="color:var(--muted)">eval/results.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing Evaluation Report: ChatRecall Semantic Retrieval Performance.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>README.md</code><br><small style="color:var(--muted)">README.md</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Documentation node describing README.md.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>eval/results.md</code></td><td>10 nodes</td></tr>
-<tr><td><code>src/embed.py</code></td><td>10 nodes</td></tr>
-<tr><td><code>README.md</code></td><td>1 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x10, references x5, method x4, explains x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 4. CLI & Skill Installers ====== -->
-<h2 id="cli-skills">4. CLI &amp; Skill Installers</h2>
-<p>CLI &amp; Skill Installers groups implementation around clipy, indexpy, contextpy, chatrecall, mostly in src/cli.py, src/index.py, src/context.py. This section covers 10 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: CLI &amp; Skill Installers (10 nodes, 12 edges)
-    subgraph cli_skills_src_cli_py_744b1baf["src/cli.py"]
-        src_cli_d851751d("cli.py")
-        src_cli_main_5d3984b3("main()<br/><small>src/cli.py</small>")
-        src_cli_display_results_9b66e09f("display_results()<br/><small>src/cli.py</small>")
-        src_cli_rationale_1_31fb97b0("Interactive Terminal Interface for Chat...<br/><small>src/cli.py</small>")
-    end
-    subgraph cli_skills_src_index_py_19c97c08["src/index.py"]
-        src_index_811cdc82("index.py")
-        src_index_main_fa40efad("main()<br/><small>src/index.py</small>")
-        src_index_rationale_1_f69ad30c("Chat Indexer for ChatRecall ===========...<br/><small>src/index.py</small>")
-    end
-    subgraph cli_skills_src_context_py_7797ea3b["src/context.py"]
-        src_context_0a6dab24("context.py")
-        src_context_rationale_1_849f6757("Thread Context Engine for ChatRecall ==...<br/><small>src/context.py</small>")
-    end
-    threadcontextbuilder_39a6485c("ThreadContextBuilder")
-    src_cli_main_5d3984b3 -->|calls| src_cli_display_results_9b66e09f
-    src_cli_main_5d3984b3 -->|calls| threadcontextbuilder_39a6485c
-    src_cli_d851751d -->|imports| src_index_811cdc82
-    src_cli_d851751d -->|imports| src_context_0a6dab24
-    src_context_0a6dab24 -->|imports| src_index_811cdc82
-    class src_cli_d851751d entry;
-    class src_cli_main_5d3984b3 function;
-    class src_cli_display_results_9b66e09f function;
-    class src_cli_rationale_1_31fb97b0 concept;
-    class src_index_811cdc82 module;
-    class src_index_main_fa40efad function;
-    class src_index_rationale_1_f69ad30c concept;
-    class src_context_0a6dab24 module;
-    class src_context_rationale_1_849f6757 concept;
-    class threadcontextbuilder_39a6485c klass;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>display_results()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>display_results() node in src/cli.py.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>display_results()</code><br><small style="color:var(--muted)">src/cli.py</small><br>+2 more</td>
-  <td>main() node in src/cli.py.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>main()</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td>main() node in src/index.py.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small></td>
-  <td><span class="tag tag-cmd">Entry</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br>+1 more</td>
-  <td>Module file in src/cli.py.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small></td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>datetime</code><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td>Module file in src/context.py.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br>+4 more</td>
-  <td><code>datetime</code><br><code>embed.py</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small></td>
-  <td>Module file in src/index.py.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>ThreadContextBuilder node in project.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>Interactive Terminal Interface for ChatRecall…</code><br><small style="color:var(--muted)">src/cli.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Interactive Terminal Interface for ChatRecall….</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>Thread Context Engine for ChatRecall ====================================…</code><br><small style="color:var(--muted)">src/context.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Thread Context Engine for ChatRecall ====================================….</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>Chat Indexer for ChatRecall =========================== Builds, caches, and…</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Chat Indexer for ChatRecall =========================== Builds, caches, and….</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>src/cli.py</code></td><td>4 nodes</td></tr>
-<tr><td><code>src/index.py</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/context.py</code></td><td>2 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: imports x3, contains x3, explains x3, calls x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 5. Serving API ====== -->
-<h2 id="serve-api">5. Serving API</h2>
-<p>Serving API groups implementation around web, apppy, contextpy, search, mostly in web/app.py, src/context.py, src/index.py. This section covers 22 nodes and 23 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Serving API (22 nodes, 23 edges)
-    subgraph serve_api_External_generated_a71e9f44["External / generated"]
-        messageembedder_afa4b5da("MessageEmbedder")
-        src_context_py_any_3f5ccfe3("Any")
-        src_index_py_any_39f97d92("Any")
+        eval_run_eval_py_any_804ba3f4("Any")
         src_retrieve_py_any_688020b7("Any")
-        get_783923e5("get")
-        ndarray_848c1baf("ndarray")
-    end
-    subgraph serve_api_web_app_py_679de014["web/app.py"]
-        web_app_api_search_1ad5c826("api_search()<br/><small>web/app.py</small>")
-        web_app_api_stats_56a82332("api_stats()<br/><small>web/app.py</small>")
-        web_app_get_services_25ea0df5("get_services()<br/><small>web/app.py</small>")
-        web_app_43677888("app.py")
-        web_app_main_cb06910e("main()<br/><small>web/app.py</small>")
-        web_app_serve_ui_da2f0173("serve_ui()<br/><small>web/app.py</small>")
-    end
-    subgraph serve_api_src_context_py_fcf37ae2["src/context.py"]
-        src_context_threadcontextbuilder_7ddcb325("ThreadContextBuilder<br/><small>src/context.py</small>")
-        src_context_threadcontextbuilder_init_a27dfa40("__init__()<br/><small>src/context.py</small>")
-        src_context_threadcontextbuilder_get_context_win_6025a1ef("get_context_window()<br/><small>src/context.py</small>")
-    end
-    subgraph serve_api_src_index_py_48ad01bf["src/index.py"]
-        src_index_chatindex_init_7330f5e4("__init__()<br/><small>src/index.py</small>")
-        src_index_chatindex_dense_search_554755be("dense_search()<br/><small>src/index.py</small>")
     end
     src_retrieve_retrievalengine_search_fb2e8d86("search()<br/><small>src/retrieve.py</small>")
-    src_context_threadcontextbuilder_7ddcb325 -->|method| src_context_threadcontextbuilder_init_a27dfa40
-    src_context_threadcontextbuilder_7ddcb325 -->|method| src_context_threadcontextbuilder_get_context_win_6025a1ef
-    web_app_api_search_1ad5c826 -->|calls| web_app_get_services_25ea0df5
-    web_app_api_stats_56a82332 -->|calls| web_app_get_services_25ea0df5
-    web_app_get_services_25ea0df5 -->|calls| src_context_threadcontextbuilder_7ddcb325
-    src_index_chatindex_init_7330f5e4 -->|calls| messageembedder_afa4b5da
-    %% Omitted for readability: 4 nodes, 0 edges
-    class messageembedder_afa4b5da klass;
-    class src_context_py_any_3f5ccfe3 klass;
-    class src_index_py_any_39f97d92 klass;
+    eval_run_eval_run_benchmark_bc472b89 -->|calls| eval_run_eval_compute_metrics_950b6c64
+    eval_run_eval_run_benchmark_bc472b89 -->|calls| eval_run_eval_generate_markdown_report_99a73aad
+    %% Omitted for readability: 15 nodes, 0 edges
+    class readme_1_installation_921f6ca2 concept;
+    class readme_2_generate_dataset_build_index_b486d83f concept;
+    class readme_3_run_search_5c1d0c9b concept;
+    class readme_4_run_automated_evaluation_77ad80f3 concept;
+    class readme_chatrecall_a38414ad concept;
+    class readme_modern_web_ui_7f4e932e concept;
+    class readme_f78a71af concept;
+    class readme_terminal_cli_rich_interactive_thread_view_a2a254b7 concept;
+    class readme_key_capabilities_15e9445b concept;
+    class readme_problem_statement_ab963809 concept;
+    class readme_architecture_pipeline_c7228f5d concept;
+    class eval_run_eval_run_benchmark_bc472b89 function;
+    class eval_run_eval_compute_metrics_950b6c64 function;
+    class eval_run_eval_generate_markdown_report_99a73aad function;
+    class eval_run_eval_743240ec module;
+    class eval_run_eval_py_any_804ba3f4 klass;
     class src_retrieve_py_any_688020b7 klass;
-    class get_783923e5 function;
-    class ndarray_848c1baf function;
-    class web_app_api_search_1ad5c826 api;
-    class web_app_api_stats_56a82332 api;
-    class web_app_get_services_25ea0df5 function;
-    class web_app_43677888 module;
-    class web_app_main_cb06910e function;
-    class web_app_serve_ui_da2f0173 function;
-    class src_context_threadcontextbuilder_7ddcb325 klass;
-    class src_context_threadcontextbuilder_init_a27dfa40 function;
-    class src_context_threadcontextbuilder_get_context_win_6025a1ef function;
-    class src_index_chatindex_init_7330f5e4 function;
-    class src_index_chatindex_dense_search_554755be function;
     class src_retrieve_retrievalengine_search_fb2e8d86 function;
     classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
     classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
@@ -1048,623 +438,94 @@ flowchart LR
 </tr>
 <tr>
   <td>1</td>
-  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)">src/context.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small><br><code>reset_to_default_chat()</code><br><small style="color:var(--muted)">web/app.py</small><br><code>upload_custom_chat()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">src/context.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>get_context_window()</code><br><small style="color:var(--muted)">src/context.py</small></td>
-  <td>ThreadContextBuilder node in src/context.py.</td>
+  <td><code>results.md</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing results.md.</td>
 </tr>
 <tr>
   <td>2</td>
-  <td><code>.get_context_window()</code><br><small style="color:var(--muted)">src/context.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><code>1. Executive Summary</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>.get_context_window() node in src/context.py.</td>
+  <td>Documentation node describing 1. Executive Summary.</td>
 </tr>
 <tr>
   <td>3</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/context.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><code>2. Core Benchmark Results</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>.__init__() node in src/context.py.</td>
+  <td>Documentation node describing 2. Core Benchmark Results.</td>
 </tr>
 <tr>
   <td>4</td>
-  <td><code>api_search()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>3.1 The Zero-Word-Overlap Collapse of Keyword Search</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td>api_search() node in web/app.py.</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3.1 The Zero-Word-Overlap Collapse of Keyword Search.</td>
 </tr>
 <tr>
   <td>5</td>
-  <td><code>api_stats()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
+  <td><code>3.2 The Performance Gap</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td>api_stats() node in web/app.py.</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3.2 The Performance Gap.</td>
 </tr>
 <tr>
   <td>6</td>
-  <td><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>api_search()</code><br><small style="color:var(--muted)">web/app.py</small><br><code>api_stats()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
-  <td>get_services() node in web/app.py.</td>
+  <td><code>3. The Honest Accuracy Gap Analysis</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3. The Honest Accuracy Gap Analysis.</td>
 </tr>
 <tr>
   <td>7</td>
-  <td><code>main()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
+  <td><code>4. Breakdown by Category &amp; Query Shape</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>main() node in web/app.py.</td>
+  <td>Documentation node describing 4. Breakdown by Category &amp; Query Shape.</td>
 </tr>
 <tr>
   <td>8</td>
-  <td><code>serve_ui()</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
+  <td><code>5. Detailed Query-by-Query Evaluation Log</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>serve_ui() node in web/app.py.</td>
+  <td>Documentation node describing 5. Detailed Query-by-Query Evaluation Log.</td>
 </tr>
 <tr>
   <td>9</td>
-  <td><code>get</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
+  <td><code>6. Latency &amp; System Throughput</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>get node in project.</td>
+  <td>Documentation node describing 6. Latency &amp; System Throughput.</td>
 </tr>
 <tr>
   <td>10</td>
-  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
+  <td><code>Evaluation Report: ChatRecall Semantic Retrieval Performance</code><br><small style="color:var(--muted)">eval/results.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Any node in project.</td>
+  <td>Documentation node describing Evaluation Report: ChatRecall Semantic Retrieval Performance.</td>
 </tr>
 <tr>
   <td>11</td>
-  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
+  <td><code>README.md</code><br><small style="color:var(--muted)">README.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br>+3 more</td>
-  <td>Module file in web/app.py.</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing README.md.</td>
 </tr>
 <tr>
   <td>12</td>
-  <td><code>Extracts surrounding conversational messages around target index `msg_idx`. If…</code><br><small style="color:var(--muted)">src/context.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Extracts surrounding conversational messages around target index `msg_idx`. If….</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>FastAPI Server for ChatRecall Web Interface…</code><br><small style="color:var(--muted)">web/app.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for FastAPI Server for ChatRecall Web Interface….</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>.dense_search()</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.dense_search() node in src/index.py.</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><code>MessageEmbedder</code></td>
-  <td>.__init__() node in src/index.py.</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>MessageEmbedder node in project.</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>ndarray</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>ndarray node in project.</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Any node in project.</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>Performs cosine similarity search against candidates or the entire corpus.…</code><br><small style="color:var(--muted)">src/index.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Performs cosine similarity search against candidates or the entire corpus.….</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>.search()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.search() node in src/retrieve.py.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Any node in project.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>Executes query through the router and multi-strategy retrieval pipeline.</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Executes query through the router and multi-strategy retrieval pipeline..</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>web/app.py</code></td><td>7 nodes</td></tr>
-<tr><td><code>src/context.py</code></td><td>4 nodes</td></tr>
-<tr><td><code>src/index.py</code></td><td>3 nodes</td></tr>
-<tr><td><code>src/retrieve.py</code></td><td>2 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: references x8, contains x5, calls x4, explains x4. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 6. Tests & Fixtures ====== -->
-<h2 id="tests-fixtures">6. Tests &amp; Fixtures</h2>
-<p>Tests &amp; Fixtures groups implementation around test, tests, generatorpy, hinglish, mostly in tests/test_generator.py, src/retrieve.py, tests/test_hinglish_embed.py. This section covers 43 nodes and 59 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: Tests &amp; Fixtures (43 nodes, 59 edges)
-    subgraph tests_fixtures_src_retrieve_py_17f7c375["src/retrieve.py"]
-        src_retrieve_39533a21("retrieve.py")
-        src_retrieve_queryplan_32cd9ce8("QueryPlan<br/><small>src/retrieve.py</small>")
-        src_retrieve_queryrouter_analyze_1d3b312e("analyze()<br/><small>src/retrieve.py</small>")
-        src_retrieve_queryplan_init_6568c237("__init__()<br/><small>src/retrieve.py</small>")
-        src_retrieve_queryplan_repr_80ea114a("__repr__()<br/><small>src/retrieve.py</small>")
-        src_retrieve_queryrouter_c8f5816e("QueryRouter<br/><small>src/retrieve.py</small>")
-    end
-    subgraph tests_fixtures_tests_test_generator_py_8c3aebb0["tests/test_generator.py"]
-        tests_test_generator_1f11e654("test_generator.py")
-        tests_test_generator_test_generator_decision_thr_22f36805("generator decision threads()<br/><small>tests/test_generator.py</small>")
-        tests_test_generator_test_generator_deterministi_917bbbd9("test generator deterministic()<br/><small>tests/test_generator.py</small>")
-        tests_test_generator_test_generator_messiness_ar_6f74ffdb("generator messiness artifacts()<br/><small>tests/test_generator.py</small>")
-        tests_test_generator_test_generator_time_range_a_00daabc7("range and chronology()<br/><small>tests/test_generator.py</small>")
-        tests_test_generator_test_generator_volume_and_p_7ea974a6("volume and participants()<br/><small>tests/test_generator.py</small>")
-    end
-    subgraph tests_fixtures_data_generate_chat_py_7abd798b["data/generate_chat.py"]
-        data_generate_chat_main_12d5b875("main()<br/><small>data/generate_chat.py</small>")
-        data_generate_chat_generate_synthetic_chat_f6ba4c6b("generate_synthetic_chat()<br/><small>data/generate_chat.py</small>")
-    end
-    subgraph tests_fixtures_tests_test_retrieval_py_3b2c0e5b["tests/test_retrieval.py"]
-        tests_test_retrieval_ce1ac5e9("test_retrieval.py")
-        tests_test_retrieval_test_query_router_intent_cl_a2f56222("router intent classification()<br/><small>tests/test_retrieval.py</small>")
-    end
-    datetime_89ffad08("datetime")
-    tests_test_hinglish_embed_test_hinglish_zero_wor_36a5e1d0("word overlap pairs()<br/><small>tests/test_hinglish_embed.py</small>")
-    src_retrieve_queryplan_32cd9ce8 -->|method| src_retrieve_queryplan_init_6568c237
-    src_retrieve_queryplan_32cd9ce8 -->|method| src_retrieve_queryplan_repr_80ea114a
-    src_retrieve_queryrouter_c8f5816e -->|method| src_retrieve_queryrouter_analyze_1d3b312e
-    data_generate_chat_main_12d5b875 -->|calls| data_generate_chat_generate_synthetic_chat_f6ba4c6b
-    tests_test_generator_test_generator_decision_thr_22f36805 -->|calls| data_generate_chat_generate_synthetic_chat_f6ba4c6b
-    tests_test_generator_test_generator_deterministi_917bbbd9 -->|calls| data_generate_chat_generate_synthetic_chat_f6ba4c6b
-    tests_test_generator_test_generator_messiness_ar_6f74ffdb -->|calls| data_generate_chat_generate_synthetic_chat_f6ba4c6b
-    tests_test_generator_test_generator_time_range_a_00daabc7 -->|calls| data_generate_chat_generate_synthetic_chat_f6ba4c6b
-    tests_test_generator_test_generator_volume_and_p_7ea974a6 -->|calls| data_generate_chat_generate_synthetic_chat_f6ba4c6b
-    src_retrieve_queryrouter_analyze_1d3b312e -->|calls| datetime_89ffad08
-    src_retrieve_queryrouter_analyze_1d3b312e -->|calls| src_retrieve_queryplan_32cd9ce8
-    tests_test_retrieval_test_query_router_intent_cl_a2f56222 -->|calls| src_retrieve_queryrouter_c8f5816e
-    tests_test_generator_1f11e654 -->|imports| data_generate_chat_generate_synthetic_chat_f6ba4c6b
-    tests_test_generator_1f11e654 -->|imports| datetime_89ffad08
-    src_retrieve_39533a21 -->|imports| datetime_89ffad08
-    tests_test_retrieval_ce1ac5e9 -->|imports| src_retrieve_queryrouter_c8f5816e
-    tests_test_retrieval_ce1ac5e9 -->|imports| src_retrieve_39533a21
-    data_generate_chat_generate_synthetic_chat_f6ba4c6b -->|calls| datetime_89ffad08
-    %% Omitted for readability: 25 nodes, 0 edges
-    class src_retrieve_39533a21 module;
-    class src_retrieve_queryplan_32cd9ce8 klass;
-    class src_retrieve_queryrouter_analyze_1d3b312e function;
-    class src_retrieve_queryplan_init_6568c237 function;
-    class src_retrieve_queryplan_repr_80ea114a function;
-    class src_retrieve_queryrouter_c8f5816e api;
-    class tests_test_generator_1f11e654 test;
-    class tests_test_generator_test_generator_decision_thr_22f36805 test;
-    class tests_test_generator_test_generator_deterministi_917bbbd9 test;
-    class tests_test_generator_test_generator_messiness_ar_6f74ffdb test;
-    class tests_test_generator_test_generator_time_range_a_00daabc7 test;
-    class tests_test_generator_test_generator_volume_and_p_7ea974a6 test;
-    class data_generate_chat_main_12d5b875 function;
-    class data_generate_chat_generate_synthetic_chat_f6ba4c6b function;
-    class tests_test_retrieval_ce1ac5e9 test;
-    class tests_test_retrieval_test_query_router_intent_cl_a2f56222 test;
-    class datetime_89ffad08 function;
-    class tests_test_hinglish_embed_test_hinglish_zero_wor_36a5e1d0 test;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>generator decision threads()</code><br><small style="color:var(--muted)">tests/test_generator.py</small><br><code>generator messiness artifacts()</code><br><small style="color:var(--muted)">tests/test_generator.py</small><br><code>main()</code><br><small style="color:var(--muted)">data/generate_chat.py</small><br>+4 more</td>
-  <td><code>datetime</code></td>
-  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
-</tr>
-<tr>
-  <td>2</td>
-  <td><code>create_msg()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>create_msg() node in data/generate_chat.py.</td>
-</tr>
-<tr>
-  <td>3</td>
-  <td><code>main()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td>main() node in data/generate_chat.py.</td>
-</tr>
-<tr>
-  <td>4</td>
-  <td><code>test_generator_decision_threads()</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>5</td>
-  <td><code>test_generator_deterministic()</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>6</td>
-  <td><code>test_generator_messiness_artifacts()</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>7</td>
-  <td><code>test_generator_time_range_and_chronology()</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>8</td>
-  <td><code>test_generator_volume_and_participants()</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>9</td>
-  <td><code>generate_chat.py</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>test_generator.py</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><code>datetime</code></td>
-  <td>Module file in data/generate_chat.py.</td>
-</tr>
-<tr>
-  <td>10</td>
-  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Any node in project.</td>
-</tr>
-<tr>
-  <td>11</td>
-  <td><code>test_generator.py</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>datetime</code><br><code>generate_chat.py</code><br><small style="color:var(--muted)">data/generate_chat.py</small><br><code>generate_synthetic_chat()</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td>Module file in tests/test_generator.py.</td>
-</tr>
-<tr>
-  <td>12</td>
-  <td><code>Synthetic Group Chat Generator for ChatRecall…</code><br><small style="color:var(--muted)">data/generate_chat.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Synthetic Group Chat Generator for ChatRecall….</td>
-</tr>
-<tr>
-  <td>13</td>
-  <td><code>Unit tests for Synthetic Chat Dataset Generator</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Unit tests for Synthetic Chat Dataset Generator.</td>
-</tr>
-<tr>
-  <td>14</td>
-  <td><code>Ensure generator produces identical output for the same seed.</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Ensure generator produces identical output for the same seed..</td>
-</tr>
-<tr>
-  <td>15</td>
-  <td><code>Ensure at least 4000 messages and exactly 8 participants.</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Ensure at least 4000 messages and exactly 8 participants..</td>
-</tr>
-<tr>
-  <td>16</td>
-  <td><code>Ensure messages span 6 months and are strictly chronological.</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Ensure messages span 6 months and are strictly chronological..</td>
-</tr>
-<tr>
-  <td>17</td>
-  <td><code>Ensure 3 long resolving threads exist and have marked decision messages.</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Ensure 3 long resolving threads exist and have marked decision messages..</td>
-</tr>
-<tr>
-  <td>18</td>
-  <td><code>Ensure presence of media omitted, forwards, and short replies.</code><br><small style="color:var(--muted)">tests/test_generator.py</small></td>
-  <td><span class="tag tag-func">Concept</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Design note for Ensure presence of media omitted, forwards, and short replies..</td>
-</tr>
-<tr>
-  <td>19</td>
-  <td><code>QueryPlan</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>analyze()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">src/retrieve.py</small><br><code>__repr__()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>QueryPlan node in src/retrieve.py.</td>
-</tr>
-<tr>
-  <td>20</td>
-  <td><code>QueryRouter</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-endpoint">API</span></td>
-  <td><code>__init__()</code><br><small style="color:var(--muted)">src/retrieve.py</small><br><code>router intent classification()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small><br><code>test_retrieval.py</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small></td>
-  <td><code>analyze()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>QueryRouter node in src/retrieve.py.</td>
-</tr>
-<tr>
-  <td>21</td>
-  <td><code>StrategyType</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>router intent classification()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small><br><code>test_retrieval.py</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>StrategyType node in src/retrieve.py.</td>
-</tr>
-<tr>
-  <td>22</td>
-  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>QueryPlan</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.__init__() node in src/retrieve.py.</td>
-</tr>
-<tr>
-  <td>23</td>
-  <td><code>.__repr__()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>QueryPlan</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>.__repr__() node in src/retrieve.py.</td>
-</tr>
-<tr>
-  <td>24</td>
-  <td><code>.analyze()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>QueryRouter</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><code>datetime</code><br><code>QueryPlan</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>Orchestrates analysis and returns structured documentation data.</td>
-</tr>
-<tr>
-  <td>25</td>
-  <td><code>test_person_filtered_retrieval()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>26</td>
-  <td><code>test_query_router_intent_classification()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td><code>QueryRouter</code><br><small style="color:var(--muted)">src/retrieve.py</small><br><code>StrategyType</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>27</td>
-  <td><code>test_zero_word_overlap_decision_retrieval()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small></td>
-  <td><span class="tag tag-func">Test</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>Verifies imports, entry points, or version behavior.</td>
-</tr>
-<tr>
-  <td>28</td>
-  <td><code>datetime</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td><code>analyze()</code><br><small style="color:var(--muted)">src/retrieve.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br><code>generate_chat.py</code><br><small style="color:var(--muted)">data/generate_chat.py</small><br>+5 more</td>
-  <td>No direct outbound edge</td>
-  <td>datetime node in project.</td>
-</tr>
-<tr>
-  <td>29</td>
-  <td><code>Enum</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-class">Class</span></td>
-  <td><code>retrieve.py</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td>No direct outbound edge</td>
-  <td>Enum node in project.</td>
-</tr>
-<tr>
-  <td>30</td>
-  <td><code>retrieve.py</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
-  <td><span class="tag tag-class">Module</span></td>
-  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>run_eval.py</code><br><small style="color:var(--muted)">eval/run_eval.py</small><br>+2 more</td>
-  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>datetime</code><br><code>Enum</code><br>+1 more</td>
-  <td>Module file in src/retrieve.py.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>tests/test_generator.py</code></td><td>12 nodes</td></tr>
-<tr><td><code>src/retrieve.py</code></td><td>8 nodes</td></tr>
-<tr><td><code>tests/test_hinglish_embed.py</code></td><td>6 nodes</td></tr>
-<tr><td><code>data/generate_chat.py</code></td><td>5 nodes</td></tr>
-<tr><td><code>tests/test_retrieval.py</code></td><td>5 nodes</td></tr>
-<tr><td><code>tests/__init__.py</code></td><td>1 nodes</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x17, calls x11, explains x11, imports x6. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
-<!-- ====== 7. ChatRecall 💬🔍 ====== -->
-<h2 id="chatrecall">7. ChatRecall 💬🔍</h2>
-<p>ChatRecall 💬🔍 groups implementation around readmemd, run, evaluation, installation, mostly in README.md. This section covers 13 nodes and 12 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: ChatRecall 💬🔍 (13 nodes, 12 edges)
-    readme_chatrecall_a38414ad("ChatRecall 💬🔍<br/><small>README.md</small>")
-    readme_quick_start_usage_485e43e3("🚀 Quick Start &amp; Usage<br/><small>README.md</small>")
-    readme_3_run_search_5c1d0c9b("3. Run Search<br/><small>README.md</small>")
-    readme_terminal_cli_rich_interactive_thread_view_a2a254b7("Terminal CLI (Rich Interactive Thread V...<br/><small>README.md</small>")
-    readme_modern_web_ui_7f4e932e("Modern Web UI<br/><small>README.md</small>")
-    readme_problem_statement_ab963809("🎯 Problem Statement<br/><small>README.md</small>")
-    readme_1_installation_921f6ca2("1. Installation<br/><small>README.md</small>")
-    readme_2_generate_dataset_build_index_b486d83f("2. Generate Dataset &amp; Build Index<br/><small>README.md</small>")
-    readme_4_run_automated_evaluation_77ad80f3("4. Run Automated Evaluation<br/><small>README.md</small>")
-    readme_key_capabilities_15e9445b("✨ Key Capabilities<br/><small>README.md</small>")
-    readme_architecture_pipeline_c7228f5d("🏗️ Architecture &amp; Pipeline<br/><small>README.md</small>")
-    readme_repository_structure_895860fe("📁 Repository Structure<br/><small>README.md</small>")
-    readme_evaluation_benchmark_results_0402882f("📊 Evaluation &amp; Benchmark Results<br/><small>README.md</small>")
-    readme_3_run_search_5c1d0c9b -->|contains| readme_terminal_cli_rich_interactive_thread_view_a2a254b7
-    readme_3_run_search_5c1d0c9b -->|contains| readme_modern_web_ui_7f4e932e
-    readme_chatrecall_a38414ad -->|contains| readme_problem_statement_ab963809
-    readme_chatrecall_a38414ad -->|contains| readme_repository_structure_895860fe
-    readme_chatrecall_a38414ad -->|contains| readme_key_capabilities_15e9445b
-    readme_chatrecall_a38414ad -->|contains| readme_evaluation_benchmark_results_0402882f
-    readme_chatrecall_a38414ad -->|contains| readme_architecture_pipeline_c7228f5d
-    readme_chatrecall_a38414ad -->|contains| readme_quick_start_usage_485e43e3
-    readme_quick_start_usage_485e43e3 -->|contains| readme_3_run_search_5c1d0c9b
-    readme_quick_start_usage_485e43e3 -->|contains| readme_4_run_automated_evaluation_77ad80f3
-    readme_quick_start_usage_485e43e3 -->|contains| readme_1_installation_921f6ca2
-    readme_quick_start_usage_485e43e3 -->|contains| readme_2_generate_dataset_build_index_b486d83f
-    class readme_chatrecall_a38414ad concept;
-    class readme_quick_start_usage_485e43e3 concept;
-    class readme_3_run_search_5c1d0c9b concept;
-    class readme_terminal_cli_rich_interactive_thread_view_a2a254b7 concept;
-    class readme_modern_web_ui_7f4e932e concept;
-    class readme_problem_statement_ab963809 concept;
-    class readme_1_installation_921f6ca2 concept;
-    class readme_2_generate_dataset_build_index_b486d83f concept;
-    class readme_4_run_automated_evaluation_77ad80f3 concept;
-    class readme_key_capabilities_15e9445b concept;
-    class readme_architecture_pipeline_c7228f5d concept;
-    class readme_repository_structure_895860fe concept;
-    class readme_evaluation_benchmark_results_0402882f concept;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
   <td><code>1. Installation</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1672,7 +533,7 @@ flowchart LR
   <td>Documentation node describing 1. Installation.</td>
 </tr>
 <tr>
-  <td>2</td>
+  <td>13</td>
   <td><code>2. Generate Dataset &amp; Build Index</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1680,7 +541,7 @@ flowchart LR
   <td>Documentation node describing 2. Generate Dataset &amp; Build Index.</td>
 </tr>
 <tr>
-  <td>3</td>
+  <td>14</td>
   <td><code>3. Run Search</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1688,7 +549,7 @@ flowchart LR
   <td>Documentation node describing 3. Run Search.</td>
 </tr>
 <tr>
-  <td>4</td>
+  <td>15</td>
   <td><code>4. Run Automated Evaluation</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1696,7 +557,7 @@ flowchart LR
   <td>Documentation node describing 4. Run Automated Evaluation.</td>
 </tr>
 <tr>
-  <td>5</td>
+  <td>16</td>
   <td><code>🏗️ Architecture &amp; Pipeline</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1704,7 +565,7 @@ flowchart LR
   <td>Documentation node describing 🏗️ Architecture &amp; Pipeline.</td>
 </tr>
 <tr>
-  <td>6</td>
+  <td>17</td>
   <td><code>ChatRecall 💬🔍</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1712,7 +573,7 @@ flowchart LR
   <td>Documentation node describing ChatRecall 💬🔍.</td>
 </tr>
 <tr>
-  <td>7</td>
+  <td>18</td>
   <td><code>📊 Evaluation &amp; Benchmark Results</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1720,7 +581,7 @@ flowchart LR
   <td>Documentation node describing 📊 Evaluation &amp; Benchmark Results.</td>
 </tr>
 <tr>
-  <td>8</td>
+  <td>19</td>
   <td><code>✨ Key Capabilities</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1728,7 +589,7 @@ flowchart LR
   <td>Documentation node describing ✨ Key Capabilities.</td>
 </tr>
 <tr>
-  <td>9</td>
+  <td>20</td>
   <td><code>Modern Web UI</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1736,7 +597,7 @@ flowchart LR
   <td>Documentation node describing Modern Web UI.</td>
 </tr>
 <tr>
-  <td>10</td>
+  <td>21</td>
   <td><code>🎯 Problem Statement</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1744,7 +605,7 @@ flowchart LR
   <td>Documentation node describing 🎯 Problem Statement.</td>
 </tr>
 <tr>
-  <td>11</td>
+  <td>22</td>
   <td><code>🚀 Quick Start &amp; Usage</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1752,7 +613,7 @@ flowchart LR
   <td>Documentation node describing 🚀 Quick Start &amp; Usage.</td>
 </tr>
 <tr>
-  <td>12</td>
+  <td>23</td>
   <td><code>📁 Repository Structure</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
@@ -1760,12 +621,60 @@ flowchart LR
   <td>Documentation node describing 📁 Repository Structure.</td>
 </tr>
 <tr>
-  <td>13</td>
+  <td>24</td>
   <td><code>Terminal CLI (Rich Interactive Thread View)</code><br><small style="color:var(--muted)">README.md</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
   <td>Documentation node describing Terminal CLI (Rich Interactive Thread View).</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>compute_metrics()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>run_benchmark()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>compute_metrics() node in eval/run_eval.py.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>generate_markdown_report()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>run_benchmark()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>Exports documentation data to a target format.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>run_benchmark()</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>compute_metrics()</code><br><small style="color:var(--muted)">eval/run_eval.py</small><br>+2 more</td>
+  <td>run_benchmark() node in eval/run_eval.py.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>.search()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.search() node in src/retrieve.py.</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>run_eval.py</code><br><small style="color:var(--muted)">eval/run_eval.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
+  <td>Module file in eval/run_eval.py.</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Any node in project.</td>
 </tr>
 </table>
 
@@ -1774,12 +683,927 @@ flowchart LR
     <h4>Key Files</h4>
     <table style="width:100%;font-size:0.85rem;">
       <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td><code>README.md</code></td><td>13 nodes</td></tr>
+      <tr><td><code>README.md</code></td><td>14 nodes</td></tr>
+<tr><td><code>eval/results.md</code></td><td>10 nodes</td></tr>
+<tr><td><code>eval/run_eval.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/retrieve.py</code></td><td>2 nodes</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: contains x12. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x25, references x3, calls x2, explains x2. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 4. Serving API ====== -->
+<h2 id="serve-api">4. Serving API</h2>
+<p>Serving API groups implementation around embedpy, message, search, indexpy, mostly in src/embed.py, src/index.py. This section covers 19 nodes and 23 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Serving API (19 nodes, 23 edges)
+    subgraph serve_api_src_embed_py_2418992e["src/embed.py"]
+        src_embed_messageembedder_d366613e("MessageEmbedder<br/><small>src/embed.py</small>")
+        src_embed_messageembedder_encode_messages_909a2d7b("encode_messages()<br/><small>src/embed.py</small>")
+        src_embed_messageembedder_init_2b7c4212("__init__()<br/><small>src/embed.py</small>")
+        src_embed_messageembedder_format_message_for_emb_f3066256("format_message_for_embedding()<br/><small>src/embed.py</small>")
+        src_embed_messageembedder_build_contextual_texts_682a8e1d("build_contextual_texts()<br/><small>src/embed.py</small>")
+        src_embed_messageembedder_encode_query_f3bfd53d("encode_query()<br/><small>src/embed.py</small>")
+        src_embed_8b47bb13("embed.py")
+        src_embed_rationale_33_d1d9752b("Builds thread-aware contextual texts fo...<br/><small>src/embed.py</small>")
+        src_embed_rationale_1_644bcd14("Embedding Pipeline for ChatRecall =====...<br/><small>src/embed.py</small>")
+        src_embed_rationale_87_1d43996b("Encodes a list of chat message dictiona...<br/><small>src/embed.py</small>")
+        src_embed_rationale_75_99bc171c("Encodes a single natural language searc...<br/><small>src/embed.py</small>")
+        src_embed_rationale_24_b820026a("Formats a chat message for vector encod...<br/><small>src/embed.py</small>")
+    end
+    subgraph serve_api_External_generated_a71e9f44["External / generated"]
+        src_embed_py_any_5b646d45("Any")
+        src_index_py_any_39f97d92("Any")
+        src_embed_py_ndarray_de6e8e65("ndarray")
+        src_index_py_ndarray_2fe9bad0("ndarray")
+    end
+    subgraph serve_api_src_index_py_48ad01bf["src/index.py"]
+        src_index_chatindex_init_7330f5e4("__init__()<br/><small>src/index.py</small>")
+        src_index_chatindex_dense_search_554755be("dense_search()<br/><small>src/index.py</small>")
+    end
+    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_init_2b7c4212
+    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_format_message_for_emb_f3066256
+    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_build_contextual_texts_682a8e1d
+    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_encode_query_f3bfd53d
+    src_embed_messageembedder_d366613e -->|method| src_embed_messageembedder_encode_messages_909a2d7b
+    src_embed_messageembedder_encode_messages_909a2d7b -->|calls| src_embed_messageembedder_build_contextual_texts_682a8e1d
+    src_embed_messageembedder_encode_messages_909a2d7b -->|calls| src_embed_messageembedder_format_message_for_emb_f3066256
+    src_index_chatindex_init_7330f5e4 -->|calls| src_embed_messageembedder_d366613e
+    %% Omitted for readability: 1 nodes, 0 edges
+    class src_embed_messageembedder_d366613e klass;
+    class src_embed_messageembedder_encode_messages_909a2d7b function;
+    class src_embed_messageembedder_init_2b7c4212 function;
+    class src_embed_messageembedder_format_message_for_emb_f3066256 function;
+    class src_embed_messageembedder_build_contextual_texts_682a8e1d function;
+    class src_embed_messageembedder_encode_query_f3bfd53d function;
+    class src_embed_8b47bb13 module;
+    class src_embed_rationale_33_d1d9752b concept;
+    class src_embed_rationale_1_644bcd14 concept;
+    class src_embed_rationale_87_1d43996b concept;
+    class src_embed_rationale_75_99bc171c concept;
+    class src_embed_rationale_24_b820026a concept;
+    class src_embed_py_any_5b646d45 klass;
+    class src_index_py_any_39f97d92 klass;
+    class src_embed_py_ndarray_de6e8e65 function;
+    class src_index_py_ndarray_2fe9bad0 function;
+    class src_index_chatindex_init_7330f5e4 function;
+    class src_index_chatindex_dense_search_554755be function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br>+1 more</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>build_contextual_texts()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>encode_messages()</code><br><small style="color:var(--muted)">src/embed.py</small><br>+2 more</td>
+  <td>MessageEmbedder node in src/embed.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>.build_contextual_texts()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>encode_messages()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.build_contextual_texts() node in src/embed.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>.encode_messages()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><code>build_contextual_texts()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>format_message_for_embedding()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td>.encode_messages() node in src/embed.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>.encode_query()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.encode_query() node in src/embed.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>.format_message_for_embedding()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>encode_messages()</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.format_message_for_embedding() node in src/embed.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__init__() node in src/embed.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.dense_search()</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.dense_search() node in src/index.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td>.__init__() node in src/index.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>embed.py</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><code>datetime</code></td>
+  <td>Module file in src/embed.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Any node in project.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>ndarray</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ndarray node in project.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Any node in project.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>ndarray</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>ndarray node in project.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Embedding Pipeline for ChatRecall ================================= Provides…</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Embedding Pipeline for ChatRecall ================================= Provides….</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>Formats a chat message for vector encoding. Prepends sender name and clean text…</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Formats a chat message for vector encoding. Prepends sender name and clean text….</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>Builds thread-aware contextual texts for conversation messages. Includes…</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Builds thread-aware contextual texts for conversation messages. Includes….</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>Encodes a single natural language search query into a normalized vector.</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Encodes a single natural language search query into a normalized vector..</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>Encodes a list of chat message dictionaries into an (N, D) normalized numpy…</code><br><small style="color:var(--muted)">src/embed.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Encodes a list of chat message dictionaries into an (N, D) normalized numpy….</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>Performs blended cosine similarity search against candidates or the entire…</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Performs blended cosine similarity search against candidates or the entire….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/embed.py</code></td><td>12 nodes</td></tr>
+<tr><td><code>src/index.py</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x8, explains x6, method x5, calls x3. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 5. Tests & Fixtures ====== -->
+<h2 id="tests-fixtures">5. Tests &amp; Fixtures</h2>
+<p>Tests &amp; Fixtures groups implementation around test, tests, retrievepy, generatorpy, mostly in src/retrieve.py, tests/test_generator.py, web/app.py. This section covers 80 nodes and 145 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: Tests &amp; Fixtures (80 nodes, 145 edges)
+    subgraph tests_fixtures_src_retrieve_py_17f7c375["src/retrieve.py"]
+        src_retrieve_retrievalengine_17766aff("RetrievalEngine<br/><small>src/retrieve.py</small>")
+        src_retrieve_retrievalengine_init_eb533c24("__init__()<br/><small>src/retrieve.py</small>")
+        src_retrieve_queryplan_32cd9ce8("QueryPlan<br/><small>src/retrieve.py</small>")
+        src_retrieve_queryplan_init_6568c237("__init__()<br/><small>src/retrieve.py</small>")
+        src_retrieve_queryplan_repr_80ea114a("__repr__()<br/><small>src/retrieve.py</small>")
+        src_retrieve_queryrouter_c8f5816e("QueryRouter<br/><small>src/retrieve.py</small>")
+        src_retrieve_queryrouter_analyze_1d3b312e("analyze()<br/><small>src/retrieve.py</small>")
+    end
+    subgraph tests_fixtures_src_index_py_a9a1304b["src/index.py"]
+        src_index_chatindex_69d6c9f0("ChatIndex<br/><small>src/index.py</small>")
+        src_index_chatindex_lexical_search_1a6cbe43("lexical_search()<br/><small>src/index.py</small>")
+        src_index_chatindex_build_or_load_e10f3142("build_or_load()<br/><small>src/index.py</small>")
+    end
+    subgraph tests_fixtures_src_cli_py_0e66d820["src/cli.py"]
+        src_cli_d851751d("cli.py")
+        src_cli_main_5d3984b3("main()<br/><small>src/cli.py</small>")
+    end
+    subgraph tests_fixtures_src_context_py_a207a6de["src/context.py"]
+        src_context_threadcontextbuilder_7ddcb325("ThreadContextBuilder<br/><small>src/context.py</small>")
+        src_context_threadcontextbuilder_init_a27dfa40("__init__()<br/><small>src/context.py</small>")
+    end
+    subgraph tests_fixtures_web_app_py_5434584d["web/app.py"]
+        web_app_43677888("app.py")
+        web_app_reset_to_default_chat_efe1a37e("reset_to_default_chat()<br/><small>web/app.py</small>")
+    end
+    tests_test_parser_2daef370("test_parser.py")
+    tests_test_retrieval_ce1ac5e9("test_retrieval.py")
+    src_context_threadcontextbuilder_7ddcb325 -->|method| src_context_threadcontextbuilder_init_a27dfa40
+    src_index_chatindex_69d6c9f0 -->|method| src_index_chatindex_lexical_search_1a6cbe43
+    src_index_chatindex_69d6c9f0 -->|method| src_index_chatindex_build_or_load_e10f3142
+    src_retrieve_retrievalengine_17766aff -->|method| src_retrieve_retrievalengine_init_eb533c24
+    src_retrieve_queryplan_32cd9ce8 -->|method| src_retrieve_queryplan_init_6568c237
+    src_retrieve_queryplan_32cd9ce8 -->|method| src_retrieve_queryplan_repr_80ea114a
+    src_retrieve_queryrouter_c8f5816e -->|method| src_retrieve_queryrouter_analyze_1d3b312e
+    src_cli_main_5d3984b3 -->|calls| src_index_chatindex_build_or_load_e10f3142
+    src_cli_main_5d3984b3 -->|calls| src_retrieve_retrievalengine_17766aff
+    src_cli_main_5d3984b3 -->|calls| src_context_threadcontextbuilder_7ddcb325
+    src_retrieve_retrievalengine_init_eb533c24 -->|calls| src_retrieve_queryrouter_c8f5816e
+    web_app_reset_to_default_chat_efe1a37e -->|calls| src_index_chatindex_build_or_load_e10f3142
+    src_retrieve_queryrouter_analyze_1d3b312e -->|calls| src_retrieve_queryplan_32cd9ce8
+    src_cli_d851751d -->|imports| src_index_chatindex_69d6c9f0
+    src_cli_d851751d -->|imports| src_retrieve_retrievalengine_17766aff
+    src_cli_d851751d -->|imports| src_context_threadcontextbuilder_7ddcb325
+    tests_test_parser_2daef370 -->|imports| src_index_chatindex_69d6c9f0
+    tests_test_parser_2daef370 -->|imports| src_retrieve_retrievalengine_17766aff
+    web_app_43677888 -->|imports| src_index_chatindex_69d6c9f0
+    web_app_43677888 -->|imports| src_retrieve_retrievalengine_17766aff
+    web_app_43677888 -->|imports| src_context_threadcontextbuilder_7ddcb325
+    tests_test_retrieval_ce1ac5e9 -->|imports| src_index_chatindex_69d6c9f0
+    tests_test_retrieval_ce1ac5e9 -->|imports| src_retrieve_queryrouter_c8f5816e
+    tests_test_retrieval_ce1ac5e9 -->|imports| src_retrieve_retrievalengine_17766aff
+    %% Omitted for readability: 62 nodes, 6 edges
+    class src_retrieve_retrievalengine_17766aff klass;
+    class src_retrieve_retrievalengine_init_eb533c24 function;
+    class src_retrieve_queryplan_32cd9ce8 klass;
+    class src_retrieve_queryplan_init_6568c237 function;
+    class src_retrieve_queryplan_repr_80ea114a function;
+    class src_retrieve_queryrouter_c8f5816e api;
+    class src_retrieve_queryrouter_analyze_1d3b312e function;
+    class src_index_chatindex_69d6c9f0 klass;
+    class src_index_chatindex_lexical_search_1a6cbe43 function;
+    class src_index_chatindex_build_or_load_e10f3142 function;
+    class src_cli_d851751d entry;
+    class src_cli_main_5d3984b3 function;
+    class src_context_threadcontextbuilder_7ddcb325 klass;
+    class src_context_threadcontextbuilder_init_a27dfa40 function;
+    class web_app_43677888 module;
+    class web_app_reset_to_default_chat_efe1a37e function;
+    class tests_test_parser_2daef370 test;
+    class tests_test_retrieval_ce1ac5e9 test;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>display_results()</code><br><small style="color:var(--muted)">src/cli.py</small><br>+4 more</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">src/context.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>get_context_window()</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td>ThreadContextBuilder node in src/context.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br>+15 more</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>dense_search()</code><br><small style="color:var(--muted)">src/index.py</small><br>+2 more</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>engine()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small><br>+11 more</td>
+  <td><code>__init__()</code><br><small style="color:var(--muted)">src/retrieve.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>search()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td>RetrievalEngine node in src/retrieve.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>display_results()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td>display_results() node in src/cli.py.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>display_results()</code><br><small style="color:var(--muted)">src/cli.py</small><br>+2 more</td>
+  <td>main() node in src/cli.py.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.__init__() node in src/context.py.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>.build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>engine()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small><br><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small><br>+6 more</td>
+  <td><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small></td>
+  <td>.build_or_load() node in src/index.py.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>.lexical_search()</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.lexical_search() node in src/index.py.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>.__init__()</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td><code>QueryRouter</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td>.__init__() node in src/retrieve.py.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>test_txt_parser_and_search()</code><br><small style="color:var(--muted)">tests/test_parser.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small><br>+1 more</td>
+  <td>Verifies imports, entry points, or version behavior.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>engine()</code><br><small style="color:var(--muted)">tests/test_retrieval.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td>engine() node in tests/test_retrieval.py.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>api_search()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td>api_search() node in web/app.py.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>api_stats()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-endpoint">API</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td>api_stats() node in web/app.py.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>get_services()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>api_search()</code><br><small style="color:var(--muted)">web/app.py</small><br><code>api_stats()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
+  <td>get_services() node in web/app.py.</td>
+</tr>
+<tr>
+  <td>15</td>
+  <td><code>main()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>main() node in web/app.py.</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td><code>reset_to_default_chat()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td><code>serve_ui()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>serve_ui() node in web/app.py.</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td><code>upload_custom_chat()</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
+  <td>Supports retrieval-augmented Q&amp;A or streaming chat.</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td><code>get</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>get node in project.</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td><code>post</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>post node in project.</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><span class="tag tag-cmd">Entry</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br>+3 more</td>
+  <td>Module file in src/cli.py.</td>
+</tr>
+<tr>
+  <td>22</td>
+  <td><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>datetime</code><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td>Module file in src/context.py.</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small><br><code>cli.py</code><br><small style="color:var(--muted)">src/cli.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br>+5 more</td>
+  <td><code>datetime</code><br><code>embed.py</code><br><small style="color:var(--muted)">src/embed.py</small><br><code>MessageEmbedder</code><br><small style="color:var(--muted)">src/embed.py</small><br>+1 more</td>
+  <td>Module file in src/index.py.</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td><code>test_parser.py</code><br><small style="color:var(--muted)">tests/test_parser.py</small></td>
+  <td><span class="tag tag-func">Test</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br><code>parse_chat_txt()</code><br><small style="color:var(--muted)">src/parser.py</small><br>+4 more</td>
+  <td>Module file in tests/test_parser.py.</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td><code>fixture</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>fixture node in project.</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td><code>UploadFile</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>UploadFile node in project.</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td><code>app.py</code><br><small style="color:var(--muted)">web/app.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>context.py</code><br><small style="color:var(--muted)">src/context.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br>+5 more</td>
+  <td>Module file in web/app.py.</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><code>Interactive Terminal Interface for ChatRecall…</code><br><small style="color:var(--muted)">src/cli.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Interactive Terminal Interface for ChatRecall….</td>
+</tr>
+<tr>
+  <td>29</td>
+  <td><code>Thread Context Engine for ChatRecall ====================================…</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Thread Context Engine for ChatRecall ====================================….</td>
+</tr>
+<tr>
+  <td>30</td>
+  <td><code>Chat Indexer for ChatRecall =========================== Builds, caches, and…</code><br><small style="color:var(--muted)">src/index.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Chat Indexer for ChatRecall =========================== Builds, caches, and….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/retrieve.py</code></td><td>14 nodes</td></tr>
+<tr><td><code>tests/test_generator.py</code></td><td>12 nodes</td></tr>
+<tr><td><code>web/app.py</code></td><td>9 nodes</td></tr>
+<tr><td><code>src/index.py</code></td><td>7 nodes</td></tr>
+<tr><td><code>tests/test_hinglish_embed.py</code></td><td>6 nodes</td></tr>
+<tr><td><code>tests/test_retrieval.py</code></td><td>6 nodes</td></tr>
+<tr><td><code>data/generate_chat.py</code></td><td>5 nodes</td></tr>
+<tr><td><code>src/cli.py</code></td><td>4 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x31, calls x26, explains x20, uses x15. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 6. ChatRecall Tuning & Retrieval Evaluation Notes ====== -->
+<h2 id="chatrecall-tuning-retrieval-evaluation-notes">6. ChatRecall Tuning &amp; Retrieval Evaluation Notes</h2>
+<p>ChatRecall Tuning &amp; Retrieval Evaluation Notes groups implementation around tuning, notesmd, decision, resolution, mostly in tuning_notes.md. This section covers 14 nodes and 13 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: ChatRecall Tuning &amp; Retrieval Evaluation Notes (14 nodes, 13 edges)
+    tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11("ChatRecall Tuning &amp; Retrieval Evaluatio...<br/><small>tuning_notes.md</small>")
+    tuning_notes_3_architecture_retrieval_pipeline_i_43ab0e4a("3. Architecture &amp; Retrieval Pipeline Im...<br/><small>tuning_notes.md</small>")
+    tuning_notes_2_investigation_of_semantic_ranking_cdb2a4ef("2. Investigation of Semantic Ranking: C...<br/><small>tuning_notes.md</small>")
+    tuning_notes_4_decision_threshold_calibration_1281e6b8("4. Decision Threshold Calibration<br/><small>tuning_notes.md</small>")
+    tuning_notes_14deeeca("tuning_notes.md")
+    tuning_notes_problem_observed_1f3bb8bc("Problem Observed<br/><small>tuning_notes.md</small>")
+    tuning_notes_1_executive_summary_deliverable_met_436a9d8e("1. Executive Summary &amp; Deliverable Metrics<br/><small>tuning_notes.md</small>")
+    tuning_notes_5_zero_word_overlap_hard_question_e_fdd14cb1("5. Zero-Word-Overlap Hard Question Eval...<br/><small>tuning_notes.md</small>")
+    tuning_notes_a_contextual_dialogue_representatio_15ef27e2("A. Contextual Dialogue Representation<br/><small>tuning_notes.md</small>")
+    tuning_notes_b_blended_vector_scoring_af6f9f2a("B. Blended Vector Scoring<br/><small>tuning_notes.md</small>")
+    tuning_notes_c_hybrid_bm25_resolution_weighting_ff8b27aa("C. Hybrid BM25 &amp; Resolution Weighting<br/><small>tuning_notes.md</small>")
+    tuning_notes_quantitative_rationale_0bfd77eb("Quantitative Rationale:<br/><small>tuning_notes.md</small>")
+    tuning_notes_root_cause_analysis_phrasing_isolat_12356394("Root Cause Analysis &amp; Phrasing Isolation<br/><small>tuning_notes.md</small>")
+    tuning_notes_selected_cutoff_value_min_similarit_c9e7f7fb("Selected Cutoff Value: MIN_SIMILARITY_...<br/><small>tuning_notes.md</small>")
+    tuning_notes_14deeeca -->|contains| tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11
+    tuning_notes_2_investigation_of_semantic_ranking_cdb2a4ef -->|contains| tuning_notes_problem_observed_1f3bb8bc
+    tuning_notes_2_investigation_of_semantic_ranking_cdb2a4ef -->|contains| tuning_notes_root_cause_analysis_phrasing_isolat_12356394
+    tuning_notes_3_architecture_retrieval_pipeline_i_43ab0e4a -->|contains| tuning_notes_a_contextual_dialogue_representatio_15ef27e2
+    tuning_notes_3_architecture_retrieval_pipeline_i_43ab0e4a -->|contains| tuning_notes_b_blended_vector_scoring_af6f9f2a
+    tuning_notes_3_architecture_retrieval_pipeline_i_43ab0e4a -->|contains| tuning_notes_c_hybrid_bm25_resolution_weighting_ff8b27aa
+    tuning_notes_4_decision_threshold_calibration_1281e6b8 -->|contains| tuning_notes_selected_cutoff_value_min_similarit_c9e7f7fb
+    tuning_notes_4_decision_threshold_calibration_1281e6b8 -->|contains| tuning_notes_quantitative_rationale_0bfd77eb
+    tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11 -->|contains| tuning_notes_2_investigation_of_semantic_ranking_cdb2a4ef
+    tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11 -->|contains| tuning_notes_1_executive_summary_deliverable_met_436a9d8e
+    tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11 -->|contains| tuning_notes_3_architecture_retrieval_pipeline_i_43ab0e4a
+    tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11 -->|contains| tuning_notes_4_decision_threshold_calibration_1281e6b8
+    tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11 -->|contains| tuning_notes_5_zero_word_overlap_hard_question_e_fdd14cb1
+    class tuning_notes_chatrecall_tuning_retrieval_evaluat_f9be5e11 concept;
+    class tuning_notes_3_architecture_retrieval_pipeline_i_43ab0e4a concept;
+    class tuning_notes_2_investigation_of_semantic_ranking_cdb2a4ef concept;
+    class tuning_notes_4_decision_threshold_calibration_1281e6b8 concept;
+    class tuning_notes_14deeeca concept;
+    class tuning_notes_problem_observed_1f3bb8bc concept;
+    class tuning_notes_1_executive_summary_deliverable_met_436a9d8e concept;
+    class tuning_notes_5_zero_word_overlap_hard_question_e_fdd14cb1 concept;
+    class tuning_notes_a_contextual_dialogue_representatio_15ef27e2 concept;
+    class tuning_notes_b_blended_vector_scoring_af6f9f2a concept;
+    class tuning_notes_c_hybrid_bm25_resolution_weighting_ff8b27aa concept;
+    class tuning_notes_quantitative_rationale_0bfd77eb concept;
+    class tuning_notes_root_cause_analysis_phrasing_isolat_12356394 concept;
+    class tuning_notes_selected_cutoff_value_min_similarit_c9e7f7fb concept;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>tuning_notes.md</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing tuning_notes.md.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>1. Executive Summary &amp; Deliverable Metrics</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 1. Executive Summary &amp; Deliverable Metrics.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>2. Investigation of Semantic Ranking: Chatter vs. Decision Resolution</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 2. Investigation of Semantic Ranking: Chatter vs. Decision Resolution.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>3. Architecture &amp; Retrieval Pipeline Improvements</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 3. Architecture &amp; Retrieval Pipeline Improvements.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>4. Decision Threshold Calibration</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 4. Decision Threshold Calibration.</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>5. Zero-Word-Overlap Hard Question Evaluation</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing 5. Zero-Word-Overlap Hard Question Evaluation.</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>A. Contextual Dialogue Representation</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing A. Contextual Dialogue Representation.</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td><code>B. Blended Vector Scoring</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing B. Blended Vector Scoring.</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td><code>C. Hybrid BM25 &amp; Resolution Weighting</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing C. Hybrid BM25 &amp; Resolution Weighting.</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td><code>ChatRecall Tuning &amp; Retrieval Evaluation Notes</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing ChatRecall Tuning &amp; Retrieval Evaluation Notes.</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td><code>Problem Observed</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Problem Observed.</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td><code>Quantitative Rationale:</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Quantitative Rationale:.</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td><code>Root Cause Analysis &amp; Phrasing Isolation</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Root Cause Analysis &amp; Phrasing Isolation.</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td><code>Selected Cutoff Value: `MIN_SIMILARITY_THRESHOLD = 0.28`</code><br><small style="color:var(--muted)">tuning_notes.md</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Documentation node describing Selected Cutoff Value: `MIN_SIMILARITY_THRESHOLD = 0.28`.</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>tuning_notes.md</code></td><td>14 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x13. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 7. run_demo_eval.py ====== -->
+<h2 id="run-demo-eval-py">7. run_demo_eval.py</h2>
+<p>run_demo_eval.py groups implementation around run, demo, evalpy, eval, mostly in eval/run_demo_eval.py. This section covers 5 nodes and 6 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: run_demo_eval.py (5 nodes, 6 edges)
+    subgraph run_demo_eval_py_eval_run_demo_eval_py_551d75db["eval/run_demo_eval.py"]
+        eval_run_demo_eval_run_demo_benchmark_62316362("run_demo_benchmark()<br/><small>eval/run_demo_eval.py</small>")
+        eval_run_demo_eval_compute_metrics_ed5d178b("compute_metrics()<br/><small>eval/run_demo_eval.py</small>")
+        eval_run_demo_eval_c1348d25("run_demo_eval.py")
+        eval_run_demo_eval_rationale_1_653022f6("Evaluation Runner for sample_chat.txt a...<br/><small>eval/run_demo_eval.py</small>")
+    end
+    eval_run_demo_eval_py_any_6ab11b1f("Any")
+    eval_run_demo_eval_run_demo_benchmark_62316362 -->|calls| eval_run_demo_eval_compute_metrics_ed5d178b
+    class eval_run_demo_eval_run_demo_benchmark_62316362 function;
+    class eval_run_demo_eval_compute_metrics_ed5d178b function;
+    class eval_run_demo_eval_c1348d25 module;
+    class eval_run_demo_eval_rationale_1_653022f6 concept;
+    class eval_run_demo_eval_py_any_6ab11b1f klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>compute_metrics()</code><br><small style="color:var(--muted)">eval/run_demo_eval.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>run_demo_benchmark()</code><br><small style="color:var(--muted)">eval/run_demo_eval.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>compute_metrics() node in eval/run_demo_eval.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>run_demo_benchmark()</code><br><small style="color:var(--muted)">eval/run_demo_eval.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>build_or_load()</code><br><small style="color:var(--muted)">src/index.py</small><br><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>compute_metrics()</code><br><small style="color:var(--muted)">eval/run_demo_eval.py</small><br>+1 more</td>
+  <td>run_demo_benchmark() node in eval/run_demo_eval.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>run_demo_eval.py</code><br><small style="color:var(--muted)">eval/run_demo_eval.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td><code>ChatIndex</code><br><small style="color:var(--muted)">src/index.py</small><br><code>index.py</code><br><small style="color:var(--muted)">src/index.py</small><br><code>RetrievalEngine</code><br><small style="color:var(--muted)">src/retrieve.py</small><br>+1 more</td>
+  <td>Module file in eval/run_demo_eval.py.</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Any node in project.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>Evaluation Runner for sample_chat.txt and questions.json…</code><br><small style="color:var(--muted)">eval/run_demo_eval.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Evaluation Runner for sample_chat.txt and questions.json….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>eval/run_demo_eval.py</code></td><td>4 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x2, contains x2, calls x1, explains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
   </div>
 </div>
 <hr>
@@ -1871,8 +1695,166 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 9. rules/graphify.md ====== -->
-<h2 id="rules-graphify-md">9. rules/graphify.md</h2>
+<!-- ====== 9. generate_demo_chat.py ====== -->
+<h2 id="generate-demo-chat-py">9. generate_demo_chat.py</h2>
+<p>generate_demo_chat.py groups implementation around demo, generate, chatpy, words, mostly in generate_demo_chat.py. This section covers 3 nodes and 2 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: generate_demo_chat.py (3 nodes, 2 edges)
+    generate_demo_chat_rationale_1_2f2317b1("Sample synthetic group chat generator (...<br/><small>generate_demo_chat.py</small>")
+    generate_demo_chat_84f99f52("generate_demo_chat.py")
+    generate_demo_chat_words_e5ef95b8("words()<br/><small>generate_demo_chat.py</small>")
+    generate_demo_chat_84f99f52 -->|contains| generate_demo_chat_words_e5ef95b8
+    generate_demo_chat_rationale_1_2f2317b1 -->|explains| generate_demo_chat_84f99f52
+    class generate_demo_chat_rationale_1_2f2317b1 concept;
+    class generate_demo_chat_84f99f52 module;
+    class generate_demo_chat_words_e5ef95b8 function;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>words()</code><br><small style="color:var(--muted)">generate_demo_chat.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>words() node in generate_demo_chat.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>generate_demo_chat.py</code><br><small style="color:var(--muted)">generate_demo_chat.py</small></td>
+  <td><span class="tag tag-class">Module</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Module file in generate_demo_chat.py.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Sample synthetic group chat generator (scaled-down demo version). Produces: -…</code><br><small style="color:var(--muted)">generate_demo_chat.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Sample synthetic group chat generator (scaled-down demo version). Produces: -….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>generate_demo_chat.py</code></td><td>3 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: contains x1, explains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 10. .get_context_window ====== -->
+<h2 id="get-context-window">10. .get_context_window</h2>
+<p>.get_context_window groups implementation around contextpy, get, context, window, mostly in src/context.py. This section covers 3 nodes and 2 internal edges; the diagram shows only representative relationships to stay readable.</p>
+
+<div class="mermaid">
+%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
+flowchart LR
+    %% Section: .get_context_window (3 nodes, 2 edges)
+    subgraph get_context_window_src_context_py_f64eb149["src/context.py"]
+        src_context_rationale_25_34422d63("Extracts surrounding conversational mes...<br/><small>src/context.py</small>")
+        src_context_threadcontextbuilder_get_context_win_6025a1ef("get_context_window()<br/><small>src/context.py</small>")
+    end
+    src_context_py_any_3f5ccfe3("Any")
+    src_context_threadcontextbuilder_get_context_win_6025a1ef -->|references| src_context_py_any_3f5ccfe3
+    src_context_rationale_25_34422d63 -->|explains| src_context_threadcontextbuilder_get_context_win_6025a1ef
+    class src_context_rationale_25_34422d63 concept;
+    class src_context_threadcontextbuilder_get_context_win_6025a1ef function;
+    class src_context_py_any_3f5ccfe3 klass;
+    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
+    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
+    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
+    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
+    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
+    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
+    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
+    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
+    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
+</div>
+
+<h3>Call Details</h3>
+<table class="call-table">
+<tr>
+  <th style="width:5%">#</th>
+  <th style="width:28%">Node</th>
+  <th style="width:10%">Type</th>
+  <th style="width:17%">Caller</th>
+  <th style="width:20%">Callees</th>
+  <th style="width:20%">Description</th>
+</tr>
+<tr>
+  <td>1</td>
+  <td><code>.get_context_window()</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><span class="tag tag-func">Function</span></td>
+  <td><code>ThreadContextBuilder</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td>No direct outbound edge</td>
+  <td>.get_context_window() node in src/context.py.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>Any</code><br><small style="color:var(--muted)"></small></td>
+  <td><span class="tag tag-class">Class</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Any node in project.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>Extracts surrounding conversational messages around target index `msg_idx`. If…</code><br><small style="color:var(--muted)">src/context.py</small></td>
+  <td><span class="tag tag-func">Concept</span></td>
+  <td>External entry / no inbound edge</td>
+  <td>No direct outbound edge</td>
+  <td>Design note for Extracts surrounding conversational messages around target index `msg_idx`. If….</td>
+</tr>
+</table>
+
+<div class="grid">
+  <div class="card">
+    <h4>Key Files</h4>
+    <table style="width:100%;font-size:0.85rem;">
+      <tr><th>File</th><th>Coverage</th></tr>
+      <tr><td><code>src/context.py</code></td><td>2 nodes</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h4>Design Notes</h4>
+    <p>This section comes from graphify community clustering. Relationship summary: references x1, explains x1. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
+  </div>
+</div>
+<hr>
+
+<!-- ====== 11. rules/graphify.md ====== -->
+<h2 id="rules-graphify-md">11. rules/graphify.md</h2>
 <p>rules/graphify.md groups implementation around rules, graphifymd, agents, graphify, mostly in .agents/rules/graphify.md. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -1938,8 +1920,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 10. workflows/graphify.md ====== -->
-<h2 id="workflows-graphify-md">10. workflows/graphify.md</h2>
+<!-- ====== 12. workflows/graphify.md ====== -->
+<h2 id="workflows-graphify-md">12. workflows/graphify.md</h2>
 <p>workflows/graphify.md groups implementation around workflows, graphifymd, agents, workflow, mostly in .agents/workflows/graphify.md. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2005,8 +1987,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 11. src/__init__.py ====== -->
-<h2 id="src-init-py">11. src/__init__.py</h2>
+<!-- ====== 13. src/__init__.py ====== -->
+<h2 id="src-init-py">13. src/__init__.py</h2>
 <p>src/__init__.py groups implementation around chatrecall, semantic, retrieval, over, mostly in src/__init__.py. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2072,8 +2054,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 12. web/__init__.py ====== -->
-<h2 id="web-init-py">12. web/__init__.py</h2>
+<!-- ====== 14. web/__init__.py ====== -->
+<h2 id="web-init-py">14. web/__init__.py</h2>
 <p>web/__init__.py groups implementation around web, application, package, chatrecall, mostly in web/__init__.py. This section covers 2 nodes and 1 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2139,8 +2121,8 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 13. data/__init__.py ====== -->
-<h2 id="data-init-py">13. data/__init__.py</h2>
+<!-- ====== 15. data/__init__.py ====== -->
+<h2 id="data-init-py">15. data/__init__.py</h2>
 <p>data/__init__.py groups implementation around data, mostly in data/__init__.py. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
 
 <div class="mermaid">
@@ -2195,80 +2177,24 @@ flowchart LR
 </div>
 <hr>
 
-<!-- ====== 14. ndarray ====== -->
-<h2 id="ndarray">14. ndarray</h2>
-<p>ndarray groups implementation around ndarray, mostly in unmapped files. This section covers 1 nodes and 0 internal edges; the diagram shows only representative relationships to stay readable.</p>
-
-<div class="mermaid">
-%%{init: {"theme": "dark", "themeVariables": {"fontSize": "15.0px", "fontFamily": "Segoe UI, system-ui, sans-serif", "primaryColor": "#1e293b", "primaryTextColor": "#e2e8f0", "primaryBorderColor": "#38bdf8", "secondaryColor": "#0f172a", "tertiaryColor": "#334155", "lineColor": "#64748b", "textColor": "#e2e8f0"}, "flowchart": {"htmlLabels": true, "curve": "basis", "nodeSpacing": 48, "rankSpacing": 64, "padding": 14, "diagramPadding": 10, "useMaxWidth": true}}}%%
-flowchart LR
-    %% Section: ndarray (1 nodes, 0 edges)
-    src_index_py_ndarray_2fe9bad0("ndarray")
-    class src_index_py_ndarray_2fe9bad0 function;
-    classDef entry fill:#422006,stroke:#fbbf24,color:#fde68a,stroke-width:1px;
-    classDef api fill:#450a0a,stroke:#f87171,color:#fee2e2,stroke-width:1px;
-    classDef async fill:#2e1065,stroke:#a78bfa,color:#ede9fe,stroke-width:1px;
-    classDef klass fill:#064e3b,stroke:#34d399,color:#d1fae5,stroke-width:1px;
-    classDef ui fill:#831843,stroke:#f472b6,color:#fce7f3,stroke-width:1px;
-    classDef module fill:#172554,stroke:#60a5fa,color:#dbeafe,stroke-width:1px;
-    classDef test fill:#3f3f46,stroke:#a1a1aa,color:#f4f4f5,stroke-width:1px;
-    classDef concept fill:#292524,stroke:#a8a29e,color:#fafaf9,stroke-dasharray:4 3;
-    classDef function fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,stroke-width:1px;
-</div>
-
-<h3>Call Details</h3>
-<table class="call-table">
-<tr>
-  <th style="width:5%">#</th>
-  <th style="width:28%">Node</th>
-  <th style="width:10%">Type</th>
-  <th style="width:17%">Caller</th>
-  <th style="width:20%">Callees</th>
-  <th style="width:20%">Description</th>
-</tr>
-<tr>
-  <td>1</td>
-  <td><code>ndarray</code><br><small style="color:var(--muted)"></small></td>
-  <td><span class="tag tag-func">Function</span></td>
-  <td>External entry / no inbound edge</td>
-  <td>No direct outbound edge</td>
-  <td>ndarray node in project.</td>
-</tr>
-</table>
-
-<div class="grid">
-  <div class="card">
-    <h4>Key Files</h4>
-    <table style="width:100%;font-size:0.85rem;">
-      <tr><th>File</th><th>Coverage</th></tr>
-      <tr><td colspan="2">No source file mapping</td></tr>
-    </table>
-  </div>
-  <div class="card">
-    <h4>Design Notes</h4>
-    <p>This section comes from graphify community clustering. Relationship summary: No high-confidence call edges detected. The diagram prioritizes high-confidence calls or usage relationships; the table keeps the broader node inventory.</p>
-  </div>
-</div>
-<hr>
-
 <h2 id="stats">Project Statistics</h2>
 
 <div class="grid">
   <div class="card">
     <h4>Graph</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>Nodes</td><td>156</td></tr>
-      <tr><td>Edges</td><td>237</td></tr>
+      <tr><td>Nodes</td><td>184</td></tr>
+      <tr><td>Edges</td><td>292</td></tr>
       <tr><td>Hyperedges</td><td>0</td></tr>
       <tr><td>Communities</td><td>19</td></tr>
-      <tr><td>Documented Sections</td><td>13</td></tr>
+      <tr><td>Documented Sections</td><td>14</td></tr>
     </table>
   </div>
   <div class="card">
     <h4>Edge Confidence</h4>
     <table style="width:100%;font-size:0.85rem;">
-      <tr><td>EXTRACTED</td><td>225</td></tr>
-      <tr><td>INFERRED</td><td>12</td></tr>
+      <tr><td>EXTRACTED</td><td>271</td></tr>
+      <tr><td>INFERRED</td><td>21</td></tr>
       <tr><td>AMBIGUOUS</td><td>0</td></tr>
     </table>
   </div>
@@ -2276,7 +2202,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>Group Chat Search — Architecture Documentation</p>
-  <p>Generated: 2026-09-12 06:23 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-09-12 06:50 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

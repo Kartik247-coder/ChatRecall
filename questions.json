@@ -1,0 +1,127 @@
+[
+  {
+    "id": "q1",
+    "query": "where did we decide to go for the trip",
+    "answer_id": 21,
+    "type": "semantic"
+  },
+  {
+    "id": "q2",
+    "query": "how much is the resort per night",
+    "answer_id": 10,
+    "type": "semantic"
+  },
+  {
+    "id": "q3",
+    "query": "what did Kabir say about the resort rooms",
+    "answer_id": 62,
+    "type": "person"
+  },
+  {
+    "id": "q4",
+    "query": "what did Meera say about flight tickets",
+    "answer_id": 78,
+    "type": "person"
+  },
+  {
+    "id": "q5",
+    "query": "what did Sana say about the payment deadline",
+    "answer_id": 52,
+    "type": "person"
+  },
+  {
+    "id": "q6",
+    "query": "what did we discuss in early March",
+    "answer_id": 21,
+    "type": "time"
+  },
+  {
+    "id": "q7",
+    "query": "what happened in the chat during the third week of May",
+    "answer_id": 88,
+    "type": "time"
+  },
+  {
+    "id": "q8",
+    "query": "who is bringing a power bank",
+    "answer_id": 89,
+    "type": "semantic"
+  },
+  {
+    "id": "q9",
+    "query": "are pets allowed at the resort",
+    "answer_id": 86,
+    "type": "semantic"
+  },
+  {
+    "id": "q10",
+    "query": "who is rooming with Aarav",
+    "answer_id": 66,
+    "type": "semantic"
+  },
+  {
+    "id": "q11",
+    "query": "did we book a bonfire night",
+    "answer_id": 71,
+    "type": "semantic"
+  },
+  {
+    "id": "q12",
+    "query": "what is the budget per person for travel and stay",
+    "answer_id": 37,
+    "type": "semantic"
+  },
+  {
+    "id": "q13",
+    "query": "what app are we using to track trip expenses",
+    "answer_id": 107,
+    "type": "semantic"
+  },
+  {
+    "id": "q14",
+    "query": "did everyone pay on time",
+    "answer_id": 53,
+    "type": "semantic"
+  },
+  {
+    "id": "q15",
+    "query": "what did Priya say about packing",
+    "answer_id": 51,
+    "type": "person"
+  },
+  {
+    "id": "q16",
+    "query": "was the destination ever finalized",
+    "answer_id": 21,
+    "type": "semantic_hard",
+    "note": "answer text: 'haan chalo Manali fix hai, first week of June' shares no words with the query"
+  },
+  {
+    "id": "q17",
+    "query": "did anyone suggest turning this into a work trip",
+    "answer_id": 55,
+    "type": "semantic_hard",
+    "note": "answer text: 'random thought, what if we make it a workation instead, i have deadlines that week' shares no words with the query"
+  },
+  {
+    "id": "q18",
+    "query": "how are they splitting up the sleeping arrangements",
+    "answer_id": 64,
+    "type": "semantic_hard",
+    "note": "answer text: 'girls one room, we'll sort the guys rooms' shares no words with the query"
+  },
+  {
+    "id": "q19",
+    "query": "why did they choose air travel over the train",
+    "answer_id": 75,
+    "type": "semantic_hard",
+    "note": "answer text: 'let's fly, time saved is worth it for a short trip' shares no words with the query"
+  },
+  {
+    "id": "q20",
+    "query": "is there a rule against bringing animals to the property",
+    "answer_id": 86,
+    "type": "semantic_hard",
+    "note": "answer text: 'no pets allowed unfortunately' shares no words with the query"
+  }
+]

@@ -2,13 +2,14 @@
 Chat Indexer for ChatRecall
 ===========================
 Builds, caches, and loads:
-1. Dense semantic vector index (normalized numpy matrix for instantaneous dot-product search)
+1. Dense semantic vector index (direct and contextual normalized matrices for dot-product search)
 2. Inverted sender and chronological timestamp indices for ultra-fast filtering
 3. BM25 keyword index for lexical comparison and hybrid retrieval.
 """
 
 import os
 import json
+import re
 import numpy as np
 from datetime import datetime
 from typing import List, Dict, Any, Optional, Tuple
@@ -17,7 +18,7 @@ from src.embed import MessageEmbedder
 
 CHAT_DATA_PATH = "data/chat.json"
 EMBEDDINGS_PATH = "data/embeddings.npy"
-METADATA_INDEX_PATH = "data/index_meta.json"
+CONTEXT_EMBEDDINGS_PATH = "data/context_embeddings.npy"
 
 
 class ChatIndex:
@@ -25,13 +26,15 @@ class ChatIndex:
         self,
         messages: List[Dict[str, Any]],
         embeddings: np.ndarray,
+        context_embeddings: Optional[np.ndarray] = None,
         embedder: Optional[MessageEmbedder] = None
     ):
         self.messages = messages
         self.embeddings = embeddings  # (N, D) normalized float32
+        self.context_embeddings = context_embeddings if context_embeddings is not None else embeddings
         self.embedder = embedder or MessageEmbedder()
-        self.id_to_idx: Dict[str, int] = {m["id"]: i for i, m in enumerate(messages)}
-        
+        self.id_to_idx: Dict[str, int] = {str(m["id"]): i for i, m in enumerate(messages)}
+
         # Build sender inverted index (lowercase sender & aliases)
         self.sender_index: Dict[str, List[int]] = {}
         # Pre-parse timestamps for fast date range filtering
@@ -41,17 +44,21 @@ class ChatIndex:
         tokenized_corpus = []
 
         for idx, msg in enumerate(messages):
-            sender_lower = msg["sender"].lower()
+            sender_lower = msg["sender"].lower().strip()
             self.sender_index.setdefault(sender_lower, []).append(idx)
-            
+
             # Map first name / aliases
             first_name = sender_lower.split()[0]
-            self.sender_index.setdefault(first_name, []).append(idx)
-            
-            dt = datetime.strptime(msg["timestamp"], "%Y-%m-%d %H:%M:%S")
+            if first_name not in self.sender_index:
+                self.sender_index[first_name] = self.sender_index[sender_lower]
+
+            try:
+                dt = datetime.strptime(msg["timestamp"], "%Y-%m-%d %H:%M:%S")
+            except Exception:
+                dt = datetime.now()
             self.timestamps.append(dt)
 
-            tokens = msg["message"].lower().split()
+            tokens = re.findall(r"\b\w+\b", f"{msg['sender']} {msg['message']}".lower())
             tokenized_corpus.append(tokens)
 
         self.bm25 = BM25Okapi(tokenized_corpus)
@@ -72,55 +79,77 @@ class ChatIndex:
         # If user passed a .txt file, parse it using Text Chat Parser
         if chat_path.endswith(".txt"):
             from src.parser import parse_chat_txt
-            print(f"Parsing raw text chat export from {chat_path}...")
             messages = parse_chat_txt(chat_path)
-            # Custom embeddings file per text file
             base_name = os.path.splitext(os.path.basename(chat_path))[0]
             embeddings_path = f"data/{base_name}_embeddings.npy"
-            force_rebuild = True
+            ctx_embeddings_path = f"data/{base_name}_context_embeddings.npy"
         else:
             with open(chat_path, "r", encoding="utf-8") as f:
                 messages = json.load(f)
+            ctx_embeddings_path = CONTEXT_EMBEDDINGS_PATH
 
         embedder = MessageEmbedder()
 
+        # Build / load direct embeddings
         if os.path.exists(embeddings_path) and not force_rebuild:
-            print(f"Loading cached vector embeddings from {embeddings_path}...")
             embeddings = np.load(embeddings_path)
             if len(embeddings) != len(messages):
-                print("Warning: Cached embeddings count does not match messages. Rebuilding...")
-                embeddings = embedder.encode_messages(messages)
+                embeddings = embedder.encode_messages(messages, use_context=False)
                 np.save(embeddings_path, embeddings)
         else:
-            print(f"Building vector embeddings for {len(messages)} messages...")
-            embeddings = embedder.encode_messages(messages)
+            embeddings = embedder.encode_messages(messages, use_context=False)
             os.makedirs(os.path.dirname(embeddings_path), exist_ok=True)
             np.save(embeddings_path, embeddings)
-            print(f"Saved embeddings to {embeddings_path}")
 
-        return cls(messages=messages, embeddings=embeddings, embedder=embedder)
+        # Build / load contextual embeddings
+        if os.path.exists(ctx_embeddings_path) and not force_rebuild:
+            context_embeddings = np.load(ctx_embeddings_path)
+            if len(context_embeddings) != len(messages):
+                context_embeddings = embedder.encode_messages(messages, use_context=True)
+                np.save(ctx_embeddings_path, context_embeddings)
+        else:
+            context_embeddings = embedder.encode_messages(messages, use_context=True)
+            os.makedirs(os.path.dirname(ctx_embeddings_path), exist_ok=True)
+            np.save(ctx_embeddings_path, context_embeddings)
+
+        return cls(
+            messages=messages,
+            embeddings=embeddings,
+            context_embeddings=context_embeddings,
+            embedder=embedder
+        )
 
     def dense_search(
         self,
         query_vector: np.ndarray,
+        context_query_vector: Optional[np.ndarray] = None,
         candidate_indices: Optional[List[int]] = None,
         top_k: int = 10
-    ) -> List[Tuple[int, float]]:
+    ) -> List[Tuple[int, float, float]]:
         """
-        Performs cosine similarity search against candidates or the entire corpus.
-        Returns list of (msg_idx, score).
+        Performs blended cosine similarity search against candidates or the entire corpus.
+        Returns list of (msg_idx, blended_score, raw_direct_sim).
         """
+        if context_query_vector is None:
+            context_query_vector = query_vector
+
         if candidate_indices is not None:
             if not candidate_indices:
                 return []
             sub_emb = self.embeddings[candidate_indices]
-            scores = np.dot(sub_emb, query_vector)
-            top_local = np.argsort(-scores)[:top_k]
-            return [(candidate_indices[i], float(scores[i])) for i in top_local]
+            sub_ctx = self.context_embeddings[candidate_indices]
+            direct_scores = np.dot(sub_emb, query_vector)
+            ctx_scores = np.dot(sub_ctx, context_query_vector)
+
+            blended = 0.45 * direct_scores + 0.55 * ctx_scores
+            top_local = np.argsort(-blended)[:top_k]
+            return [(candidate_indices[i], float(blended[i]), float(direct_scores[i])) for i in top_local]
         else:
-            scores = np.dot(self.embeddings, query_vector)
-            top_indices = np.argsort(-scores)[:top_k]
-            return [(int(i), float(scores[i])) for i in top_indices]
+            direct_scores = np.dot(self.embeddings, query_vector)
+            ctx_scores = np.dot(self.context_embeddings, context_query_vector)
+            blended = 0.45 * direct_scores + 0.55 * ctx_scores
+            top_indices = np.argsort(-blended)[:top_k]
+            return [(int(i), float(blended[i]), float(direct_scores[i])) for i in top_indices]
 
     def lexical_search(
         self,
@@ -131,7 +160,7 @@ class ChatIndex:
         """
         Performs BM25 keyword search.
         """
-        tokens = query.lower().split()
+        tokens = re.findall(r"\b\w+\b", query.lower())
         raw_scores = self.bm25.get_scores(tokens)
         if candidate_indices is not None:
             candidate_set = set(candidate_indices)
@@ -141,13 +170,3 @@ class ChatIndex:
         else:
             top_indices = np.argsort(-raw_scores)[:top_k]
             return [(int(i), float(raw_scores[i])) for i in top_indices]
-
-
-def main():
-    print("Building / loading ChatRecall index...")
-    index = ChatIndex.build_or_load()
-    print(f"✓ Index ready with {len(index.messages)} messages and {index.embeddings.shape} embedding matrix.")
-
-
-if __name__ == "__main__":
-    main()

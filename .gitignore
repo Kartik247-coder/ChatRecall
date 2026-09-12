@@ -21,6 +21,7 @@ Thumbs.db
 *.bin
 *.pt
 *.safetensors
+*.npy
 .cache/
 data/tmp*
 data/sample_*

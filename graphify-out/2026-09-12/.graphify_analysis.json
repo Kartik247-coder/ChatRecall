@@ -243,13 +243,8 @@
       "degree": 7
     },
     {
-      "id": "readme_chatrecall",
-      "label": "ChatRecall \ud83d\udcac\ud83d\udd0d",
-      "degree": 7
-    },
-    {
-      "id": "eval_results_evaluation_report_chatrecall_semantic_retrieval_performance",
-      "label": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
+      "id": "web_app_upload_custom_chat",
+      "label": "upload_custom_chat()",
       "degree": 7
     },
     {
@@ -258,8 +253,13 @@
       "degree": 7
     },
     {
-      "id": "web_app_upload_custom_chat",
-      "label": "upload_custom_chat()",
+      "id": "readme_chatrecall",
+      "label": "ChatRecall 💬🔍",
+      "degree": 7
+    },
+    {
+      "id": "eval_results_evaluation_report_chatrecall_semantic_retrieval_performance",
+      "label": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
       "degree": 7
     },
     {
@@ -281,39 +281,6 @@
       "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
     },
     {
-      "source": "reset_to_default_chat()",
-      "target": "ThreadContextBuilder",
-      "source_files": [
-        "web/app.py",
-        "src/context.py"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "upload_custom_chat()",
-      "target": "ThreadContextBuilder",
-      "source_files": [
-        "web/app.py",
-        "src/context.py"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "connects across different repos/directories; bridges separate communities"
-    },
-    {
-      "source": "test_query_router_intent_classification()",
-      "target": "StrategyType",
-      "source_files": [
-        "tests/test_retrieval.py",
-        "src/retrieve.py"
-      ],
-      "confidence": "INFERRED",
-      "relation": "uses",
-      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
-    },
-    {
       "source": "engine()",
       "target": "RetrievalEngine",
       "source_files": [
@@ -323,10 +290,71 @@
       "confidence": "INFERRED",
       "relation": "uses",
       "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "get_services()",
+      "target": "RetrievalEngine",
+      "source_files": [
+        "web/app.py",
+        "src/retrieve.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "run_benchmark()",
+      "target": "ChatIndex",
+      "source_files": [
+        "eval/run_eval.py",
+        "src/index.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "test_txt_parser_and_search()",
+      "target": "ChatIndex",
+      "source_files": [
+        "tests/test_parser.py",
+        "src/index.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
     }
   ],
-  "tokens": {
-    "input": 0,
-    "output": 0
-  }
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `ChatIndex` connect `ChatIndex` to `.__init__`, `retrieve.py`, `app.py`, `index.py`?",
+      "why": "High betweenness centrality (0.135) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `generate_synthetic_chat()` connect `generate_synthetic_chat` to `retrieve.py`?",
+      "why": "High betweenness centrality (0.063) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 9 inferred relationships involving `ChatIndex` (e.g. with `run_benchmark()` and `main()`) actually correct?",
+      "why": "`ChatIndex` has 9 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `RetrievalEngine` (e.g. with `ChatIndex` and `engine()`) actually correct?",
+      "why": "`RetrievalEngine` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `graphify`, `Workflow: graphify`, `1. Installation` to the rest of the system?",
+      "why": "19 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `ChatIndex` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11397849462365592 - nodes in this community are weakly interconnected."
+    }
+  ]
 }
