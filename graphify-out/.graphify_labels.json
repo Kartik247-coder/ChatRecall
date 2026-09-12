@@ -1,19 +1,20 @@
 {
-  "0": "ChatIndex",
+  "0": "ThreadContextBuilder",
   "1": "generate_synthetic_chat",
-  "2": "MessageEmbedder",
+  "2": "index.py",
   "3": "retrieve.py",
   "4": "ChatRecall 💬🔍",
-  "5": "RetrievalEngine",
+  "5": "ChatIndex",
   "6": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
   "7": "test_hinglish_embed.py",
   "8": "generate_queries.py",
-  "9": ".get_context_window",
+  "9": "app.py",
   "10": "rules/graphify.md",
   "11": "workflows/graphify.md",
   "12": "src/__init__.py",
   "13": "web/__init__.py",
   "14": "data/__init__.py",
   "15": "tests/__init__.py",
-  "16": "index.py"
+  "16": "parse_chat_txt",
+  "17": ".search"
 }

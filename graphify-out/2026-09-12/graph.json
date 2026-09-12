@@ -131,18 +131,6 @@
       "source_location": "L15"
     },
     {
-      "id": "src_index_chatindex_build_or_load",
-      "label": ".build_or_load()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": ".build_or_load()",
-      "source_file": "src/index.py",
-      "source_location": "L60"
-    },
-    {
       "id": "src_index_chatindex_lexical_search",
       "label": ".lexical_search()",
       "_callable": true,
@@ -152,19 +140,7 @@
       "file_type": "code",
       "norm_label": ".lexical_search()",
       "source_file": "src/index.py",
-      "source_location": "L115"
-    },
-    {
-      "id": "src_index_main",
-      "label": "main()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": "main()",
-      "source_file": "src/index.py",
-      "source_location": "L136"
+      "source_location": "L125"
     },
     {
       "id": "web_app_api_search",
@@ -323,6 +299,78 @@
       "source_location": "L22"
     },
     {
+      "id": "src_index_chatindex_build_or_load",
+      "label": ".build_or_load()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": ".build_or_load()",
+      "source_file": "src/index.py",
+      "source_location": "L60"
+    },
+    {
+      "id": "src_index_main",
+      "label": "main()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "main()",
+      "source_file": "src/index.py",
+      "source_location": "L146"
+    },
+    {
+      "id": "src_parser_load_custom_txt_to_json",
+      "label": "load_custom_txt_to_json()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "load_custom_txt_to_json()",
+      "source_file": "src/parser.py",
+      "source_location": "L124"
+    },
+    {
+      "id": "src_parser_parse_chat_txt",
+      "label": "parse_chat_txt()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "parse_chat_txt()",
+      "source_file": "src/parser.py",
+      "source_location": "L55"
+    },
+    {
+      "id": "src_parser_parse_timestamp",
+      "label": "parse_timestamp()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "parse_timestamp()",
+      "source_file": "src/parser.py",
+      "source_location": "L30"
+    },
+    {
+      "id": "tests_test_parser_test_txt_parser_and_search",
+      "label": "test_txt_parser_and_search()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "test_txt_parser_and_search()",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L20"
+    },
+    {
       "id": "src_embed_messageembedder_encode_messages",
       "label": ".encode_messages()",
       "_callable": true,
@@ -380,7 +428,7 @@
       "file_type": "code",
       "norm_label": ".dense_search()",
       "source_file": "src/index.py",
-      "source_location": "L93"
+      "source_location": "L103"
     },
     {
       "id": "src_index_chatindex_init",
@@ -644,17 +692,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_index",
-      "label": "index.py",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": "index.py",
-      "source_file": "src/index.py",
-      "source_location": "L1"
-    },
-    {
       "id": "web_app",
       "label": "app.py",
       "_origin": "ast",
@@ -688,18 +725,7 @@
       "source_location": "L1"
     },
     {
-      "id": "src_index_rationale_1",
-      "label": "Chat Indexer for ChatRecall =========================== Builds, caches, and\u2026",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "rationale",
-      "norm_label": "chat indexer for chatrecall =========================== builds, caches, and...",
-      "source_file": "src/index.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_index_rationale_121",
+      "id": "src_index_rationale_131",
       "label": "Performs BM25 keyword search.",
       "_origin": "ast",
       "community": 0,
@@ -707,18 +733,7 @@
       "file_type": "rationale",
       "norm_label": "performs bm25 keyword search.",
       "source_file": "src/index.py",
-      "source_location": "L121"
-    },
-    {
-      "id": "src_index_rationale_66",
-      "label": "Loads chat data and cached embeddings, or builds them if not present.",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "rationale",
-      "norm_label": "loads chat data and cached embeddings, or builds them if not present.",
-      "source_file": "src/index.py",
-      "source_location": "L66"
+      "source_location": "L131"
     },
     {
       "id": "web_app_rationale_1",
@@ -750,17 +765,6 @@
       "community_name": "generate_synthetic_chat",
       "file_type": "code",
       "norm_label": "any",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "datetime",
-      "label": "datetime",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "generate_synthetic_chat",
-      "file_type": "code",
-      "norm_label": "datetime",
       "source_file": "",
       "source_location": ""
     },
@@ -975,6 +979,127 @@
       "source_location": "L1"
     },
     {
+      "id": "src_index",
+      "label": "index.py",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "index.py",
+      "source_file": "src/index.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_parser",
+      "label": "parser.py",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "parser.py",
+      "source_file": "src/parser.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_parser_py_any",
+      "label": "Any",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "any",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "tests_test_parser",
+      "label": "test_parser.py",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "code",
+      "norm_label": "test_parser.py",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_index_rationale_1",
+      "label": "Chat Indexer for ChatRecall =========================== Builds, caches, and\u2026",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "rationale",
+      "norm_label": "chat indexer for chatrecall =========================== builds, caches, and...",
+      "source_file": "src/index.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_index_rationale_66",
+      "label": "Loads chat data (from .json or .txt) and cached embeddings, or builds them if\u2026",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "rationale",
+      "norm_label": "loads chat data (from .json or .txt) and cached embeddings, or builds them if...",
+      "source_file": "src/index.py",
+      "source_location": "L66"
+    },
+    {
+      "id": "src_parser_rationale_1",
+      "label": "Text Chat Parser for ChatRecall =============================== Parses raw\u2026",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "rationale",
+      "norm_label": "text chat parser for chatrecall =============================== parses raw...",
+      "source_file": "src/parser.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_parser_rationale_125",
+      "label": "Parses a .txt file and saves it as structured JSON ready for indexing.",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "rationale",
+      "norm_label": "parses a .txt file and saves it as structured json ready for indexing.",
+      "source_file": "src/parser.py",
+      "source_location": "L125"
+    },
+    {
+      "id": "src_parser_rationale_31",
+      "label": "Attempts multiple datetime formats and normalizes to YYYY-MM-DD HH:MM:SS.",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "rationale",
+      "norm_label": "attempts multiple datetime formats and normalizes to yyyy-mm-dd hh:mm:ss.",
+      "source_file": "src/parser.py",
+      "source_location": "L31"
+    },
+    {
+      "id": "src_parser_rationale_56",
+      "label": "Parses any exported text file (.txt) into a list of structured messages.",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "rationale",
+      "norm_label": "parses any exported text file (.txt) into a list of structured messages.",
+      "source_file": "src/parser.py",
+      "source_location": "L56"
+    },
+    {
+      "id": "tests_test_parser_rationale_1",
+      "label": "Unit tests for Text Chat Parser (.txt export support)",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "index.py",
+      "file_type": "rationale",
+      "norm_label": "unit tests for text chat parser (.txt export support)",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_embed",
       "label": "embed.py",
       "_origin": "ast",
@@ -1074,7 +1199,7 @@
       "source_location": "L43"
     },
     {
-      "id": "src_index_rationale_99",
+      "id": "src_index_rationale_109",
       "label": "Performs cosine similarity search against candidates or the entire corpus.\u2026",
       "_origin": "ast",
       "community": 2,
@@ -1082,7 +1207,18 @@
       "file_type": "rationale",
       "norm_label": "performs cosine similarity search against candidates or the entire corpus....",
       "source_file": "src/index.py",
-      "source_location": "L99"
+      "source_location": "L109"
+    },
+    {
+      "id": "datetime",
+      "label": "datetime",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "retrieve.py",
+      "file_type": "code",
+      "norm_label": "datetime",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "enum",
@@ -1148,6 +1284,30 @@
       "file_type": "rationale",
       "norm_label": "unit tests for retrieval engine and query router",
       "source_file": "tests/test_retrieval.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "eval_results",
+      "label": "results.md",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatRecall \ud83d\udcac\ud83d\udd0d",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "results.md",
+      "source_file": "eval/results.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "readme",
+      "label": "README.md",
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "ChatRecall \ud83d\udcac\ud83d\udd0d",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "readme.md",
+      "source_file": "README.md",
       "source_location": "L1"
     },
     {
@@ -1385,18 +1545,6 @@
       "source_location": "L165"
     },
     {
-      "id": "eval_results",
-      "label": "results.md",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "results.md",
-      "source_file": "eval/results.md",
-      "source_location": "L1"
-    },
-    {
       "id": "eval_results_1_executive_summary",
       "label": "1. Executive Summary",
       "_origin": "ast",
@@ -1502,18 +1650,6 @@
       "node_kind": "heading",
       "norm_label": "evaluation report: chatrecall semantic retrieval performance",
       "source_file": "eval/results.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "readme",
-      "label": "README.md",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "readme.md",
-      "source_file": "README.md",
       "source_location": "L1"
     },
     {
@@ -1698,7 +1834,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/cli.py",
-      "source_location": "L102",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -1710,7 +1846,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/cli.py",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -1722,7 +1858,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/cli.py",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -1734,7 +1870,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/cli.py",
-      "source_location": "L98",
+      "source_location": "L99",
       "weight": 1.0
     },
     {
@@ -1751,6 +1887,18 @@
     },
     {
       "source": "src_index_chatindex_build_or_load",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/index.py",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "src_index_chatindex_build_or_load",
       "target": "src_embed_messageembedder",
       "relation": "calls",
       "_origin": "ast",
@@ -1758,7 +1906,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/index.py",
-      "source_location": "L75",
+      "source_location": "L85",
       "weight": 1.0
     },
     {
@@ -1782,7 +1930,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/index.py",
-      "source_location": "L138",
+      "source_location": "L148",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser_load_custom_txt_to_json",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/parser.py",
+      "source_location": "L128",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser_parse_chat_txt",
+      "target": "src_parser_parse_timestamp",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/parser.py",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -1891,6 +2063,42 @@
       "context": "call",
       "source_file": "tests/test_hinglish_embed.py",
       "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser_test_txt_parser_and_search",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser_test_txt_parser_and_search",
+      "target": "src_index_chatindex_build_or_load",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser_test_txt_parser_and_search",
+      "target": "src_retrieve_retrievalengine",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -2122,6 +2330,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_parser_parse_chat_txt",
+      "target": "src_parser_py_any",
+      "relation": "references",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "generic_arg",
+      "source_file": "src/parser.py",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
       "source": "src_retrieve_queryplan_init",
       "target": "datetime",
       "relation": "references",
@@ -2230,6 +2450,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_index",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/index.py",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
       "source": "src_retrieve",
       "target": "src_index_chatindex",
       "relation": "imports",
@@ -2250,6 +2482,54 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/test_generator.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "src_parser_parse_timestamp",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "src_index_chatindex",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "src_retrieve_retrievalengine",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/test_parser.py",
       "source_location": "L9",
       "weight": 1.0
     },
@@ -2458,6 +2738,18 @@
       "weight": 1.0
     },
     {
+      "source": "src_parser",
+      "target": "datetime",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/parser.py",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
       "source": "src_retrieve",
       "target": "enum",
       "relation": "imports_from",
@@ -2514,6 +2806,42 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/test_generator.py",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "src_parser",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "src_index",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "src_retrieve",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/test_parser.py",
       "source_location": "L9",
       "weight": 1.0
     },
@@ -2598,7 +2926,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/index.py",
-      "source_location": "L93",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -3077,7 +3405,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/index.py",
-      "source_location": "L136",
+      "source_location": "L146",
       "weight": 1.0
     },
     {
@@ -3089,6 +3417,39 @@
       "confidence_score": 1.0,
       "source_file": "src/index.py",
       "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser",
+      "target": "src_parser_load_custom_txt_to_json",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/parser.py",
+      "source_location": "L124",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser",
+      "target": "src_parser_parse_timestamp",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/parser.py",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/parser.py",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -3221,6 +3582,17 @@
       "confidence_score": 1.0,
       "source_file": "tests/test_hinglish_embed.py",
       "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_parser",
+      "target": "tests_test_parser_test_txt_parser_and_search",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_parser.py",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -3412,13 +3784,24 @@
     },
     {
       "source": "src_index_chatindex",
+      "target": "src_index_chatindex_dense_search",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/index.py",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "src_index_chatindex",
       "target": "src_index_chatindex_lexical_search",
       "relation": "method",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/index.py",
-      "source_location": "L115",
+      "source_location": "L125",
       "weight": 1.0
     },
     {
@@ -3441,17 +3824,6 @@
       "confidence_score": 1.0,
       "source_file": "src/index.py",
       "source_location": "L60",
-      "weight": 1.0
-    },
-    {
-      "source": "src_index_chatindex",
-      "target": "src_index_chatindex_dense_search",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/index.py",
-      "source_location": "L93",
       "weight": 1.0
     },
     {
@@ -3631,14 +4003,25 @@
       "weight": 1.0
     },
     {
-      "source": "src_index_rationale_121",
+      "source": "src_index_rationale_109",
+      "target": "src_index_chatindex_dense_search",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/index.py",
+      "source_location": "L109",
+      "weight": 1.0
+    },
+    {
+      "source": "src_index_rationale_131",
       "target": "src_index_chatindex_lexical_search",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/index.py",
-      "source_location": "L121",
+      "source_location": "L131",
       "weight": 1.0
     },
     {
@@ -3653,17 +4036,6 @@
       "weight": 1.0
     },
     {
-      "source": "src_index_rationale_99",
-      "target": "src_index_chatindex_dense_search",
-      "relation": "rationale_for",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/index.py",
-      "source_location": "L99",
-      "weight": 1.0
-    },
-    {
       "source": "src_init_rationale_1",
       "target": "src_init",
       "relation": "rationale_for",
@@ -3672,6 +4044,50 @@
       "confidence_score": 1.0,
       "source_file": "src/__init__.py",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser_rationale_1",
+      "target": "src_parser",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/parser.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser_rationale_125",
+      "target": "src_parser_load_custom_txt_to_json",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/parser.py",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser_rationale_31",
+      "target": "src_parser_parse_timestamp",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/parser.py",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "src_parser_rationale_56",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/parser.py",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -3785,6 +4201,17 @@
       "weight": 1.0
     },
     {
+      "source": "tests_test_parser_rationale_1",
+      "target": "tests_test_parser",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_parser.py",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "tests_test_retrieval_rationale_1",
       "target": "tests_test_retrieval",
       "relation": "rationale_for",
@@ -3871,7 +4298,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "src/cli.py",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 0.8
     },
     {
@@ -3905,6 +4332,17 @@
       "confidence_score": 0.95,
       "source_file": "src/retrieve.py",
       "source_location": "L155",
+      "weight": 0.8
+    },
+    {
+      "source": "tests_test_parser_test_txt_parser_and_search",
+      "target": "src_index_chatindex",
+      "relation": "uses",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "tests/test_parser.py",
+      "source_location": "L31",
       "weight": 0.8
     },
     {
@@ -3953,5 +4391,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "4972e5dce402086ab8df055c2e00cf56151c0615"
+  "built_at_commit": "d8ffcacfddef35ddc5d0c9c30a85e4c184120f1c"
 }

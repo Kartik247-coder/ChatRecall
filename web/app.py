@@ -1,39 +1,44 @@
 """
 FastAPI Server for ChatRecall Web Interface
 ===========================================
-Serves semantic search API and interactive thread exploration interface.
+Serves semantic search API, thread exploration interface, and live .txt / .json file upload.
 """
 
 import os
-from fastapi import FastAPI, Query
+import shutil
+from fastapi import FastAPI, Query, UploadFile, File, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
 
 from src.index import ChatIndex
 from src.retrieve import RetrievalEngine
 from src.context import ThreadContextBuilder
+from src.parser import parse_chat_txt
 
-app = FastAPI(title="ChatRecall Web API", version="0.1.0")
+app = FastAPI(title="ChatRecall Web API", version="0.2.0")
 
-# Mount static folder
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
+UPLOAD_DIR = os.path.join("data", "uploads")
 os.makedirs(STATIC_DIR, exist_ok=True)
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
-# Lazy load index and engine
+# In-memory active services
+_current_source_name: str = "Synthetic Group Chat (Default)"
 _index: Optional[ChatIndex] = None
 _engine: Optional[RetrievalEngine] = None
 _ctx_builder: Optional[ThreadContextBuilder] = None
 
 
 def get_services():
-    global _index, _engine, _ctx_builder
+    global _index, _engine, _ctx_builder, _current_source_name
     if _index is None:
         _index = ChatIndex.build_or_load()
         _engine = RetrievalEngine(_index)
         _ctx_builder = ThreadContextBuilder(_index)
+        _current_source_name = "Synthetic Group Chat (Default)"
     return _index, _engine, _ctx_builder
 
 
@@ -44,6 +49,73 @@ async def serve_ui():
         with open(index_file, "r", encoding="utf-8") as f:
             return HTMLResponse(f.read())
     return HTMLResponse("<h1>ChatRecall UI</h1><p>Index file not found in static/</p>")
+
+
+@app.get("/api/stats")
+async def api_stats():
+    index, _, _ = get_services()
+    senders = sorted(list(set(m["sender"] for m in index.messages)))
+    return {
+        "source_name": _current_source_name,
+        "total_messages": len(index.messages),
+        "embedding_dim": index.embeddings.shape[1],
+        "date_range": [index.messages[0]["timestamp"], index.messages[-1]["timestamp"]],
+        "participants": senders
+    }
+
+
+@app.post("/api/upload")
+async def upload_custom_chat(file: UploadFile = File(...)):
+    global _index, _engine, _ctx_builder, _current_source_name
+    
+    filename = file.filename or "uploaded_chat.txt"
+    if not (filename.endswith(".txt") or filename.endswith(".json")):
+        raise HTTPException(status_code=400, detail="Only .txt (WhatsApp/Telegram export) or .json files are supported.")
+
+    saved_path = os.path.join(UPLOAD_DIR, filename)
+    with open(saved_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        # Build fresh index for uploaded chat file
+        new_index = ChatIndex.build_or_load(chat_path=saved_path, force_rebuild=True)
+        if len(new_index.messages) == 0:
+            raise HTTPException(status_code=400, detail="No valid chat messages could be parsed from this file.")
+
+        _index = new_index
+        _engine = RetrievalEngine(_index)
+        _ctx_builder = ThreadContextBuilder(_index)
+        _current_source_name = filename
+
+        senders = sorted(list(set(m["sender"] for m in _index.messages)))
+        return {
+            "status": "success",
+            "message": f"Successfully loaded and indexed {len(_index.messages)} messages from {filename}",
+            "source_name": _current_source_name,
+            "total_messages": len(_index.messages),
+            "date_range": [_index.messages[0]["timestamp"], _index.messages[-1]["timestamp"]],
+            "participants": senders
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to parse and index chat file: {str(e)}")
+
+
+@app.post("/api/reset")
+async def reset_to_default_chat():
+    global _index, _engine, _ctx_builder, _current_source_name
+    _index = ChatIndex.build_or_load(chat_path="data/chat.json")
+    _engine = RetrievalEngine(_index)
+    _ctx_builder = ThreadContextBuilder(_index)
+    _current_source_name = "Synthetic Group Chat (Default)"
+    
+    senders = sorted(list(set(m["sender"] for m in _index.messages)))
+    return {
+        "status": "success",
+        "message": "Reset to default synthetic chat archive",
+        "source_name": _current_source_name,
+        "total_messages": len(_index.messages),
+        "participants": senders
+    }
 
 
 @app.get("/api/search")
@@ -63,7 +135,7 @@ async def api_search(
         r_copy["thread_context"] = ctx
         enriched_results.append(r_copy)
 
-    # Also compute lexical BM25 baseline top matches for side-by-side comparison
+    # BM25 baseline top matches
     lexical_matches = index.lexical_search(q, top_k=3)
     lexical_results = []
     for idx, score in lexical_matches:
@@ -78,25 +150,11 @@ async def api_search(
 
     return {
         "query": q,
+        "source_name": _current_source_name,
         "plan": search_data["plan"],
         "candidate_count": search_data["candidate_count"],
         "semantic_results": enriched_results,
         "lexical_baseline": lexical_results
-    }
-
-
-@app.get("/api/stats")
-async def api_stats():
-    index, _, _ = get_services()
-    senders = list(index.sender_index.keys())
-    return {
-        "total_messages": len(index.messages),
-        "embedding_dim": index.embeddings.shape[1],
-        "date_range": [index.messages[0]["timestamp"], index.messages[-1]["timestamp"]],
-        "participants": [
-            "Rohan Mehta", "Priya Sharma", "Kabir Sen", "Ananya Iyer",
-            "Vikram Malhotra", "Neha Gupta", "Siddharth Verma", "Tanvi Desai"
-        ]
     }
 
 
