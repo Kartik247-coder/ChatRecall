@@ -23,5 +23,5 @@ Thumbs.db
 *.safetensors
 .cache/
 
-# Graphify build outputs (if any local AST cache)
-graphify-out/
+# Graphify cache
+graphify-out/cache/

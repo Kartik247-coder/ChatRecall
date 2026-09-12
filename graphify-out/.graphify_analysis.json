@@ -1,0 +1,338 @@
+{
+  "communities": {
+    "0": [
+      "get",
+      "src_cli",
+      "src_cli_display_results",
+      "src_cli_main",
+      "src_cli_rationale_1",
+      "src_context",
+      "src_context_rationale_1",
+      "src_context_threadcontextbuilder",
+      "src_context_threadcontextbuilder_init",
+      "src_index",
+      "src_index_chatindex",
+      "src_index_chatindex_build_or_load",
+      "src_index_chatindex_lexical_search",
+      "src_index_main",
+      "src_index_rationale_1",
+      "src_index_rationale_121",
+      "src_index_rationale_66",
+      "web_app",
+      "web_app_api_search",
+      "web_app_api_stats",
+      "web_app_get_services",
+      "web_app_main",
+      "web_app_rationale_1",
+      "web_app_serve_ui"
+    ],
+    "1": [
+      "data_generate_chat",
+      "data_generate_chat_generate_synthetic_chat",
+      "data_generate_chat_generate_synthetic_chat_create_msg",
+      "data_generate_chat_main",
+      "data_generate_chat_py_any",
+      "data_generate_chat_rationale_1",
+      "datetime",
+      "tests_test_generator",
+      "tests_test_generator_rationale_1",
+      "tests_test_generator_rationale_13",
+      "tests_test_generator_rationale_23",
+      "tests_test_generator_rationale_38",
+      "tests_test_generator_rationale_55",
+      "tests_test_generator_rationale_66",
+      "tests_test_generator_test_generator_decision_threads",
+      "tests_test_generator_test_generator_deterministic",
+      "tests_test_generator_test_generator_messiness_artifacts",
+      "tests_test_generator_test_generator_time_range_and_chronology",
+      "tests_test_generator_test_generator_volume_and_participants"
+    ],
+    "2": [
+      "src_embed",
+      "src_embed_messageembedder",
+      "src_embed_messageembedder_encode_messages",
+      "src_embed_messageembedder_encode_query",
+      "src_embed_messageembedder_format_message_for_embedding",
+      "src_embed_messageembedder_init",
+      "src_embed_py_any",
+      "src_embed_py_ndarray",
+      "src_embed_rationale_1",
+      "src_embed_rationale_23",
+      "src_embed_rationale_36",
+      "src_embed_rationale_43",
+      "src_index_chatindex_dense_search",
+      "src_index_chatindex_init",
+      "src_index_py_any",
+      "src_index_py_ndarray",
+      "src_index_rationale_99"
+    ],
+    "3": [
+      "enum",
+      "src_retrieve",
+      "src_retrieve_queryplan",
+      "src_retrieve_queryplan_init",
+      "src_retrieve_queryplan_repr",
+      "src_retrieve_queryrouter",
+      "src_retrieve_queryrouter_analyze",
+      "src_retrieve_rationale_1",
+      "src_retrieve_retrievalengine_init",
+      "src_retrieve_strategytype",
+      "str",
+      "tests_test_retrieval",
+      "tests_test_retrieval_rationale_1",
+      "tests_test_retrieval_test_person_filtered_retrieval",
+      "tests_test_retrieval_test_query_router_intent_classification",
+      "tests_test_retrieval_test_zero_word_overlap_decision_retrieval"
+    ],
+    "4": [
+      "readme_1_installation",
+      "readme_2_generate_dataset_build_index",
+      "readme_3_run_search",
+      "readme_4_run_automated_evaluation",
+      "readme_architecture_pipeline",
+      "readme_chatrecall",
+      "readme_evaluation_benchmark_results",
+      "readme_key_capabilities",
+      "readme_license",
+      "readme_modern_web_ui",
+      "readme_problem_statement",
+      "readme_quick_start_usage",
+      "readme_repository_structure",
+      "readme_terminal_cli_rich_interactive_thread_view"
+    ],
+    "5": [
+      "eval_run_eval",
+      "eval_run_eval_compute_metrics",
+      "eval_run_eval_generate_markdown_report",
+      "eval_run_eval_py_any",
+      "eval_run_eval_rationale_1",
+      "eval_run_eval_run_benchmark",
+      "src_retrieve_py_any",
+      "src_retrieve_rationale_165",
+      "src_retrieve_retrievalengine",
+      "src_retrieve_retrievalengine_search",
+      "tests_test_retrieval_engine",
+      "tests_test_retrieval_py_fixture"
+    ],
+    "6": [
+      "eval_results",
+      "eval_results_1_executive_summary",
+      "eval_results_2_core_benchmark_results",
+      "eval_results_3_1_the_zero_word_overlap_collapse_of_keyword_search",
+      "eval_results_3_2_the_performance_gap",
+      "eval_results_3_the_honest_accuracy_gap_analysis",
+      "eval_results_4_breakdown_by_category_query_shape",
+      "eval_results_5_detailed_query_by_query_evaluation_log",
+      "eval_results_6_latency_system_throughput",
+      "eval_results_evaluation_report_chatrecall_semantic_retrieval_performance",
+      "readme"
+    ],
+    "7": [
+      "tests_test_hinglish_embed",
+      "tests_test_hinglish_embed_cosine_similarity",
+      "tests_test_hinglish_embed_embedder",
+      "tests_test_hinglish_embed_py_fixture",
+      "tests_test_hinglish_embed_py_ndarray",
+      "tests_test_hinglish_embed_rationale_1",
+      "tests_test_hinglish_embed_rationale_33",
+      "tests_test_hinglish_embed_test_hinglish_zero_word_overlap_pairs"
+    ],
+    "8": [
+      "eval_generate_queries",
+      "eval_generate_queries_build_evaluation_set",
+      "eval_generate_queries_extract_content_words",
+      "eval_generate_queries_rationale_1"
+    ],
+    "9": [
+      "src_context_py_any",
+      "src_context_rationale_25",
+      "src_context_threadcontextbuilder_get_context_window"
+    ],
+    "10": [
+      "agents_rules_graphify",
+      "agents_rules_graphify_graphify"
+    ],
+    "11": [
+      "agents_workflows_graphify",
+      "agents_workflows_graphify_workflow_graphify"
+    ],
+    "12": [
+      "src_init",
+      "src_init_rationale_1"
+    ],
+    "13": [
+      "web_init",
+      "web_init_rationale_1"
+    ],
+    "14": [
+      "data_init"
+    ],
+    "15": [
+      "tests_init"
+    ]
+  },
+  "cohesion": {
+    "0": 0.16304347826086957,
+    "1": 0.15789473684210525,
+    "2": 0.13970588235294118,
+    "3": 0.18333333333333332,
+    "4": 0.14285714285714285,
+    "5": 0.21212121212121213,
+    "6": 0.18181818181818182,
+    "7": 0.2857142857142857,
+    "8": 0.6666666666666666,
+    "9": 0.6666666666666666,
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0
+  },
+  "gods": [
+    {
+      "id": "src_index_chatindex",
+      "label": "ChatIndex",
+      "degree": 20
+    },
+    {
+      "id": "src_retrieve_retrievalengine",
+      "label": "RetrievalEngine",
+      "degree": 12
+    },
+    {
+      "id": "data_generate_chat_generate_synthetic_chat",
+      "label": "generate_synthetic_chat()",
+      "degree": 11
+    },
+    {
+      "id": "src_context_threadcontextbuilder",
+      "label": "ThreadContextBuilder",
+      "degree": 9
+    },
+    {
+      "id": "src_embed_messageembedder",
+      "label": "MessageEmbedder",
+      "degree": 9
+    },
+    {
+      "id": "readme_chatrecall",
+      "label": "ChatRecall 💬🔍",
+      "degree": 8
+    },
+    {
+      "id": "web_app_get_services",
+      "label": "get_services()",
+      "degree": 7
+    },
+    {
+      "id": "eval_results_evaluation_report_chatrecall_semantic_retrieval_performance",
+      "label": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
+      "degree": 7
+    },
+    {
+      "id": "src_retrieve_strategytype",
+      "label": "StrategyType",
+      "degree": 6
+    },
+    {
+      "id": "src_cli_main",
+      "label": "main()",
+      "degree": 6
+    }
+  ],
+  "surprises": [
+    {
+      "source": "run_benchmark()",
+      "target": "ChatIndex",
+      "source_files": [
+        "eval/run_eval.py",
+        "src/index.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "engine()",
+      "target": "ChatIndex",
+      "source_files": [
+        "tests/test_retrieval.py",
+        "src/index.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "get_services()",
+      "target": "ChatIndex",
+      "source_files": [
+        "web/app.py",
+        "src/index.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "test_query_router_intent_classification()",
+      "target": "StrategyType",
+      "source_files": [
+        "tests/test_retrieval.py",
+        "src/retrieve.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    },
+    {
+      "source": "engine()",
+      "target": "RetrievalEngine",
+      "source_files": [
+        "tests/test_retrieval.py",
+        "src/retrieve.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `ChatIndex` connect `ChatIndex` to `MessageEmbedder`, `retrieve.py`, `RetrievalEngine`?",
+      "why": "High betweenness centrality (0.130) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `MessageEmbedder` connect `MessageEmbedder` to `ChatIndex`?",
+      "why": "High betweenness centrality (0.086) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 7 inferred relationships involving `ChatIndex` (e.g. with `run_benchmark()` and `main()`) actually correct?",
+      "why": "`ChatIndex` has 7 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `RetrievalEngine` (e.g. with `ChatIndex` and `engine()`) actually correct?",
+      "why": "`RetrievalEngine` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `ThreadContextBuilder` (e.g. with `display_results()` and `ChatIndex`) actually correct?",
+      "why": "`ThreadContextBuilder` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `graphify`, `Workflow: graphify`, `1. Installation` to the rest of the system?",
+      "why": "20 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `MessageEmbedder` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected."
+    }
+  ]
+}
