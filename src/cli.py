@@ -88,12 +88,13 @@ def display_results(search_res: dict, context_builder: ThreadContextBuilder, sho
 def main():
     parser = argparse.ArgumentParser(description="ChatRecall Semantic Search CLI")
     parser.add_argument("--query", "-q", type=str, help="Search query")
+    parser.add_argument("--file", "-f", type=str, default="data/chat.json", help="Path to chat file (.txt export or .json)")
     parser.add_argument("--top_k", "-k", type=int, default=3, help="Number of top results to return")
     parser.add_argument("--no_thread", action="store_true", help="Disable thread context view")
     args = parser.parse_args()
 
-    console.print("[dim]Loading index and embedder...[/dim]")
-    index = ChatIndex.build_or_load()
+    console.print(f"[dim]Loading index from {args.file}...[/dim]")
+    index = ChatIndex.build_or_load(chat_path=args.file)
     engine = RetrievalEngine(index)
     ctx_builder = ThreadContextBuilder(index)
 

@@ -36,10 +36,10 @@
     "semantic_hash": "181a54cc6a42c685130c520e94d27a03"
   },
   "src/cli.py": {
-    "mtime": 1789192698.6026444,
-    "seen": 1789192879.069679,
-    "ast_hash": "0f2c5ac2bd449f857257339fae644dad",
-    "semantic_hash": "0f2c5ac2bd449f857257339fae644dad"
+    "mtime": 1789193456.8450122,
+    "seen": 1789193616.837216,
+    "ast_hash": "1dd72b1298efe6aabff1dd62f269cbd8",
+    "semantic_hash": ""
   },
   "src/context.py": {
     "mtime": 1789192698.602869,
@@ -54,10 +54,10 @@
     "semantic_hash": "bebb11fc652dda0cfebf759bbead4fa9"
   },
   "src/index.py": {
-    "mtime": 1789192698.603424,
-    "seen": 1789192879.069682,
-    "ast_hash": "b126c121605b43117160cee001cb6acd",
-    "semantic_hash": "b126c121605b43117160cee001cb6acd"
+    "mtime": 1789193450.951947,
+    "seen": 1789193616.837276,
+    "ast_hash": "90305849415df71def33d1c6670a186a",
+    "semantic_hash": ""
   },
   "src/retrieve.py": {
     "mtime": 1789192698.6038225,
@@ -135,6 +135,18 @@
     "mtime": 1789192698.6054494,
     "seen": 1789192715.2045372,
     "ast_hash": "43b57aaef342553008d89c1962e5996d",
+    "semantic_hash": ""
+  },
+  "src/parser.py": {
+    "mtime": 1789193444.45042,
+    "seen": 1789193616.837278,
+    "ast_hash": "fb15799efd10052820243fee642e4921",
+    "semantic_hash": ""
+  },
+  "tests/test_parser.py": {
+    "mtime": 1789193572.936968,
+    "seen": 1789193616.837397,
+    "ast_hash": "e371ab7a939f0de768ac40da1c1140f2",
     "semantic_hash": ""
   }
 }

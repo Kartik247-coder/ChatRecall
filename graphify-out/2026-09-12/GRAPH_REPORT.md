@@ -1,8 +1,7 @@
 # Graph Report - Group Chat Search  (2026-09-12)
 
 ## Corpus Check
-- 22 files · ~121,831 words
-- Verdict: corpus is large enough that graph structure adds value.
+- cluster-only mode — file stats not available
 
 ## Summary
 - 138 nodes · 204 edges · 16 communities (9 shown, 5 thin omitted)
@@ -10,7 +9,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3d0d7a5d`
+- Built from commit: `4972e5dc`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -39,7 +38,7 @@
 6. `ChatRecall 💬🔍` - 8 edges
 7. `get_services()` - 7 edges
 8. `Evaluation Report: ChatRecall Semantic Retrieval Performance` - 7 edges
-9. `run_benchmark()` - 6 edges
+9. `StrategyType` - 6 edges
 10. `main()` - 6 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -96,7 +95,7 @@ Cohesion: 0.67
 Nodes (3): build_evaluation_set(), extract_content_words(), Test Set Generator for ChatRecall Evaluation…
 
 ## Knowledge Gaps
-- **20 isolated node(s):** `graphify`, `Workflow: graphify`, `🎯 Problem Statement`, `✨ Key Capabilities`, `📊 Evaluation & Benchmark Results` (+15 more)
+- **20 isolated node(s):** `graphify`, `Workflow: graphify`, `1. Installation`, `2. Generate Dataset & Build Index`, `4. Run Automated Evaluation` (+15 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 69 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -113,7 +112,7 @@ _Questions this graph is uniquely positioned to answer:_
   _`RetrievalEngine` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 2 inferred relationships involving `ThreadContextBuilder` (e.g. with `display_results()` and `ChatIndex`) actually correct?**
   _`ThreadContextBuilder` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `graphify`, `Workflow: graphify`, `🎯 Problem Statement` to the rest of the system?**
+- **What connects `graphify`, `Workflow: graphify`, `1. Installation` to the rest of the system?**
   _20 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `MessageEmbedder` be split into smaller, more focused modules?**
   _Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected._

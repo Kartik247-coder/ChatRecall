@@ -64,13 +64,23 @@ class ChatIndex:
         force_rebuild: bool = False
     ) -> "ChatIndex":
         """
-        Loads chat data and cached embeddings, or builds them if not present.
+        Loads chat data (from .json or .txt) and cached embeddings, or builds them if not present.
         """
         if not os.path.exists(chat_path):
-            raise FileNotFoundError(f"Chat data file not found at {chat_path}. Run data/generate_chat.py first.")
+            raise FileNotFoundError(f"Chat data file not found at {chat_path}.")
 
-        with open(chat_path, "r", encoding="utf-8") as f:
-            messages = json.load(f)
+        # If user passed a .txt file, parse it using Text Chat Parser
+        if chat_path.endswith(".txt"):
+            from src.parser import parse_chat_txt
+            print(f"Parsing raw text chat export from {chat_path}...")
+            messages = parse_chat_txt(chat_path)
+            # Custom embeddings file per text file
+            base_name = os.path.splitext(os.path.basename(chat_path))[0]
+            embeddings_path = f"data/{base_name}_embeddings.npy"
+            force_rebuild = True
+        else:
+            with open(chat_path, "r", encoding="utf-8") as f:
+                messages = json.load(f)
 
         embedder = MessageEmbedder()
 

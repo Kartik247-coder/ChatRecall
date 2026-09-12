@@ -217,13 +217,8 @@
     },
     {
       "id": "readme_chatrecall",
-      "label": "ChatRecall \ud83d\udcac\ud83d\udd0d",
+      "label": "ChatRecall 💬🔍",
       "degree": 8
-    },
-    {
-      "id": "eval_results_evaluation_report_chatrecall_semantic_retrieval_performance",
-      "label": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
-      "degree": 7
     },
     {
       "id": "web_app_get_services",
@@ -231,8 +226,13 @@
       "degree": 7
     },
     {
-      "id": "eval_run_eval_run_benchmark",
-      "label": "run_benchmark()",
+      "id": "eval_results_evaluation_report_chatrecall_semantic_retrieval_performance",
+      "label": "Evaluation Report: ChatRecall Semantic Retrieval Performance",
+      "degree": 7
+    },
+    {
+      "id": "src_retrieve_strategytype",
+      "label": "StrategyType",
       "degree": 6
     },
     {
@@ -298,8 +298,41 @@
       "why": "inferred connection - not explicitly stated in source; connects across different repos/directories"
     }
   ],
-  "tokens": {
-    "input": 0,
-    "output": 0
-  }
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `ChatIndex` connect `ChatIndex` to `MessageEmbedder`, `retrieve.py`, `RetrievalEngine`?",
+      "why": "High betweenness centrality (0.130) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `MessageEmbedder` connect `MessageEmbedder` to `ChatIndex`?",
+      "why": "High betweenness centrality (0.086) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 7 inferred relationships involving `ChatIndex` (e.g. with `run_benchmark()` and `main()`) actually correct?",
+      "why": "`ChatIndex` has 7 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `RetrievalEngine` (e.g. with `ChatIndex` and `engine()`) actually correct?",
+      "why": "`RetrievalEngine` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `ThreadContextBuilder` (e.g. with `display_results()` and `ChatIndex`) actually correct?",
+      "why": "`ThreadContextBuilder` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `graphify`, `Workflow: graphify`, `1. Installation` to the rest of the system?",
+      "why": "20 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `MessageEmbedder` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected."
+    }
+  ]
 }
