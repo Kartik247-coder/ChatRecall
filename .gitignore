@@ -22,6 +22,8 @@ Thumbs.db
 *.pt
 *.safetensors
 .cache/
+data/tmp*
+data/sample_*
 
 # Graphify cache
 graphify-out/cache/
