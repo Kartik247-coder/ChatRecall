@@ -53,10 +53,11 @@ def compute_metrics(records: List[Dict[str, Any]]) -> Dict[str, float]:
 def run_demo_benchmark(
     chat_file: str = "sample_chat.txt",
     questions_file: str = "questions.json",
-    verbose: bool = True
+    verbose: bool = True,
+    force_rebuild: bool = False
 ) -> Dict[str, Any]:
     console.print(Panel.fit(
-        f"[bold cyan]ChatRecall Demo Benchmark[/bold cyan]\n"
+        f"[bold cyan]ChatRecall Direct Accuracy & Benchmark Suite[/bold cyan]\n"
         f"Chat: [green]{chat_file}[/green] | Questions: [green]{questions_file}[/green]",
         border_style="cyan"
     ))
@@ -66,7 +67,7 @@ def run_demo_benchmark(
         questions = json.load(f)
 
     # Build / load index
-    index = ChatIndex.build_or_load(chat_file, force_rebuild=False)
+    index = ChatIndex.build_or_load(chat_file, force_rebuild=force_rebuild)
     engine = RetrievalEngine(index)
 
     records = []
@@ -95,6 +96,8 @@ def run_demo_benchmark(
                 break
 
         top1 = results[0] if results else None
+        is_exact_top1 = (matched_rank == 1)
+
         records.append({
             "id": qid,
             "query": query,
@@ -104,6 +107,7 @@ def run_demo_benchmark(
             "note": note,
             "rank": matched_rank,
             "score": matched_score,
+            "exact_top1": is_exact_top1,
             "strategy": search_res["plan"]["strategy"],
             "top1_id": top1["id"] if top1 else None,
             "top1_sender": top1["sender"] if top1 else None,
@@ -129,23 +133,27 @@ def run_demo_benchmark(
 
     if verbose:
         # Detailed Per-Query Table
-        table = Table(title="📋 Per-Query Detailed Retrieval Results", show_lines=True)
+        table = Table(title="📋 Direct Accuracy Check: Top-1 Ground-Truth Verification", show_lines=True)
         table.add_column("QID", style="bold", width=6)
         table.add_column("Type", width=14)
         table.add_column("Query", width=38)
         table.add_column("Target ID", justify="center", width=10)
-        table.add_column("Rank", justify="center", width=8)
+        table.add_column("Rank #1 Check", justify="center", width=14)
         table.add_column("Score", justify="right", width=8)
-        table.add_column("Top-1 Retrieved Message", width=42)
+        table.add_column("Top-1 Retrieved Message", width=40)
 
         for r in records:
-            rank_str = f"[bold green]Rank 1[/bold green]" if r["rank"] == 1 else (
-                f"[yellow]Rank {r['rank']}[/yellow]" if r["rank"] and r["rank"] <= 3 else (
-                    f"[red]Rank {r['rank']}[/red]" if r["rank"] else "[bold red]MISS[/bold red]"
-                )
-            )
+            if r["rank"] == 1:
+                rank_str = "[bold green]✓ EXACT MATCH (Rank 1)[/bold green]"
+            elif r["rank"] and r["rank"] <= 3:
+                rank_str = f"[yellow]⚠ In Window (Rank {r['rank']})[/yellow]"
+            elif r["rank"]:
+                rank_str = f"[red]✗ Rank {r['rank']}[/red]"
+            else:
+                rank_str = "[bold red]✗ MISS[/bold red]"
+
             score_str = f"{r['score']:.4f}" if r["score"] is not None else "-"
-            top1_str = f"{r['top1_sender']}: {r['top1_text'][:40]}..." if r["top1_text"] else "-"
+            top1_str = f"{r['top1_sender']}: {r['top1_text'][:38]}..." if r["top1_text"] else "-"
 
             table.add_row(
                 r["id"],
@@ -160,10 +168,10 @@ def run_demo_benchmark(
         console.print(table)
 
         # Summary Metrics Table
-        summary_table = Table(title="🎯 Benchmark Summary Metrics", show_lines=True)
+        summary_table = Table(title="🎯 Direct Accuracy Benchmark Summary", show_lines=True)
         summary_table.add_column("Query Subset", style="bold cyan", width=24)
         summary_table.add_column("Count", justify="center", width=8)
-        summary_table.add_column("Top-1 Acc", justify="right", width=12)
+        summary_table.add_column("Top-1 Exact Acc", justify="right", width=16)
         summary_table.add_column("Top-3 Acc", justify="right", width=12)
         summary_table.add_column("Top-5 Acc", justify="right", width=12)
         summary_table.add_column("MRR", justify="right", width=10)
@@ -214,6 +222,12 @@ def run_demo_benchmark(
         "records": records,
         "elapsed_sec": round(elapsed, 2)
     }
+
+
+def test_all_20_exact_matches():
+    """Unit test ensuring 100% exact message ID accuracy for ground-truth queries."""
+    results = run_demo_benchmark(verbose=False)
+    assert results["all"]["top_1"] == results["all"]["count"], f"Expected 100% Top-1, got {results['all']['top_1']}/{results['all']['count']}"
 
 
 if __name__ == "__main__":

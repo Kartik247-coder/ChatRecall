@@ -40,7 +40,7 @@
       "file_type": "code",
       "norm_label": "retrievalengine",
       "source_file": "src/retrieve.py",
-      "source_location": "L221"
+      "source_location": "L230"
     },
     {
       "id": "src_retrieve_queryplan",
@@ -53,7 +53,7 @@
       "file_type": "code",
       "norm_label": "queryplan",
       "source_file": "src/retrieve.py",
-      "source_location": "L69"
+      "source_location": "L78"
     },
     {
       "id": "src_retrieve_queryrouter",
@@ -66,7 +66,7 @@
       "file_type": "code",
       "norm_label": "queryrouter",
       "source_file": "src/retrieve.py",
-      "source_location": "L95"
+      "source_location": "L104"
     },
     {
       "id": "src_retrieve_strategytype",
@@ -79,7 +79,7 @@
       "file_type": "code",
       "norm_label": "strategytype",
       "source_file": "src/retrieve.py",
-      "source_location": "L62"
+      "source_location": "L71"
     },
     {
       "id": "src_embed_messageembedder",
@@ -131,18 +131,6 @@
       "source_location": "L15"
     },
     {
-      "id": "src_index_chatindex_build_or_load",
-      "label": ".build_or_load()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": ".build_or_load()",
-      "source_file": "src/index.py",
-      "source_location": "L67"
-    },
-    {
       "id": "src_index_chatindex_lexical_search",
       "label": ".lexical_search()",
       "_callable": true,
@@ -164,31 +152,7 @@
       "file_type": "code",
       "norm_label": ".__init__()",
       "source_file": "src/retrieve.py",
-      "source_location": "L222"
-    },
-    {
-      "id": "tests_test_parser_test_txt_parser_and_search",
-      "label": "test_txt_parser_and_search()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": "test_txt_parser_and_search()",
-      "source_file": "tests/test_parser.py",
-      "source_location": "L20"
-    },
-    {
-      "id": "tests_test_retrieval_engine",
-      "label": "engine()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": "engine()",
-      "source_file": "tests/test_retrieval.py",
-      "source_location": "L11"
+      "source_location": "L231"
     },
     {
       "id": "web_app_api_search",
@@ -452,7 +416,7 @@
       "file_type": "code",
       "norm_label": ".deduplicate_results()",
       "source_file": "src/retrieve.py",
-      "source_location": "L227"
+      "source_location": "L236"
     },
     {
       "id": "src_retrieve_retrievalengine_search",
@@ -464,7 +428,7 @@
       "file_type": "code",
       "norm_label": ".search()",
       "source_file": "src/retrieve.py",
-      "source_location": "L266"
+      "source_location": "L275"
     },
     {
       "id": "src_retrieve_queryplan_init",
@@ -476,7 +440,7 @@
       "file_type": "code",
       "norm_label": ".__init__()",
       "source_file": "src/retrieve.py",
-      "source_location": "L70"
+      "source_location": "L79"
     },
     {
       "id": "src_retrieve_queryplan_repr",
@@ -488,7 +452,7 @@
       "file_type": "code",
       "norm_label": ".__repr__()",
       "source_file": "src/retrieve.py",
-      "source_location": "L88"
+      "source_location": "L97"
     },
     {
       "id": "src_retrieve_queryrouter_analyze",
@@ -500,7 +464,7 @@
       "file_type": "code",
       "norm_label": ".analyze()",
       "source_file": "src/retrieve.py",
-      "source_location": "L169"
+      "source_location": "L178"
     },
     {
       "id": "src_retrieve_queryrouter_expand_query",
@@ -512,7 +476,7 @@
       "file_type": "code",
       "norm_label": ".expand_query()",
       "source_file": "src/retrieve.py",
-      "source_location": "L97"
+      "source_location": "L106"
     },
     {
       "id": "src_retrieve_queryrouter_parse_time_filter",
@@ -524,7 +488,19 @@
       "file_type": "code",
       "norm_label": ".parse_time_filter()",
       "source_file": "src/retrieve.py",
-      "source_location": "L107"
+      "source_location": "L116"
+    },
+    {
+      "id": "tests_test_retrieval_engine",
+      "label": "engine()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "retrieve.py",
+      "file_type": "code",
+      "norm_label": "engine()",
+      "source_file": "tests/test_retrieval.py",
+      "source_location": "L11"
     },
     {
       "id": "tests_test_retrieval_test_context_window_deduplication_regression",
@@ -620,7 +596,7 @@
       "file_type": "code",
       "norm_label": ".encode_messages()",
       "source_file": "src/embed.py",
-      "source_location": "L81"
+      "source_location": "L85"
     },
     {
       "id": "src_embed_messageembedder_encode_query",
@@ -632,7 +608,7 @@
       "file_type": "code",
       "norm_label": ".encode_query()",
       "source_file": "src/embed.py",
-      "source_location": "L74"
+      "source_location": "L78"
     },
     {
       "id": "src_embed_messageembedder_format_message_for_embedding",
@@ -683,12 +659,48 @@
       "source_location": "L25"
     },
     {
+      "id": "scratch_test_chat_3_fix_expand_query",
+      "label": "expand_query()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "code",
+      "norm_label": "expand_query()",
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L81"
+    },
+    {
+      "id": "scratch_test_chat_3_fix_search",
+      "label": "search()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "code",
+      "norm_label": "search()",
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L89"
+    },
+    {
+      "id": "src_index_chatindex_build_or_load",
+      "label": ".build_or_load()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "code",
+      "norm_label": ".build_or_load()",
+      "source_file": "src/index.py",
+      "source_location": "L67"
+    },
+    {
       "id": "src_parser_load_custom_txt_to_json",
       "label": "load_custom_txt_to_json()",
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "code",
       "norm_label": "load_custom_txt_to_json()",
       "source_file": "src/parser.py",
@@ -700,7 +712,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "code",
       "norm_label": "parse_chat_txt()",
       "source_file": "src/parser.py",
@@ -712,11 +724,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "code",
       "norm_label": "parse_timestamp()",
       "source_file": "src/parser.py",
       "source_location": "L30"
+    },
+    {
+      "id": "tests_test_parser_test_txt_parser_and_search",
+      "label": "test_txt_parser_and_search()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "code",
+      "norm_label": "test_txt_parser_and_search()",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L20"
     },
     {
       "id": "tests_test_hinglish_embed_cosine_similarity",
@@ -779,6 +803,18 @@
       "source_location": "L53"
     },
     {
+      "id": "eval_run_demo_eval_test_all_20_exact_matches",
+      "label": "test_all_20_exact_matches()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "run_demo_eval.py",
+      "file_type": "code",
+      "norm_label": "test_all_20_exact_matches()",
+      "source_file": "eval/run_demo_eval.py",
+      "source_location": "L227"
+    },
+    {
       "id": "get",
       "label": "get",
       "_origin": "ast",
@@ -799,6 +835,17 @@
       "norm_label": "post",
       "source_file": "",
       "source_location": ""
+    },
+    {
+      "id": "scratch_test_chat_3",
+      "label": "test_chat_3.py",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "ChatIndex",
+      "file_type": "code",
+      "norm_label": "test_chat_3.py",
+      "source_file": "scratch/test_chat_3.py",
+      "source_location": "L1"
     },
     {
       "id": "src_cli",
@@ -823,26 +870,15 @@
       "source_location": "L1"
     },
     {
-      "id": "tests_test_parser",
-      "label": "test_parser.py",
+      "id": "src_index",
+      "label": "index.py",
       "_origin": "ast",
       "community": 0,
       "community_name": "ChatIndex",
       "file_type": "code",
-      "norm_label": "test_parser.py",
-      "source_file": "tests/test_parser.py",
+      "norm_label": "index.py",
+      "source_file": "src/index.py",
       "source_location": "L1"
-    },
-    {
-      "id": "tests_test_retrieval_py_fixture",
-      "label": "fixture",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "code",
-      "norm_label": "fixture",
-      "source_file": "",
-      "source_location": ""
     },
     {
       "id": "uploadfile",
@@ -889,6 +925,17 @@
       "source_location": "L1"
     },
     {
+      "id": "src_index_rationale_1",
+      "label": "Chat Indexer for ChatRecall =========================== Builds, caches, and\u2026",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "ChatIndex",
+      "file_type": "rationale",
+      "norm_label": "chat indexer for chatrecall =========================== builds, caches, and...",
+      "source_file": "src/index.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_index_rationale_160",
       "label": "Performs BM25 keyword search.",
       "_origin": "ast",
@@ -898,28 +945,6 @@
       "norm_label": "performs bm25 keyword search.",
       "source_file": "src/index.py",
       "source_location": "L160"
-    },
-    {
-      "id": "src_index_rationale_73",
-      "label": "Loads chat data (from .json or .txt) and cached embeddings, or builds them if\u2026",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "rationale",
-      "norm_label": "loads chat data (from .json or .txt) and cached embeddings, or builds them if...",
-      "source_file": "src/index.py",
-      "source_location": "L73"
-    },
-    {
-      "id": "tests_test_parser_rationale_1",
-      "label": "Unit tests for Text Chat Parser (.txt export support)",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "ChatIndex",
-      "file_type": "rationale",
-      "norm_label": "unit tests for text chat parser (.txt export support)",
-      "source_file": "tests/test_parser.py",
-      "source_location": "L1"
     },
     {
       "id": "web_app_rationale_1",
@@ -1253,7 +1278,7 @@
       "source_location": ""
     },
     {
-      "id": "src_retrieve_rationale_233",
+      "id": "src_retrieve_rationale_242",
       "label": "Suppresses candidate messages whose context window overlaps significantly\u2026",
       "_origin": "ast",
       "community": 19,
@@ -1261,10 +1286,10 @@
       "file_type": "rationale",
       "norm_label": "suppresses candidate messages whose context window overlaps significantly...",
       "source_file": "src/retrieve.py",
-      "source_location": "L233"
+      "source_location": "L242"
     },
     {
-      "id": "src_retrieve_rationale_274",
+      "id": "src_retrieve_rationale_283",
       "label": "Executes query through multi-strategy routing, contextual vector search,\u2026",
       "_origin": "ast",
       "community": 19,
@@ -1272,7 +1297,7 @@
       "file_type": "rationale",
       "norm_label": "executes query through multi-strategy routing, contextual vector search,...",
       "source_file": "src/retrieve.py",
-      "source_location": "L274"
+      "source_location": "L283"
     },
     {
       "id": "datetime",
@@ -1295,28 +1320,6 @@
       "norm_label": "enum",
       "source_file": "",
       "source_location": ""
-    },
-    {
-      "id": "src_embed",
-      "label": "embed.py",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "retrieve.py",
-      "file_type": "code",
-      "norm_label": "embed.py",
-      "source_file": "src/embed.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_index",
-      "label": "index.py",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "retrieve.py",
-      "file_type": "code",
-      "norm_label": "index.py",
-      "source_file": "src/index.py",
-      "source_location": "L1"
     },
     {
       "id": "src_retrieve",
@@ -1352,26 +1355,15 @@
       "source_location": "L1"
     },
     {
-      "id": "src_embed_rationale_1",
-      "label": "Embedding Pipeline for ChatRecall ================================= Provides\u2026",
+      "id": "tests_test_retrieval_py_fixture",
+      "label": "fixture",
       "_origin": "ast",
       "community": 2,
       "community_name": "retrieve.py",
-      "file_type": "rationale",
-      "norm_label": "embedding pipeline for chatrecall ================================= provides...",
-      "source_file": "src/embed.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_index_rationale_1",
-      "label": "Chat Indexer for ChatRecall =========================== Builds, caches, and\u2026",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "retrieve.py",
-      "file_type": "rationale",
-      "norm_label": "chat indexer for chatrecall =========================== builds, caches, and...",
-      "source_file": "src/index.py",
-      "source_location": "L1"
+      "file_type": "code",
+      "norm_label": "fixture",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "src_retrieve_rationale_1",
@@ -1385,18 +1377,7 @@
       "source_location": "L1"
     },
     {
-      "id": "src_retrieve_rationale_108",
-      "label": "Dynamically parses time expressions relative to active archive timestamps.",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "retrieve.py",
-      "file_type": "rationale",
-      "norm_label": "dynamically parses time expressions relative to active archive timestamps.",
-      "source_file": "src/retrieve.py",
-      "source_location": "L108"
-    },
-    {
-      "id": "src_retrieve_rationale_98",
+      "id": "src_retrieve_rationale_107",
       "label": "Expands query with conversational domain synonyms.",
       "_origin": "ast",
       "community": 2,
@@ -1404,7 +1385,18 @@
       "file_type": "rationale",
       "norm_label": "expands query with conversational domain synonyms.",
       "source_file": "src/retrieve.py",
-      "source_location": "L98"
+      "source_location": "L107"
+    },
+    {
+      "id": "src_retrieve_rationale_117",
+      "label": "Dynamically parses time expressions relative to active archive timestamps.",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "retrieve.py",
+      "file_type": "rationale",
+      "norm_label": "dynamically parses time expressions relative to active archive timestamps.",
+      "source_file": "src/retrieve.py",
+      "source_location": "L117"
     },
     {
       "id": "tests_test_retrieval_rationale_1",
@@ -1750,6 +1742,17 @@
       "source_location": "L107"
     },
     {
+      "id": "src_embed",
+      "label": "embed.py",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "MessageEmbedder",
+      "file_type": "code",
+      "norm_label": "embed.py",
+      "source_file": "src/embed.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_embed_py_any",
       "label": "Any",
       "_origin": "ast",
@@ -1794,6 +1797,17 @@
       "source_location": ""
     },
     {
+      "id": "src_embed_rationale_1",
+      "label": "Embedding Pipeline for ChatRecall ================================= Provides\u2026",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "MessageEmbedder",
+      "file_type": "rationale",
+      "norm_label": "embedding pipeline for chatrecall ================================= provides...",
+      "source_file": "src/embed.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_embed_rationale_24",
       "label": "Formats a chat message for vector encoding. Prepends sender name and clean text\u2026",
       "_origin": "ast",
@@ -1816,7 +1830,7 @@
       "source_location": "L33"
     },
     {
-      "id": "src_embed_rationale_75",
+      "id": "src_embed_rationale_79",
       "label": "Encodes a single natural language search query into a normalized vector.",
       "_origin": "ast",
       "community": 5,
@@ -1824,10 +1838,10 @@
       "file_type": "rationale",
       "norm_label": "encodes a single natural language search query into a normalized vector.",
       "source_file": "src/embed.py",
-      "source_location": "L75"
+      "source_location": "L79"
     },
     {
-      "id": "src_embed_rationale_87",
+      "id": "src_embed_rationale_91",
       "label": "Encodes a list of chat message dictionaries into an (N, D) normalized numpy\u2026",
       "_origin": "ast",
       "community": 5,
@@ -1835,7 +1849,7 @@
       "file_type": "rationale",
       "norm_label": "encodes a list of chat message dictionaries into an (n, d) normalized numpy...",
       "source_file": "src/embed.py",
-      "source_location": "L87"
+      "source_location": "L91"
     },
     {
       "id": "src_index_rationale_129",
@@ -1849,11 +1863,22 @@
       "source_location": "L129"
     },
     {
+      "id": "scratch_test_chat_3_fix",
+      "label": "test_chat_3_fix.py",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "code",
+      "norm_label": "test_chat_3_fix.py",
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_parser",
       "label": "parser.py",
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "code",
       "norm_label": "parser.py",
       "source_file": "src/parser.py",
@@ -1864,18 +1889,40 @@
       "label": "Any",
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "code",
       "norm_label": "any",
       "source_file": "",
       "source_location": ""
     },
     {
+      "id": "tests_test_parser",
+      "label": "test_parser.py",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "code",
+      "norm_label": "test_parser.py",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_index_rationale_73",
+      "label": "Loads chat data (from .json or .txt) and cached embeddings, or builds them if\u2026",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "rationale",
+      "norm_label": "loads chat data (from .json or .txt) and cached embeddings, or builds them if...",
+      "source_file": "src/index.py",
+      "source_location": "L73"
+    },
+    {
       "id": "src_parser_rationale_1",
       "label": "Text Chat Parser for ChatRecall =============================== Parses raw\u2026",
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "rationale",
       "norm_label": "text chat parser for chatrecall =============================== parses raw...",
       "source_file": "src/parser.py",
@@ -1886,7 +1933,7 @@
       "label": "Parses a .txt file and saves it as structured JSON ready for indexing.",
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "rationale",
       "norm_label": "parses a .txt file and saves it as structured json ready for indexing.",
       "source_file": "src/parser.py",
@@ -1897,7 +1944,7 @@
       "label": "Attempts multiple datetime formats and normalizes to YYYY-MM-DD HH:MM:SS.",
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "rationale",
       "norm_label": "attempts multiple datetime formats and normalizes to yyyy-mm-dd hh:mm:ss.",
       "source_file": "src/parser.py",
@@ -1908,11 +1955,22 @@
       "label": "Parses any exported text file (.txt) into a list of structured messages.",
       "_origin": "ast",
       "community": 6,
-      "community_name": "parse_chat_txt",
+      "community_name": ".build_or_load",
       "file_type": "rationale",
       "norm_label": "parses any exported text file (.txt) into a list of structured messages.",
       "source_file": "src/parser.py",
       "source_location": "L56"
+    },
+    {
+      "id": "tests_test_parser_rationale_1",
+      "label": "Unit tests for Text Chat Parser (.txt export support)",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": ".build_or_load",
+      "file_type": "rationale",
+      "norm_label": "unit tests for text chat parser (.txt export support)",
+      "source_file": "tests/test_parser.py",
+      "source_location": "L1"
     },
     {
       "id": "tuning_notes",
@@ -2133,6 +2191,17 @@
       "norm_label": "evaluation runner for sample_chat.txt and questions.json...",
       "source_file": "eval/run_demo_eval.py",
       "source_location": "L1"
+    },
+    {
+      "id": "eval_run_demo_eval_rationale_228",
+      "label": "Unit test ensuring 100% exact message ID accuracy for ground-truth queries.",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "run_demo_eval.py",
+      "file_type": "rationale",
+      "norm_label": "unit test ensuring 100% exact message id accuracy for ground-truth queries.",
+      "source_file": "eval/run_demo_eval.py",
+      "source_location": "L228"
     }
   ],
   "links": [
@@ -2169,7 +2238,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "eval/run_demo_eval.py",
-      "source_location": "L117",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -2181,7 +2250,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "eval/run_demo_eval.py",
-      "source_location": "L69",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -2193,7 +2262,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "eval/run_demo_eval.py",
-      "source_location": "L70",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "eval_run_demo_eval_test_all_20_exact_matches",
+      "target": "eval_run_demo_eval_run_demo_benchmark",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "eval/run_demo_eval.py",
+      "source_location": "L229",
       "weight": 1.0
     },
     {
@@ -2242,6 +2323,18 @@
       "context": "call",
       "source_file": "eval/run_eval.py",
       "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3_fix_search",
+      "target": "scratch_test_chat_3_fix_expand_query",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L108",
       "weight": 1.0
     },
     {
@@ -2301,7 +2394,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/embed.py",
-      "source_location": "L91",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -2313,7 +2406,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/embed.py",
-      "source_location": "L93",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -2385,7 +2478,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L196",
+      "source_location": "L205",
       "weight": 1.0
     },
     {
@@ -2397,7 +2490,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L208",
+      "source_location": "L217",
       "weight": 1.0
     },
     {
@@ -2409,7 +2502,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L210",
+      "source_location": "L219",
       "weight": 1.0
     },
     {
@@ -2421,7 +2514,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L140",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -2433,7 +2526,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L224",
+      "source_location": "L233",
       "weight": 1.0
     },
     {
@@ -2445,7 +2538,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L402",
+      "source_location": "L444",
       "weight": 1.0
     },
     {
@@ -2841,7 +2934,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/embed.py",
-      "source_location": "L81",
+      "source_location": "L85",
       "weight": 1.0
     },
     {
@@ -2913,7 +3006,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/retrieve.py",
-      "source_location": "L70",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -2925,7 +3018,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/retrieve.py",
-      "source_location": "L169",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -2937,7 +3030,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/retrieve.py",
-      "source_location": "L266",
+      "source_location": "L275",
       "weight": 1.0
     },
     {
@@ -2986,6 +3079,42 @@
       "context": "import",
       "source_file": "eval/run_eval.py",
       "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3",
+      "target": "src_index_chatindex",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "scratch/test_chat_3.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3",
+      "target": "src_retrieve_retrievalengine",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "scratch/test_chat_3.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3_fix",
+      "target": "src_parser_parse_chat_txt",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -3286,6 +3415,54 @@
       "context": "import",
       "source_file": "eval/run_eval.py",
       "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3",
+      "target": "src_index",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "scratch/test_chat_3.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3",
+      "target": "src_retrieve",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "scratch/test_chat_3.py",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3_fix",
+      "target": "datetime",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3_fix",
+      "target": "src_parser",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -3585,7 +3762,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/retrieve.py",
-      "source_location": "L70",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -3597,7 +3774,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/retrieve.py",
-      "source_location": "L222",
+      "source_location": "L231",
       "weight": 1.0
     },
     {
@@ -3633,7 +3810,7 @@
       "confidence_score": 1.0,
       "context": "return_type",
       "source_file": "src/embed.py",
-      "source_location": "L81",
+      "source_location": "L85",
       "weight": 1.0
     },
     {
@@ -3645,7 +3822,7 @@
       "confidence_score": 1.0,
       "context": "return_type",
       "source_file": "src/embed.py",
-      "source_location": "L74",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -3811,6 +3988,17 @@
       "confidence_score": 1.0,
       "source_file": "eval/results.md",
       "source_location": "L65",
+      "weight": 1.0
+    },
+    {
+      "source": "eval_run_demo_eval",
+      "target": "eval_run_demo_eval_test_all_20_exact_matches",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "eval/run_demo_eval.py",
+      "source_location": "L227",
       "weight": 1.0
     },
     {
@@ -4023,6 +4211,28 @@
       "weight": 1.0
     },
     {
+      "source": "scratch_test_chat_3_fix",
+      "target": "scratch_test_chat_3_fix_expand_query",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "scratch_test_chat_3_fix",
+      "target": "scratch_test_chat_3_fix_search",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scratch/test_chat_3_fix.py",
+      "source_location": "L89",
+      "weight": 1.0
+    },
+    {
       "source": "src_cli",
       "target": "src_cli_display_results",
       "relation": "contains",
@@ -4112,13 +4322,24 @@
     },
     {
       "source": "src_retrieve",
+      "target": "src_retrieve_queryrouter",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve",
       "target": "src_retrieve_retrievalengine",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L221",
+      "source_location": "L230",
       "weight": 1.0
     },
     {
@@ -4129,7 +4350,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L62",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -4140,18 +4361,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L69",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve",
-      "target": "src_retrieve_queryrouter",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L95",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -4514,7 +4724,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L62",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -4525,7 +4735,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L62",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -4591,7 +4801,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/embed.py",
-      "source_location": "L74",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -4602,7 +4812,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/embed.py",
-      "source_location": "L81",
+      "source_location": "L85",
       "weight": 1.0
     },
     {
@@ -4657,7 +4867,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L70",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -4668,29 +4878,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L88",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve_queryrouter",
-      "target": "src_retrieve_queryrouter_parse_time_filter",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L107",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve_queryrouter",
-      "target": "src_retrieve_queryrouter_analyze",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L169",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -4701,7 +4889,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L97",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve_queryrouter",
+      "target": "src_retrieve_queryrouter_parse_time_filter",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve_queryrouter",
+      "target": "src_retrieve_queryrouter_analyze",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -4712,7 +4922,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L222",
+      "source_location": "L231",
       "weight": 1.0
     },
     {
@@ -4723,7 +4933,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L227",
+      "source_location": "L236",
       "weight": 1.0
     },
     {
@@ -4734,7 +4944,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L266",
+      "source_location": "L275",
       "weight": 1.0
     },
     {
@@ -4768,6 +4978,17 @@
       "confidence_score": 1.0,
       "source_file": "eval/run_demo_eval.py",
       "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "eval_run_demo_eval_rationale_228",
+      "target": "eval_run_demo_eval_test_all_20_exact_matches",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "eval/run_demo_eval.py",
+      "source_location": "L228",
       "weight": 1.0
     },
     {
@@ -4859,25 +5080,25 @@
       "weight": 1.0
     },
     {
-      "source": "src_embed_rationale_75",
+      "source": "src_embed_rationale_79",
       "target": "src_embed_messageembedder_encode_query",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/embed.py",
-      "source_location": "L75",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
-      "source": "src_embed_rationale_87",
+      "source": "src_embed_rationale_91",
       "target": "src_embed_messageembedder_encode_messages",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/embed.py",
-      "source_location": "L87",
+      "source_location": "L91",
       "weight": 1.0
     },
     {
@@ -4991,47 +5212,47 @@
       "weight": 1.0
     },
     {
-      "source": "src_retrieve_rationale_108",
-      "target": "src_retrieve_queryrouter_parse_time_filter",
-      "relation": "rationale_for",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L108",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve_rationale_233",
-      "target": "src_retrieve_retrievalengine_deduplicate_results",
-      "relation": "rationale_for",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L233",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve_rationale_274",
-      "target": "src_retrieve_retrievalengine_search",
-      "relation": "rationale_for",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L274",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve_rationale_98",
+      "source": "src_retrieve_rationale_107",
       "target": "src_retrieve_queryrouter_expand_query",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L98",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve_rationale_117",
+      "target": "src_retrieve_queryrouter_parse_time_filter",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve_rationale_242",
+      "target": "src_retrieve_retrievalengine_deduplicate_results",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L242",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve_rationale_283",
+      "target": "src_retrieve_retrievalengine_search",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L283",
       "weight": 1.0
     },
     {
@@ -5243,7 +5464,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "eval/run_demo_eval.py",
-      "source_location": "L69",
+      "source_location": "L70",
       "weight": 0.8
     },
     {
@@ -5298,7 +5519,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "src/retrieve.py",
-      "source_location": "L222",
+      "source_location": "L231",
       "weight": 0.8
     },
     {
@@ -5424,5 +5645,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "0c63b3fe46095abf70b9e50999b626ada8bc1afd"
+  "built_at_commit": "7b728757a44506c86fd95cc2c44e983a4801ddd7"
 }

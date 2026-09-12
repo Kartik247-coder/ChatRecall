@@ -32,42 +32,46 @@ class MessageEmbedder:
     def build_contextual_texts(self, messages: List[Dict[str, Any]]) -> List[str]:
         """
         Builds thread-aware contextual texts for conversation messages.
-        Includes dialogue context (preceding messages in the same conversation cluster)
-        to empower zero-word-overlap reply matching (e.g. 'booked' matching 'did we book a bonfire night').
+        Includes dialogue context (preceding and forward messages in the conversation cluster)
+        to empower zero-word-overlap reply matching and factual answer targeting.
         """
         if not messages:
             return []
 
-        # Group messages by temporal cluster (< 1 hour gap)
-        threads = []
-        curr_thread = [0]
-        for i in range(1, len(messages)):
-            try:
-                t_curr = datetime.strptime(messages[i]["timestamp"], "%Y-%m-%d %H:%M:%S")
-                t_prev = datetime.strptime(messages[i-1]["timestamp"], "%Y-%m-%d %H:%M:%S")
-                if (t_curr - t_prev).total_seconds() > 3600:
-                    threads.append(curr_thread)
-                    curr_thread = [i]
-                else:
-                    curr_thread.append(i)
-            except Exception:
-                curr_thread.append(i)
-        threads.append(curr_thread)
-
         context_texts = ["" for _ in range(len(messages))]
-        for t_idx_list in threads:
-            t_msgs = [messages[k] for k in t_idx_list if not messages[k].get("media_omitted", False)]
-            t_full = " | ".join([f"{m['sender']}: {m['message']}" for m in t_msgs])
-            for k in t_idx_list:
-                m = messages[k]
-                k_pos = t_idx_list.index(k)
-                prev_sub = t_idx_list[max(0, k_pos-2):k_pos]
-                prev_context = " | ".join([f"{messages[p]['sender']}: {messages[p]['message']}" for p in prev_sub])
-                if prev_context:
-                    c_text = f"In reply to [{prev_context}] -> {m['sender']}: {m['message']}"
-                else:
-                    c_text = f"{m['sender']}: {m['message']} (Topic: {t_full[:150]})"
-                context_texts[k] = c_text
+        n = len(messages)
+
+        for i, m in enumerate(messages):
+            sender = m.get("sender", "")
+            text = m.get("message", "").strip()
+
+            # Preceding dialogue turns (up to 3 non-media messages)
+            prev_turns = []
+            for p_idx in range(max(0, i - 3), i):
+                pm = messages[p_idx]
+                if not pm.get("media_omitted", False) and "<media omitted>" not in pm.get("message", "").lower():
+                    prev_turns.append(f"{pm['sender']}: {pm['message']}")
+
+            # Forward dialogue turns (up to 2 non-media messages for outcome context)
+            fol_turns = []
+            for f_idx in range(i + 1, min(n, i + 3)):
+                fm = messages[f_idx]
+                if not fm.get("media_omitted", False) and "<media omitted>" not in fm.get("message", "").lower():
+                    fol_turns.append(f"{fm['sender']}: {fm['message']}")
+
+            prev_context = " | ".join(prev_turns)
+            fol_context = " | ".join(fol_turns)
+
+            if prev_context and fol_context:
+                c_text = f"In conversation [{prev_context}] -> {sender}: {text} (Next: {fol_context})"
+            elif prev_context:
+                c_text = f"In conversation [{prev_context}] -> {sender}: {text}"
+            elif fol_context:
+                c_text = f"{sender}: {text} (Topic flow: {fol_context})"
+            else:
+                c_text = f"{sender}: {text}"
+
+            context_texts[i] = c_text
 
         return context_texts
 

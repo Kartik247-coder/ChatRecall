@@ -40,7 +40,7 @@
       "file_type": "code",
       "norm_label": "retrievalengine",
       "source_file": "src/retrieve.py",
-      "source_location": "L198"
+      "source_location": "L221"
     },
     {
       "id": "src_retrieve_queryplan",
@@ -53,7 +53,7 @@
       "file_type": "code",
       "norm_label": "queryplan",
       "source_file": "src/retrieve.py",
-      "source_location": "L59"
+      "source_location": "L69"
     },
     {
       "id": "src_retrieve_queryrouter",
@@ -66,7 +66,7 @@
       "file_type": "code",
       "norm_label": "queryrouter",
       "source_file": "src/retrieve.py",
-      "source_location": "L85"
+      "source_location": "L95"
     },
     {
       "id": "src_retrieve_strategytype",
@@ -79,7 +79,7 @@
       "file_type": "code",
       "norm_label": "strategytype",
       "source_file": "src/retrieve.py",
-      "source_location": "L52"
+      "source_location": "L62"
     },
     {
       "id": "src_embed_messageembedder",
@@ -164,7 +164,7 @@
       "file_type": "code",
       "norm_label": ".__init__()",
       "source_file": "src/retrieve.py",
-      "source_location": "L199"
+      "source_location": "L222"
     },
     {
       "id": "tests_test_parser_test_txt_parser_and_search",
@@ -236,7 +236,7 @@
       "file_type": "code",
       "norm_label": "main()",
       "source_file": "web/app.py",
-      "source_location": "L161"
+      "source_location": "L167"
     },
     {
       "id": "web_app_reset_to_default_chat",
@@ -452,7 +452,7 @@
       "file_type": "code",
       "norm_label": ".deduplicate_results()",
       "source_file": "src/retrieve.py",
-      "source_location": "L204"
+      "source_location": "L227"
     },
     {
       "id": "src_retrieve_retrievalengine_search",
@@ -464,7 +464,7 @@
       "file_type": "code",
       "norm_label": ".search()",
       "source_file": "src/retrieve.py",
-      "source_location": "L246"
+      "source_location": "L266"
     },
     {
       "id": "src_retrieve_queryplan_init",
@@ -476,7 +476,7 @@
       "file_type": "code",
       "norm_label": ".__init__()",
       "source_file": "src/retrieve.py",
-      "source_location": "L60"
+      "source_location": "L70"
     },
     {
       "id": "src_retrieve_queryplan_repr",
@@ -488,7 +488,7 @@
       "file_type": "code",
       "norm_label": ".__repr__()",
       "source_file": "src/retrieve.py",
-      "source_location": "L78"
+      "source_location": "L88"
     },
     {
       "id": "src_retrieve_queryrouter_analyze",
@@ -500,7 +500,7 @@
       "file_type": "code",
       "norm_label": ".analyze()",
       "source_file": "src/retrieve.py",
-      "source_location": "L147"
+      "source_location": "L169"
     },
     {
       "id": "src_retrieve_queryrouter_expand_query",
@@ -512,7 +512,7 @@
       "file_type": "code",
       "norm_label": ".expand_query()",
       "source_file": "src/retrieve.py",
-      "source_location": "L87"
+      "source_location": "L97"
     },
     {
       "id": "src_retrieve_queryrouter_parse_time_filter",
@@ -524,7 +524,7 @@
       "file_type": "code",
       "norm_label": ".parse_time_filter()",
       "source_file": "src/retrieve.py",
-      "source_location": "L97"
+      "source_location": "L107"
     },
     {
       "id": "tests_test_retrieval_test_context_window_deduplication_regression",
@@ -1253,18 +1253,18 @@
       "source_location": ""
     },
     {
-      "id": "src_retrieve_rationale_210",
-      "label": "Suppresses candidate messages whose context window (window_size before & after)\u2026",
+      "id": "src_retrieve_rationale_233",
+      "label": "Suppresses candidate messages whose context window overlaps significantly\u2026",
       "_origin": "ast",
       "community": 19,
       "community_name": ".search",
       "file_type": "rationale",
-      "norm_label": "suppresses candidate messages whose context window (window_size before & after)...",
+      "norm_label": "suppresses candidate messages whose context window overlaps significantly...",
       "source_file": "src/retrieve.py",
-      "source_location": "L210"
+      "source_location": "L233"
     },
     {
-      "id": "src_retrieve_rationale_254",
+      "id": "src_retrieve_rationale_274",
       "label": "Executes query through multi-strategy routing, contextual vector search,\u2026",
       "_origin": "ast",
       "community": 19,
@@ -1272,7 +1272,7 @@
       "file_type": "rationale",
       "norm_label": "executes query through multi-strategy routing, contextual vector search,...",
       "source_file": "src/retrieve.py",
-      "source_location": "L254"
+      "source_location": "L274"
     },
     {
       "id": "datetime",
@@ -1385,24 +1385,24 @@
       "source_location": "L1"
     },
     {
-      "id": "src_retrieve_rationale_88",
+      "id": "src_retrieve_rationale_108",
+      "label": "Dynamically parses time expressions relative to active archive timestamps.",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "retrieve.py",
+      "file_type": "rationale",
+      "norm_label": "dynamically parses time expressions relative to active archive timestamps.",
+      "source_file": "src/retrieve.py",
+      "source_location": "L108"
+    },
+    {
+      "id": "src_retrieve_rationale_98",
       "label": "Expands query with conversational domain synonyms.",
       "_origin": "ast",
       "community": 2,
       "community_name": "retrieve.py",
       "file_type": "rationale",
       "norm_label": "expands query with conversational domain synonyms.",
-      "source_file": "src/retrieve.py",
-      "source_location": "L88"
-    },
-    {
-      "id": "src_retrieve_rationale_98",
-      "label": "Dynamically parses time expressions relative to the active archive timestamps.",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "retrieve.py",
-      "file_type": "rationale",
-      "norm_label": "dynamically parses time expressions relative to the active archive timestamps.",
       "source_file": "src/retrieve.py",
       "source_location": "L98"
     },
@@ -2385,7 +2385,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L173",
+      "source_location": "L196",
       "weight": 1.0
     },
     {
@@ -2397,7 +2397,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L185",
+      "source_location": "L208",
       "weight": 1.0
     },
     {
@@ -2409,7 +2409,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L187",
+      "source_location": "L210",
       "weight": 1.0
     },
     {
@@ -2421,7 +2421,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L126",
+      "source_location": "L140",
       "weight": 1.0
     },
     {
@@ -2433,7 +2433,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L201",
+      "source_location": "L224",
       "weight": 1.0
     },
     {
@@ -2445,7 +2445,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/retrieve.py",
-      "source_location": "L372",
+      "source_location": "L402",
       "weight": 1.0
     },
     {
@@ -2913,7 +2913,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/retrieve.py",
-      "source_location": "L60",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -2925,7 +2925,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/retrieve.py",
-      "source_location": "L147",
+      "source_location": "L169",
       "weight": 1.0
     },
     {
@@ -2937,7 +2937,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/retrieve.py",
-      "source_location": "L246",
+      "source_location": "L266",
       "weight": 1.0
     },
     {
@@ -3069,7 +3069,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/retrieve.py",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -3405,7 +3405,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/retrieve.py",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -3417,7 +3417,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/retrieve.py",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -3429,7 +3429,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/retrieve.py",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -3585,7 +3585,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/retrieve.py",
-      "source_location": "L60",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -3597,7 +3597,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/retrieve.py",
-      "source_location": "L199",
+      "source_location": "L222",
       "weight": 1.0
     },
     {
@@ -4118,7 +4118,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L198",
+      "source_location": "L221",
       "weight": 1.0
     },
     {
@@ -4129,7 +4129,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L52",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -4140,7 +4140,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L59",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -4151,7 +4151,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L85",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -4459,7 +4459,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "web/app.py",
-      "source_location": "L161",
+      "source_location": "L167",
       "weight": 1.0
     },
     {
@@ -4514,7 +4514,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L52",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -4525,7 +4525,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L52",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -4657,7 +4657,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L60",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -4668,7 +4668,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L78",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve_queryrouter",
+      "target": "src_retrieve_queryrouter_parse_time_filter",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -4679,23 +4690,12 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L147",
+      "source_location": "L169",
       "weight": 1.0
     },
     {
       "source": "src_retrieve_queryrouter",
       "target": "src_retrieve_queryrouter_expand_query",
-      "relation": "method",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L87",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve_queryrouter",
-      "target": "src_retrieve_queryrouter_parse_time_filter",
       "relation": "method",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4712,7 +4712,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L199",
+      "source_location": "L222",
       "weight": 1.0
     },
     {
@@ -4723,7 +4723,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L204",
+      "source_location": "L227",
       "weight": 1.0
     },
     {
@@ -4734,7 +4734,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L246",
+      "source_location": "L266",
       "weight": 1.0
     },
     {
@@ -4991,41 +4991,41 @@
       "weight": 1.0
     },
     {
-      "source": "src_retrieve_rationale_210",
+      "source": "src_retrieve_rationale_108",
+      "target": "src_retrieve_queryrouter_parse_time_filter",
+      "relation": "rationale_for",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/retrieve.py",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "src_retrieve_rationale_233",
       "target": "src_retrieve_retrievalengine_deduplicate_results",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L210",
+      "source_location": "L233",
       "weight": 1.0
     },
     {
-      "source": "src_retrieve_rationale_254",
+      "source": "src_retrieve_rationale_274",
       "target": "src_retrieve_retrievalengine_search",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/retrieve.py",
-      "source_location": "L254",
-      "weight": 1.0
-    },
-    {
-      "source": "src_retrieve_rationale_88",
-      "target": "src_retrieve_queryrouter_expand_query",
-      "relation": "rationale_for",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/retrieve.py",
-      "source_location": "L88",
+      "source_location": "L274",
       "weight": 1.0
     },
     {
       "source": "src_retrieve_rationale_98",
-      "target": "src_retrieve_queryrouter_parse_time_filter",
+      "target": "src_retrieve_queryrouter_expand_query",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5298,7 +5298,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "src/retrieve.py",
-      "source_location": "L199",
+      "source_location": "L222",
       "weight": 0.8
     },
     {
@@ -5424,5 +5424,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "88a7756df9d7687cb90baca4ac08b312c6e26ed4"
+  "built_at_commit": "0c63b3fe46095abf70b9e50999b626ada8bc1afd"
 }

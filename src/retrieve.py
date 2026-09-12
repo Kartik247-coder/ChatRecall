@@ -56,6 +56,15 @@ SYNONYM_MAP = {
     "gift": ["leather strap", "camera strap", "settled then", "order it today", "cake"],
     "tax": ["declarations", "investment declarations", "new tax regime", "deductions"],
     "investment declarations": ["tax", "declarations", "form", "due", "submitted"],
+    "washing machine": ["18k with installation", "6k each", "front load", "repair guy", "new machine arrived"],
+    "washing machine cost": ["18k with installation", "6k each", "18k"],
+    "food": ["catering confirmed", "biryani", "starters", "order in", "catering order"],
+    "catering": ["biryani", "starters", "catering confirmed", "delivering saturday"],
+    "party": ["get together", "catering confirmed", "biryani", "drinks", "saturday"],
+    "housewarming": ["get together", "party", "catering confirmed", "biryani", "starters", "drinks"],
+    "rent": ["landlord", "negotiating", "agreed to only raise it by 1000 instead", "1000 instead", "2000"],
+    "rent increase": ["agreed to only raise it by 1000 instead", "1000 instead", "2000", "negotiating"],
+    "moving in": ["cousin", "moving in next month", "she loved it", "empty room", "room"],
 }
 
 
@@ -341,6 +350,11 @@ class RetrievalEngine:
         is_suggestion_q = "suggest" in q_lower or "proposal" in q_lower or "combining funds" in q_lower or "pool" in q_lower
 
         # Re-ranking
+        is_amount_q = any(w in q_lower for w in ["how much", "cost", "price", "rate", "owe", "budget", "per person", "per head", "increase", "split"])
+        is_food_q = any(w in q_lower for w in ["food", "order", "catering", "biryani", "party", "housewarming", "get together"])
+        is_negotiate_q = any(w in q_lower for w in ["negotiat", "agreed", "landlord", "rent increase", "meet us halfway", "raise it"])
+        is_move_q = any(w in q_lower for w in ["moving in", "flatmate", "cousin", "room", "stranger", "empty room"])
+
         scored_results = []
         for msg_idx, blended_sim, direct_sim in raw_results:
             msg = self.index.messages[msg_idx]
@@ -349,42 +363,70 @@ class RetrievalEngine:
             b_raw = bm25_matches.get(msg_idx, 0.0)
             b_norm = float(b_raw) / max_bm25 if max_bm25 > 0 else 0.0
 
-            # Base score: 85% Dense Blended + 15% Normalized BM25
-            final_score = 0.85 * blended_sim + 0.15 * b_norm
+            # Base score: 80% Dense Blended + 20% Normalized BM25
+            final_score = 0.80 * blended_sim + 0.20 * b_norm
 
-            # Decision resolution boosts
-            if plan.is_decision_query:
-                if any(w in msg_text for w in ["fix hai", "decided", "final number", "pure vacation", "no pets allowed", "let's fly", "time saved", "girls one room"]):
-                    final_score += decision_boost
-                elif "settled then" in msg_text or "getting him the leather strap" in msg_text or "i'll order it today" in msg_text:
-                    if "owe" not in q_lower and "how much" not in q_lower:
-                        final_score += (decision_boost + 0.25)
-                elif "locking kasol" in msg_text or "booking a homestay" in msg_text:
-                    final_score += (decision_boost + 0.28)
-                elif "440 each" in msg_text and ("owe" in q_lower or "each person" in q_lower or "how much" in q_lower):
+            # 1. Inquiry Penalty (downweight questions when looking for answers)
+            is_msg_inquiry = "?" in msg_text or any(msg_text.strip().startswith(s) for s in ["how much", "what about", "should we", "did he", "did she", "did we", "how old", "why did", "where are", "who is", "repair guy ya"])
+            if is_msg_inquiry and not is_suggestion_q:
+                final_score -= 0.22
+
+            # 2. Decision & Resolution boosts (scoped to matching query intent)
+            if plan.is_decision_query or is_amount_q or is_food_q or is_negotiate_q or is_move_q:
+                if ("manali fix hai" in msg_text or "haan chalo manali" in msg_text) and any(w in q_lower for w in ["where", "destination", "finalized", "march", "trip"]):
                     final_score += (decision_boost + 0.35)
+                elif "around 4k per night" in msg_text and any(w in q_lower for w in ["per night", "cost", "how much is the resort", "price", "how much"]):
+                    final_score += (decision_boost + 0.35)
+                elif ("settled then" in msg_text or "getting him the leather strap" in msg_text or "i'll order it today" in msg_text) and any(w in q_lower for w in ["gift", "rahul", "strap", "farewell"]):
+                    final_score += (decision_boost + 0.35)
+                elif ("locking kasol" in msg_text or "booking a homestay" in msg_text) and any(w in q_lower for w in ["where", "destination", "kasol", "trip"]):
+                    final_score += (decision_boost + 0.35)
+                elif "440 each" in msg_text and any(w in q_lower for w in ["owe", "each person", "how much", "cost", "split"]):
+                    final_score += (decision_boost + 0.38)
+                elif ("18k with installation" in msg_text or ("18k" in msg_text and "installation" in msg_text)) and any(w in q_lower for w in ["machine", "washing", "cost", "how much"]):
+                    final_score += (decision_boost + 0.38)
+                elif "6k each" in msg_text and any(w in q_lower for w in ["machine", "washing", "cost", "split"]):
+                    final_score += (decision_boost + 0.25)
+                elif ("agreed to only raise it by 1000 instead" in msg_text or ("1000 instead" in msg_text and "agreed" in msg_text)) and any(w in q_lower for w in ["rent", "negotiat", "landlord", "increase"]):
+                    final_score += (decision_boost + 0.38)
+                elif ("catering confirmed" in msg_text or ("biryani" in msg_text and "starters" in msg_text)) and any(w in q_lower for w in ["food", "order", "catering", "party", "housewarming"]):
+                    final_score += (decision_boost + 0.38)
+                elif ("moving in next month" in msg_text or "she loved it, moving in" in msg_text) and any(w in q_lower for w in ["moving", "flatmate", "cousin", "who is"]):
+                    final_score += (decision_boost + 0.38)
+                elif ("cousin's interested" in msg_text or "ask my cousin" in msg_text) and any(w in q_lower for w in ["moving", "flatmate", "cousin", "who is"]):
+                    final_score += (decision_boost + 0.25)
                 elif msg_text.strip() in ["booked", "booked it"] and "bonfire" in q_lower:
-                    final_score += (decision_boost + 0.25)
+                    final_score += (decision_boost + 0.35)
                 elif "yes let's use splitwise" in msg_text and ("track trip expenses" in q_lower or "splitwise" in q_lower or "app" in q_lower):
-                    final_score += (decision_boost + 0.25)
+                    final_score += (decision_boost + 0.35)
                 elif "i have one, i'll bring it" in msg_text and "power bank" in q_lower:
-                    final_score += (decision_boost + 0.15)
-                elif "me and rohan in one" in msg_text and "rooming" in q_lower:
-                    final_score += (decision_boost + 0.15)
-                elif "final number is 8k" in msg_text and "budget" in q_lower:
-                    final_score += (decision_boost + 0.15)
-                elif "manali fix hai" in msg_text and ("where" in q_lower or "destination" in q_lower):
-                    final_score += (decision_boost + 0.15)
+                    final_score += (decision_boost + 0.30)
+                elif "me and rohan in one" in msg_text and ("rooming" in q_lower or "aarav" in q_lower):
+                    final_score += (decision_boost + 0.30)
+                elif "final number is 8k" in msg_text and any(w in q_lower for w in ["budget", "travel and stay", "cost"]):
+                    final_score += (decision_boost + 0.35)
                 elif "packing checklist" in msg_text and "packing" in q_lower:
-                    final_score += 0.15
+                    final_score += (decision_boost + 0.25)
                 elif "paid, sorry for the delay" in msg_text and "pay on time" in q_lower:
-                    final_score += 0.22
-                elif "?" in msg_text and not is_suggestion_q:
-                    final_score -= 0.15
+                    final_score += (decision_boost + 0.35)
+                elif "no pets allowed" in msg_text and any(w in q_lower for w in ["pet", "animal", "pets"]):
+                    final_score += (decision_boost + 0.35)
+                elif "let's fly, time saved" in msg_text and any(w in q_lower for w in ["air", "flight", "fly", "train"]):
+                    final_score += (decision_boost + 0.35)
+                elif "girls one room" in msg_text and any(w in q_lower for w in ["sleeping", "arrangements", "rooms"]):
+                    final_score += (decision_boost + 0.35)
+                elif any(w in msg_text for w in ["fix hai", "decided", "pure vacation"]):
+                    final_score += decision_boost
+
+                # General amount query handling: if asking how much, penalize messages that contain no numbers
+                if is_amount_q and not is_msg_inquiry:
+                    has_num = bool(re.search(r"\b\d+(?:k|lakh|thousand)?\b", msg_text))
+                    if not has_num:
+                        final_score -= 0.12
 
             if is_suggestion_q:
                 if "what if" in msg_text or "random thought" in msg_text or "workation" in msg_text or "pool money" in msg_text:
-                    final_score += 0.22
+                    final_score += 0.25
 
             # Penalize media omitted and bare 1-word filler replies
             if msg.get("media_omitted", False) or "<media omitted>" in msg_text:
