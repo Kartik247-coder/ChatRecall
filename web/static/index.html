@@ -594,21 +594,38 @@
         badgesHtml += `<span class="badge badge-decision">🎯 Decision Resolution</span>`;
       }
 
+      let alertHtml = '';
+      if (data.no_confident_match) {
+        alertHtml = `
+          <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; color: #fbbf24; font-size: 0.88rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>⚠️</span>
+            <span><strong>Low Match Confidence:</strong> No candidate scored above the relevance cutoff (threshold: ${data.threshold}). Showing closest results below.</span>
+          </div>
+        `;
+      }
+
       let html = `
         <div class="plan-banner">
-          <div class="plan-tags">
-            <span style="font-size: 0.85rem; color: var(--text-muted);">Strategy:</span>
-            ${badgesHtml}
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="font-size: 0.85rem; color: var(--text-muted);">
+              Query: <strong style="color: #f1f5f9;">"${escapeHtml(data.literal_query || data.query)}"</strong>
+            </div>
+            <div class="plan-tags">
+              <span style="font-size: 0.85rem; color: var(--text-muted);">Strategy:</span>
+              ${badgesHtml}
+            </div>
           </div>
           <span style="font-size: 0.85rem; color: var(--text-muted);">
             Evaluated ${data.candidate_count} candidates in <strong>${data.source_name || 'Active Chat'}</strong>
           </span>
         </div>
 
+        ${alertHtml}
+
         <div class="comparison-grid">
           <div>
             <div class="column-title">
-              <span>✨ Semantic Retrieval (with Thread Context)</span>
+              <span>✨ Semantic Retrieval (Distinct Threads, Deduplicated)</span>
             </div>
       `;
 
@@ -617,12 +634,15 @@
       } else {
         results.forEach((r, idx) => {
           const decBadge = r.is_decision ? `<span class="badge badge-decision" style="font-size: 0.7rem;">Decision Outcome</span>` : '';
+          const confColor = r.confidence === 'high' ? '#34d399' : (r.confidence === 'medium' ? '#38bdf8' : '#fbbf24');
+          const confBadge = `<span class="badge" style="background: rgba(255,255,255,0.06); color: ${confColor}; border: 1px solid ${confColor}40;">${r.confidence.toUpperCase()} CONFIDENCE</span>`;
           html += `
             <div class="result-card">
               <div class="card-header">
-                <div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
                   <strong style="color: #cbd5e1;">Match #${r.rank} (${r.id})</strong>
                   ${decBadge}
+                  ${confBadge}
                 </div>
                 <div class="score-badge">Similarity: ${r.score}</div>
               </div>

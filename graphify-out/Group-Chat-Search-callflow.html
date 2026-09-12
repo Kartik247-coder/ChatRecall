@@ -60,7 +60,7 @@ hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
 <div class="container">
 
 <h1>Group Chat Search — Complete Call Flow &amp; Architecture Documentation</h1>
-<p class="subtitle">Generated from graphify knowledge graph: 183 nodes, 287 edges, 20 communities. Commit: 88a7756</p>
+<p class="subtitle">Generated from graphify knowledge graph: 183 nodes, 287 edges, 20 communities. Commit: 0c63b3f</p>
 
 <div class="nav">
     <a href="#overview">Architecture Overview</a>
@@ -841,11 +841,11 @@ flowchart LR
 </tr>
 <tr>
   <td>21</td>
-  <td><code>Suppresses candidate messages whose context window (window_size before &amp; after)…</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
+  <td><code>Suppresses candidate messages whose context window overlaps significantly…</code><br><small style="color:var(--muted)">src/retrieve.py</small></td>
   <td><span class="tag tag-func">Concept</span></td>
   <td>External entry / no inbound edge</td>
   <td>No direct outbound edge</td>
-  <td>Design note for Suppresses candidate messages whose context window (window_size before &amp; after)….</td>
+  <td>Design note for Suppresses candidate messages whose context window overlaps significantly….</td>
 </tr>
 <tr>
   <td>22</td>
@@ -889,7 +889,7 @@ flowchart LR
         src_retrieve_queryplan_init_6568c237("__init__()<br/><small>src/retrieve.py</small>")
         src_retrieve_queryplan_repr_80ea114a("__repr__()<br/><small>src/retrieve.py</small>")
         src_retrieve_queryrouter_c8f5816e("QueryRouter<br/><small>src/retrieve.py</small>")
-        src_retrieve_queryrouter_analyze_1d3b312e("analyze()<br/><small>src/retrieve.py</small>")
+        src_retrieve_queryrouter_parse_time_filter_28f1da6c("parse_time_filter()<br/><small>src/retrieve.py</small>")
     end
     subgraph tests_fixtures_src_index_py_a9a1304b["src/index.py"]
         src_index_chatindex_69d6c9f0("ChatIndex<br/><small>src/index.py</small>")
@@ -916,13 +916,12 @@ flowchart LR
     src_retrieve_retrievalengine_17766aff -->|method| src_retrieve_retrievalengine_init_eb533c24
     src_retrieve_queryplan_32cd9ce8 -->|method| src_retrieve_queryplan_init_6568c237
     src_retrieve_queryplan_32cd9ce8 -->|method| src_retrieve_queryplan_repr_80ea114a
-    src_retrieve_queryrouter_c8f5816e -->|method| src_retrieve_queryrouter_analyze_1d3b312e
+    src_retrieve_queryrouter_c8f5816e -->|method| src_retrieve_queryrouter_parse_time_filter_28f1da6c
     src_cli_main_5d3984b3 -->|calls| src_index_chatindex_build_or_load_e10f3142
     src_cli_main_5d3984b3 -->|calls| src_retrieve_retrievalengine_17766aff
     src_cli_main_5d3984b3 -->|calls| src_context_threadcontextbuilder_7ddcb325
     src_retrieve_retrievalengine_init_eb533c24 -->|calls| src_retrieve_queryrouter_c8f5816e
     web_app_reset_to_default_chat_efe1a37e -->|calls| src_index_chatindex_build_or_load_e10f3142
-    src_retrieve_queryrouter_analyze_1d3b312e -->|calls| src_retrieve_queryplan_32cd9ce8
     src_cli_d851751d -->|imports| src_index_chatindex_69d6c9f0
     src_cli_d851751d -->|imports| src_retrieve_retrievalengine_17766aff
     src_cli_d851751d -->|imports| src_context_threadcontextbuilder_7ddcb325
@@ -934,14 +933,15 @@ flowchart LR
     tests_test_retrieval_ce1ac5e9 -->|imports| src_index_chatindex_69d6c9f0
     tests_test_retrieval_ce1ac5e9 -->|imports| src_retrieve_queryrouter_c8f5816e
     tests_test_retrieval_ce1ac5e9 -->|imports| src_retrieve_retrievalengine_17766aff
-    %% Omitted for readability: 80 nodes, 6 edges
+    src_context_threadcontextbuilder_7ddcb325 -->|uses| src_index_chatindex_69d6c9f0
+    %% Omitted for readability: 80 nodes, 5 edges
     class src_retrieve_retrievalengine_17766aff klass;
     class src_retrieve_retrievalengine_init_eb533c24 function;
     class src_retrieve_queryplan_32cd9ce8 klass;
     class src_retrieve_queryplan_init_6568c237 function;
     class src_retrieve_queryplan_repr_80ea114a function;
     class src_retrieve_queryrouter_c8f5816e api;
-    class src_retrieve_queryrouter_analyze_1d3b312e function;
+    class src_retrieve_queryrouter_parse_time_filter_28f1da6c function;
     class src_index_chatindex_69d6c9f0 klass;
     class src_index_chatindex_lexical_search_1a6cbe43 function;
     class src_index_chatindex_build_or_load_e10f3142 function;
@@ -2041,7 +2041,7 @@ flowchart LR
 
 <div style="text-align:center; padding:40px 0; color: var(--muted); font-size:0.9rem;">
   <p>Group Chat Search — Architecture Documentation</p>
-  <p>Generated: 2026-09-12 07:06 UTC · graphify callflow-html</p>
+  <p>Generated: 2026-09-12 07:26 UTC · graphify callflow-html</p>
 </div>
 
 </div><!-- .container -->

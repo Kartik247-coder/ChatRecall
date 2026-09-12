@@ -60,9 +60,9 @@
     "semantic_hash": ""
   },
   "src/retrieve.py": {
-    "mtime": 1789195645.2894301,
-    "seen": 1789195806.320863,
-    "ast_hash": "ce78478a914d72706e6454536e809092",
+    "mtime": 1789196646.918538,
+    "seen": 1789196762.3220139,
+    "ast_hash": "b26cf72eac6cdf0c5317ecadf26d0417",
     "semantic_hash": ""
   },
   "tests/__init__.py": {
@@ -84,9 +84,9 @@
     "semantic_hash": "8152d2d3b8683f9c13076dad3b61c43d"
   },
   "tests/test_retrieval.py": {
-    "mtime": 1789195746.2204356,
-    "seen": 1789195806.320988,
-    "ast_hash": "32b0c9968e1bbddaff47baf5bf30ea2a",
+    "mtime": 1789196704.903331,
+    "seen": 1789196762.322149,
+    "ast_hash": "1d83cc493a970c510706533f29c4496d",
     "semantic_hash": ""
   },
   "web/__init__.py": {
@@ -173,12 +173,6 @@
     "ast_hash": "814f95cb203f08b07d4fe161bc68bdac",
     "semantic_hash": ""
   },
-  "scratch/test_pipeline.py": {
-    "mtime": 1789195337.4155583,
-    "seen": 1789195806.32074,
-    "ast_hash": "c2fb4cb3d5346c7767ead478776605f9",
-    "semantic_hash": ""
-  },
   "data/uploads/sample_chat.txt": {
     "mtime": 1789194229.8472993,
     "seen": 1789195806.321142,
@@ -192,9 +186,15 @@
     "semantic_hash": ""
   },
   "tuning_notes.md": {
-    "mtime": 1789195798.4581072,
-    "seen": 1789195806.321236,
-    "ast_hash": "6eeb7008c9cffaef691470ed0c6f92c9",
+    "mtime": 1789196748.3399231,
+    "seen": 1789196762.322492,
+    "ast_hash": "b5d9ebcb707ce6d205f324e2d256ca44",
+    "semantic_hash": ""
+  },
+  "data/uploads/sample_chat_2.txt": {
+    "mtime": 1789196160.5668926,
+    "seen": 1789196762.32236,
+    "ast_hash": "8390f48525eea6e877094addb7b80528",
     "semantic_hash": ""
   }
 }

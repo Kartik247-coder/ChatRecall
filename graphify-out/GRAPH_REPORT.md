@@ -1,7 +1,7 @@
 # Graph Report - Group Chat Search  (2026-09-12)
 
 ## Corpus Check
-- 28 files · ~130,488 words
+- 28 files · ~130,906 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `88a7756d`
+- Built from commit: `0c63b3fe`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -73,7 +73,7 @@ Nodes (15): generate_synthetic_chat(), main(), Any, Synthetic Group Chat Generat
 
 ### Community 2 - "retrieve.py"
 Cohesion: 0.11
-Nodes (17): datetime, Enum, Embedding Pipeline for ChatRecall ================================= Provides…, Chat Indexer for ChatRecall =========================== Builds, caches, and…, QueryPlan, QueryRouter, Multi-Strategy Query Router & Retrieval Engine for ChatRecall…, Expands query with conversational domain synonyms. (+9 more)
+Nodes (17): datetime, Enum, Embedding Pipeline for ChatRecall ================================= Provides…, Chat Indexer for ChatRecall =========================== Builds, caches, and…, QueryPlan, QueryRouter, Multi-Strategy Query Router & Retrieval Engine for ChatRecall…, Dynamically parses time expressions relative to active archive timestamps. (+9 more)
 
 ### Community 4 - "Evaluation Report: ChatRecall Semantic Retrieval Performance"
 Cohesion: 0.08
@@ -109,7 +109,7 @@ Nodes (5): compute_metrics(), generate_markdown_report(), Any, Comprehensive Eva
 
 ### Community 19 - ".search"
 Cohesion: 0.40
-Nodes (3): Any, Suppresses candidate messages whose context window (window_size before & after)…, Executes query through multi-strategy routing, contextual vector search,…
+Nodes (3): Any, Suppresses candidate messages whose context window overlaps significantly…, Executes query through multi-strategy routing, contextual vector search,…
 
 ## Knowledge Gaps
 - **26 isolated node(s):** `graphify`, `Workflow: graphify`, `🎯 Problem Statement`, `✨ Key Capabilities`, `📊 Evaluation & Benchmark Results` (+21 more)

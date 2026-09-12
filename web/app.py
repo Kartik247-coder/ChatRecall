@@ -149,10 +149,16 @@ async def api_search(
         })
 
     return {
+        "literal_query": q,
         "query": q,
+        "clean_query": search_data.get("clean_query", q),
+        "expanded_query": search_data.get("expanded_query", q),
         "source_name": _current_source_name,
         "plan": search_data["plan"],
         "candidate_count": search_data["candidate_count"],
+        "threshold": search_data.get("threshold", 0.28),
+        "no_confident_match": search_data.get("no_confident_match", False),
+        "deduplicated": search_data.get("deduplicated", True),
         "semantic_results": enriched_results,
         "lexical_baseline": lexical_results
     }

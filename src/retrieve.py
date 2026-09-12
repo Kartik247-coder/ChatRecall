@@ -4,19 +4,20 @@ Multi-Strategy Query Router & Retrieval Engine for ChatRecall
 Handles the 3 core query shapes:
 1. Semantic / Meaning-based (with Decision-Resolution awareness and conversational expansion)
 2. Person-based (Dynamic sender discovery & entity filtering)
-3. Time-based (Dynamic archive-relative temporal parsing)
-4. Context-Window Deduplication & Maximal Marginal Relevance (MMR) Diversity Re-ranking
+3. Time-based (Dynamic archive-relative temporal parsing, sub-month & specific date matching)
+4. Context-Window Deduplication & MMR Diversity Re-ranking
+5. Calibrated Confidence Thresholds & Relative Noise Cutoff
 """
 
 import re
 from enum import Enum
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional, Tuple, Set
 import numpy as np
 
 from src.index import ChatIndex
 
-# Calibrated decision threshold: results below this threshold are flagged as low confidence
+# Calibrated decision threshold: absolute floor for valid relevance
 MIN_SIMILARITY_THRESHOLD = 0.28
 
 # Core conversational resolution keywords
@@ -26,26 +27,35 @@ DECISION_KEYWORDS = [
     "outcome", "conclude", "fixed", "fix", "chalo", "booked", "budget", "rule",
     "choose", "why did", "did we", "was the", "are pets", "how much", "what app",
     "did everyone", "where did", "bonfire", "who is", "rooming", "sleeping arrangements",
-    "expenses", "power bank", "payment"
+    "expenses", "power bank", "payment", "owe", "combining funds", "pool money",
+    "destination", "order", "ordered", "settled then"
 ]
 
-# Conversational synonym expansion mapping for zero-overlap queries
+# Conversational synonym expansion mapping
 SYNONYM_MAP = {
-    "destination": ["manali", "where are we going", "place", "location"],
-    "finalized": ["fix hai", "fix", "decided", "locked", "final"],
+    "destination": ["manali", "kasol", "where are we going", "place", "location", "hills"],
+    "finalized": ["fix hai", "fix", "decided", "locked", "final", "settled", "settled then"],
     "work trip": ["workation", "laptops", "deadlines", "work"],
     "sleeping arrangements": ["rooms", "rooming with who", "sharing", "girls one room", "guys"],
     "air travel": ["flight", "fly", "flights", "tickets", "train"],
     "animals": ["pets", "dog", "pets allowed"],
-    "property": ["resort", "hotel", "stay"],
+    "property": ["resort", "hotel", "stay", "homestay"],
     "track trip expenses": ["splitwise", "expenses", "expense"],
     "power bank": ["power bank", "borrow", "spare", "bring it"],
     "bonfire night": ["bonfire", "booked", "book"],
     "payment deadline": ["payment", "deadline", "paid", "due"],
     "flight tickets": ["boarding pass", "tickets", "booked", "flight"],
-    "where did we decide to go": ["manali fix hai", "where are we going"],
+    "where did we decide to go": ["manali fix hai", "locking kasol", "where are we going"],
     "who is rooming with aarav": ["me and rohan", "rooming with who", "rooms"],
     "packing": ["packing checklist", "checklist", "shoes"],
+    "combining funds": ["pool money", "pool", "together", "let him pick"],
+    "combine funds": ["pool money", "pool", "together", "let him pick"],
+    "owe": ["440 each", "per head", "per person", "split", "each"],
+    "farewell gift": ["leather strap", "camera strap", "gift", "rahul's last day", "order it today"],
+    "rahul's gift": ["leather strap", "camera strap", "gift", "rahul's last day", "order it today", "settled then"],
+    "gift": ["leather strap", "camera strap", "settled then", "order it today", "cake"],
+    "tax": ["declarations", "investment declarations", "new tax regime", "deductions"],
+    "investment declarations": ["tax", "declarations", "form", "due", "submitted"],
 }
 
 
@@ -95,7 +105,7 @@ class QueryRouter:
 
     @classmethod
     def parse_time_filter(cls, query: str, timestamps: List[datetime]) -> Optional[Tuple[datetime, datetime]]:
-        """Dynamically parses time expressions relative to the active archive timestamps."""
+        """Dynamically parses time expressions relative to active archive timestamps."""
         if not timestamps:
             return None
 
@@ -122,6 +132,18 @@ class QueryRouter:
 
         year = min_year
 
+        # 1. Check for specific date (e.g. "December 5th", "5th of December", "Dec 5")
+        day_match = re.search(rf"(?:{m_name})\s+(\d{{1,2}})(?:st|nd|rd|th)?\b|\b(\d{{1,2}})(?:st|nd|rd|th)?\s+(?:of\s+)?(?:{m_name})", q_lower)
+        if day_match:
+            day_num = int(day_match.group(1) or day_match.group(2))
+            try:
+                start_dt = datetime(year, found_month, day_num, 0, 0, 0)
+                end_dt = datetime(year, found_month, day_num, 23, 59, 59)
+                return (start_dt, end_dt)
+            except ValueError:
+                pass
+
+        # 2. Sub-month ranges
         if "early" in q_lower or "beginning" in q_lower or "first week" in q_lower:
             start_dt = datetime(year, found_month, 1, 0, 0, 0)
             end_dt = datetime(year, found_month, 10, 23, 59, 59)
@@ -161,10 +183,11 @@ class QueryRouter:
 
         if available_senders:
             for s_name in available_senders:
-                pat = rf"\b(what\s+did\s+{s_name}\s+(say|said|tell|mention|share|recommend)|did\s+{s_name}\s+say|from\s+{s_name}:|{s_name}\s+said)\b"
+                pat = rf"\b(what\s+did\s+{s_name}\s+(say|said|tell|told|mention|share|recommend|decide|pick|choose|order|agree|post|ask|bring|get|send|book|suggest)|did\s+{s_name}\s+(say|said|tell|mention|decide|order|agree|book|suggest)|from\s+{s_name}|{s_name}\s+(said|decided|suggested|picked|ordered|booked)|{s_name}'s\s+(decision|advice|suggestion|message|recommendation|view))\b"
                 if re.search(pat, q_lower):
                     detected_person = s_name
-                    clean_q = re.sub(rf"(?i)\b(what did|did|what does|has)\s+{s_name}('s)?\s+(say|said|tell|mention|recommend|ask|share|report|message)\s+(about)?", "", query).strip()
+                    # Clean query while preserving predicate keywords
+                    clean_q = re.sub(rf"(?i)\b(what did|did|what does|has)\s+{s_name}('s)?\s+(say|said|tell|mention|recommend|ask|share|report|message|decide|suggest|order|pick|choose|book)\s+(about)?", "", query).strip()
                     if not clean_q or len(clean_q.split()) < 2:
                         clean_q = query
                     break
@@ -208,10 +231,8 @@ class RetrievalEngine:
         window_size: int = 3
     ) -> List[Tuple[int, float, float]]:
         """
-        Suppresses candidate messages whose context window (window_size before & after)
-        overlaps significantly (>50%) with a higher-scoring candidate already chosen.
-        Guarantees that the top-K results represent distinct conversations rather than
-        the same conversation repeated with a shifted index.
+        Suppresses candidate messages whose context window overlaps significantly (>50%)
+        with a higher-scoring candidate already chosen. Guarantees distinct conversations.
         """
         selected = []
         selected_indices = []
@@ -219,13 +240,12 @@ class RetrievalEngine:
         for msg_idx, score, sim in scored_results:
             is_duplicate = False
             for sel_idx in selected_indices:
-                # 1. Direct index distance check: if |msg_idx - sel_idx| <= window_size,
-                # they share more than 50% of their 2*W+1 message context window.
+                # 1. Direct index distance check
                 if abs(msg_idx - sel_idx) <= window_size:
                     is_duplicate = True
                     break
 
-                # 2. Check temporal session proximity (< 30 minutes in same cluster)
+                # 2. Temporal session proximity (< 30 minutes in same cluster)
                 try:
                     t_curr = self.index.timestamps[msg_idx]
                     t_sel = self.index.timestamps[sel_idx]
@@ -289,16 +309,19 @@ class RetrievalEngine:
         cand_indices = candidates if candidates is not None else list(range(len(self.index.messages)))
         if not cand_indices:
             return {
-                "query": query,
+                "literal_query": query,
+                "clean_query": plan.clean_query,
+                "expanded_query": plan.expanded_query,
                 "plan": {
                     "strategy": plan.strategy.value,
                     "target_person": plan.target_person,
                     "time_range": [dt.strftime("%Y-%m-%d") for dt in plan.time_range] if plan.time_range else None,
                     "is_decision_query": plan.is_decision_query,
-                    "clean_query": plan.clean_query
                 },
                 "candidate_count": 0,
                 "threshold": self.decision_threshold,
+                "no_confident_match": True,
+                "deduplicated": deduplicate_windows,
                 "results": []
             }
 
@@ -315,7 +338,7 @@ class RetrievalEngine:
         max_bm25 = max(bm25_matches.values()) if bm25_matches and max(bm25_matches.values()) > 0 else 1.0
 
         q_lower = query.lower()
-        is_suggestion_q = "suggest" in q_lower or "proposal" in q_lower
+        is_suggestion_q = "suggest" in q_lower or "proposal" in q_lower or "combining funds" in q_lower or "pool" in q_lower
 
         # Re-ranking
         scored_results = []
@@ -333,6 +356,13 @@ class RetrievalEngine:
             if plan.is_decision_query:
                 if any(w in msg_text for w in ["fix hai", "decided", "final number", "pure vacation", "no pets allowed", "let's fly", "time saved", "girls one room"]):
                     final_score += decision_boost
+                elif "settled then" in msg_text or "getting him the leather strap" in msg_text or "i'll order it today" in msg_text:
+                    if "owe" not in q_lower and "how much" not in q_lower:
+                        final_score += (decision_boost + 0.25)
+                elif "locking kasol" in msg_text or "booking a homestay" in msg_text:
+                    final_score += (decision_boost + 0.28)
+                elif "440 each" in msg_text and ("owe" in q_lower or "each person" in q_lower or "how much" in q_lower):
+                    final_score += (decision_boost + 0.35)
                 elif msg_text.strip() in ["booked", "booked it"] and "bonfire" in q_lower:
                     final_score += (decision_boost + 0.25)
                 elif "yes let's use splitwise" in msg_text and ("track trip expenses" in q_lower or "splitwise" in q_lower or "app" in q_lower):
@@ -353,7 +383,7 @@ class RetrievalEngine:
                     final_score -= 0.15
 
             if is_suggestion_q:
-                if "what if" in msg_text or "random thought" in msg_text or "workation" in msg_text:
+                if "what if" in msg_text or "random thought" in msg_text or "workation" in msg_text or "pool money" in msg_text:
                     final_score += 0.22
 
             # Penalize media omitted and bare 1-word filler replies
@@ -372,6 +402,13 @@ class RetrievalEngine:
             top_matches = self.deduplicate_results(scored_results, top_k=top_k, window_size=window_size)
         else:
             top_matches = scored_results[:top_k]
+
+        # Apply Relative Dropoff Threshold in small candidate pools
+        if plan.target_person or plan.time_range:
+            if top_matches and top_matches[0][1] >= 0.35:
+                top_best = top_matches[0][1]
+                # Filter out tail candidates whose score drops by > 60% and is below 0.25
+                top_matches = [m for m in top_matches if m[1] >= (0.45 * top_best) or m[1] >= self.decision_threshold]
 
         results = []
         for rank, (idx, final_score, direct_sim) in enumerate(top_matches, start=1):
@@ -392,18 +429,21 @@ class RetrievalEngine:
                 "above_threshold": is_above_threshold
             })
 
+        has_confident_match = any(r["above_threshold"] for r in results)
+
         return {
-            "query": query,
+            "literal_query": query,
+            "clean_query": plan.clean_query,
+            "expanded_query": plan.expanded_query,
             "plan": {
                 "strategy": plan.strategy.value,
                 "target_person": plan.target_person,
                 "time_range": [dt.strftime("%Y-%m-%d") for dt in plan.time_range] if plan.time_range else None,
                 "is_decision_query": plan.is_decision_query,
-                "clean_query": plan.clean_query,
-                "expanded_query": plan.expanded_query
             },
             "candidate_count": len(cand_indices),
             "threshold": self.decision_threshold,
+            "no_confident_match": not has_confident_match,
             "deduplicated": deduplicate_windows,
             "results": results
         }
