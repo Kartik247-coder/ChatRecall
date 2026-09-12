@@ -1,7 +1,7 @@
 # ChatRecall 💬🔍
 > **Semantic Retrieval over a Synthetic Group Chat Archive**
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 [![Python](https://img.shields.io/badge/python-3.10%2B-brightgreen.svg)](https://www.python.org/)
 [![Hinglish-Ready](https://img.shields.io/badge/Hinglish-Multilingual%20Embedding-orange.svg)]()
 [![Zero--Word--Overlap](https://img.shields.io/badge/Zero--Word--Overlap-Evaluated-success.svg)]()
@@ -161,5 +161,4 @@ ChatRecall/
 
 ---
 
-## 📜 License
-MIT License. Created for the "Search a Group Chat Properly" project.
+
