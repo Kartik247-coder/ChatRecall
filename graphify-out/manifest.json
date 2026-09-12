@@ -132,9 +132,9 @@
     "semantic_hash": ""
   },
   "web/static/index.html": {
-    "mtime": 1789197904.7091503,
-    "seen": 1789197964.761299,
-    "ast_hash": "936cf1acc43653ac3edd854e0f47a111",
+    "mtime": 1789199880.5604398,
+    "seen": 1789199897.725179,
+    "ast_hash": "4920b0cfc3fcc2f54afaf0d3a844b678",
     "semantic_hash": ""
   },
   "src/parser.py": {
@@ -213,6 +213,12 @@
     "mtime": 1789198242.2417588,
     "seen": 1789199281.0661278,
     "ast_hash": "1a2a1b85e22b750a8051eb948a513924",
+    "semantic_hash": ""
+  },
+  "data/uploads/sampe_chat.txt": {
+    "mtime": 1789199399.404213,
+    "seen": 1789199897.724929,
+    "ast_hash": "f906a5d377039cad0eb2657f9f5f6caa",
     "semantic_hash": ""
   }
 }
