@@ -1,14 +1,15 @@
 """
 Synthetic Group Chat Generator for ChatRecall
 =============================================
-Generates a realistic, messy synthetic group chat archive:
+Generates a realistic, messy synthetic group chat archive with:
 - Deterministic random generation (fixed seed: 42)
 - 8 distinct participants with unique personas and texting habits
 - 6-month timestamp range (2023-10-01 to 2024-03-31)
 - 4,200+ messages
 - Realistic chat artifacts: Hinglish/code-mixing, typos, 1-word reactions,
   forwarded text, '<Media omitted>' lines, reply references, and conversational bursts
-- 3 long resolving threads with distinct decision outcomes marked with `is_decision=True`.
+- 3 long resolving threads with distinct decision outcomes marked with `is_decision=True`
+- Multi-day conversational episodes (Diwali, New Year, Gym challenge, Carpools, Tax saving, Farewell planning, etc.).
 """
 
 import json
@@ -17,7 +18,6 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 SEED = 42
-TOTAL_TARGET_MESSAGES = 4250
 START_DATE = datetime(2023, 10, 1, 8, 0, 0)
 END_DATE = datetime(2024, 3, 31, 23, 30, 0)
 
@@ -72,80 +72,12 @@ PARTICIPANTS = {
     },
 }
 
-# General topic templates for background chatter
-CASUAL_TOPICS = [
-    # Food & Coffee
-    [
-        ("Ananya Iyer", "guys Indiranagar me ek naya sourdough bakery khula hai, anyone free today?"),
-        ("Kabir Sen", "bhai expensive hoga pakka, 500 ka toast nahi khana mujhe"),
-        ("Priya Sharma", "menu check kiya kya Ananya? average bill kitna hai?"),
-        ("Ananya Iyer", "arre coffee is around 220, pretty reasonable for the quality"),
-        ("Siddharth Verma", "main aa raha hoon agar cinnamon roll milega toh"),
-        ("Neha Gupta", "shift at hospital till 7, save one for me!"),
-        ("Rohan Mehta", "let's do 7:30 PM then, Neha can also join"),
-        ("Vikram Malhotra", "parking is terrible on that street, let's take metro or uber"),
-        ("Tanvi Desai", "done, I'll reach by 7:45"),
-        ("Kabir Sen", "chalo done, Ananya is giving party"),
-        ("Ananya Iyer", "haha in your dreams Kabir, split bill only!"),
-    ],
-    # Cricket / Sports
-    [
-        ("Siddharth Verma", "what a match yesterday! last over thriller literally"),
-        ("Kabir Sen", "bhai Kohli's cover drive is pure art"),
-        ("Vikram Malhotra", "bowling in death overs was concerning though"),
-        ("Rohan Mehta", "final match ka screening kahan dekhna hai?"),
-        ("Priya Sharma", "ghar pe projector lagate hain, pubs are charging 1500 cover charge"),
-        ("Siddharth Verma", "mere flat pe aa jao, 65 inch TV + soundbar sorted hai"),
-        ("Tanvi Desai", "I'll get chips and dips"),
-        ("Neha Gupta", "hoping I don't get emergency duty on Sunday"),
-        ("Kabir Sen", "biryani order karenge match start hone se pehle"),
-    ],
-    # Work & Life
-    [
-        ("Vikram Malhotra", "production deployment on Friday evening... why do people do this"),
-        ("Rohan Mehta", "rule #1 of engineering broken lol"),
-        ("Neha Gupta", "36 hr shift done, going to sleep for 2 days straight"),
-        ("Priya Sharma", "take rest Neha! drink electrolytes"),
-        ("Ananya Iyer", "client wants redesign in 2 hours with 'more pop' 😭"),
-        ("Kabir Sen", "<Media omitted>"),
-        ("Kabir Sen", "this meme describes client feedback perfectly"),
-        ("Siddharth Verma", "hahaha classic"),
-    ],
-    # Movies / Series
-    [
-        ("Siddharth Verma", "anyone watched the new Christopher Nolan movie yet?"),
-        ("Ananya Iyer", "yes! IMAX visual treat hai, sound design was crazy"),
-        ("Vikram Malhotra", "dialogue mixing was a bit muddy in some scenes but overall 9/10"),
-        ("Kabir Sen", "bhai mujhe toh aadha samajh nahi aaya physics part"),
-        ("Priya Sharma", "ticket prices in weekend are 800 rs, Tuesday discount pe dekha maine"),
-        ("Tanvi Desai", "worth every rupee on big screen honestly"),
-    ],
-    # Fitness / Routine
-    [
-        ("Rohan Mehta", "who is coming for morning 6 AM run at Cubbon park?"),
-        ("Vikram Malhotra", "count me in, 5k loop?"),
-        ("Rohan Mehta", "yes, 5k pace around 5:45/km"),
-        ("Kabir Sen", "bhai 6 AM ko toh main deep sleep me rehta hoon"),
-        ("Ananya Iyer", "I will come for post-run dosa and filter coffee at CTR"),
-        ("Priya Sharma", "+1 for CTR breakfast"),
-        ("Neha Gupta", "post duty maybe if I survive the night"),
-    ],
-    # Weather / City traffic
-    [
-        ("Vikram Malhotra", "Silk board signal is completely jammed today, 45 mins stuck already"),
-        ("Tanvi Desai", "metro work going on near HSR, avoid outer ring road"),
-        ("Kabir Sen", "Bangalore weather makes up for the traffic though, 21 degrees cool breeze"),
-        ("Ananya Iyer", "rain forecast today evening, keep umbrellas handy"),
-        ("Priya Sharma", "cab surge price 3x ho gaya already"),
-    ],
-]
-
 FORWARDED_MESSAGES = [
     "[Forwarded message] Govt announces new tax rebate under Section 87A for income up to 7 Lakhs in new regime.",
     "[Forwarded message] Bangalore Metro Purple Line full stretch now operational from Challaghatta to Whitefield!",
-    "[Forwarded message] Traffic Advisory: Outer Ring Road waterlogging cleared, normal traffic resumed.",
+    "[Forwarded message] Traffic Advisory: Outer Ring Road waterlogging cleared near Ecospace.",
     "[Forwarded message] Happy Diwali to you and your lovely family! May this year bring health and prosperity ✨🪔",
-    "[Forwarded message] Top 10 productivity hacks for remote workers that actually work in 2024.",
+    "[Forwarded message] Top 10 productivity hacks for remote software engineers in 2024.",
     "[Forwarded message] Reminder: Last date for advance tax payment for Q3 is 15th December.",
 ]
 
@@ -155,7 +87,6 @@ ONE_WORD_REPLIES = ["haan", "done", "ok", "nahi", "lol", "nice", "yep", "mast", 
 def generate_synthetic_chat() -> List[Dict[str, Any]]:
     random.seed(SEED)
     messages: List[Dict[str, Any]] = []
-    current_time = START_DATE
     msg_counter = 1
 
     def create_msg(sender: str, text: str, dt: datetime, thread_id: str = None, 
@@ -176,7 +107,11 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
             "media_omitted": media_omitted,
         }
 
-    # Thread 1: Year-End Trip (Nov 12, 2023 to Nov 18, 2023)
+    # =========================================================================
+    # 3 LONG RESOLVING THREADS WITH EXPLICIT DECISION MARKERS
+    # =========================================================================
+
+    # Thread 1: Year-End Trip (Nov 12, 2023)
     t1_time = datetime(2023, 11, 12, 19, 15, 0)
     t1_msgs = [
         ("Rohan Mehta", "guys year end leaves apply karne ka deadline aa gaya, where are we going for New Year trip?"),
@@ -210,7 +145,7 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
         ("Rohan Mehta", "Woohoo! Manali winter trip locked! Thanks Tanvi for coordinating.")
     ]
 
-    # Thread 2: Flat Lease & Deposit Split (Jan 10, 2024 to Jan 16, 2024)
+    # Thread 2: Flat Lease & Deposit Split (Jan 10, 2024)
     t2_time = datetime(2024, 1, 10, 18, 30, 0)
     t2_msgs = [
         ("Vikram Malhotra", "Guys our current house lease expires in March. We need to finalize the new flat this week."),
@@ -234,7 +169,7 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
         ("Priya Sharma", "Deposit receipt and lease PDF uploaded to our shared drive.")
     ]
 
-    # Thread 3: Farewell Gift & Venue for Siddharth (March 18, 2024 to March 22, 2024)
+    # Thread 3: Farewell Gift & Venue for Siddharth (March 18, 2024)
     t3_time = datetime(2024, 3, 18, 14, 0, 0)
     t3_msgs = [
         ("Rohan Mehta", "guys Siddharth is moving to London next month for his master's! We need to plan a proper surprise farewell gift and dinner."),
@@ -260,16 +195,31 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
         ("Rohan Mehta", "Awesome! Remember don't tell Sid in the main chat, keep it surprise!")
     ]
 
-    # Insert Thread 1, 2, 3 into distinct time slots
-    thread_blocks = [
-        (t1_time, "thread_year_end_trip", t1_msgs),
-        (t2_time, "thread_flat_lease", t2_msgs),
-        (t3_time, "thread_farewell_gift", t3_msgs),
-    ]
-
-    # Additional mini-threads for realistic rich queries
-    mini_threads = [
-        # Diwali celebration plan (Nov 2023)
+    # Additional Distinct Topical Threads
+    distinct_threads = [
+        # Cubbon park morning run & CTR coffee (Oct 3, 2023)
+        (datetime(2023, 10, 3, 6, 30, 0), "thread_cubbon_run", [
+            ("Rohan Mehta", "who is coming for morning 6 AM run at Cubbon park?"),
+            ("Vikram Malhotra", "count me in, 5k loop?"),
+            ("Rohan Mehta", "yes, 5k pace around 5:45/km"),
+            ("Kabir Sen", "bhai 6 AM ko toh main deep sleep me rehta hoon"),
+            ("Ananya Iyer", "I will come for post-run dosa and filter coffee at CTR"),
+            ("Priya Sharma", "+1 for CTR breakfast"),
+            ("Neha Gupta", "post duty maybe if I survive the night"),
+        ]),
+        # Smart home plug & geyser automation (Oct 5, 2023)
+        (datetime(2023, 10, 5, 8, 20, 0), "thread_smart_home", [
+            ("Vikram Malhotra", "Updated the smart home plug schedule to turn off geyser automatically after 20 mins."),
+            ("Rohan Mehta", "Great, power bill will be much lower this month."),
+            ("Priya Sharma", "Nice initiative Vikram!"),
+        ]),
+        # Purple Line metro opening (Oct 9, 2023)
+        (datetime(2023, 10, 9, 9, 15, 0), "thread_metro_purple", [
+            ("Kabir Sen", "[Forwarded message] Bangalore Metro Purple Line full stretch now operational from Challaghatta to Whitefield!"),
+            ("Vikram Malhotra", "Finally! Office commute to ITPL will take 45 mins instead of 2 hours in traffic."),
+            ("Tanvi Desai", "Going to take metro from Indiranagar today itself."),
+        ]),
+        # Diwali Celebration (Nov 10, 2023)
         (datetime(2023, 11, 10, 16, 0, 0), "thread_diwali_party", [
             ("Ananya Iyer", "Diwali potluck dinner at my apartment this Saturday? Dress code is traditional kurta/saree!"),
             ("Rohan Mehta", "I'll bring kaju katli and samosas from Anand Sweets."),
@@ -280,7 +230,7 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
             ("Neha Gupta", "Yay! Finally an off night on Saturday."),
             ("Ananya Iyer", "Lock ho gaya: Diwali potluck party Saturday 7 PM at my place, dress code ethnic!"),
         ]),
-        # Gym / Fitness challenge (Jan 2024)
+        # Gym Challenge (Jan 2, 2024)
         (datetime(2024, 1, 2, 10, 0, 0), "thread_gym_challenge", [
             ("Rohan Mehta", "New Year resolution: 75 days fitness streak! Who is joining?"),
             ("Vikram Malhotra", "I signed up for Cult Fit pass near office."),
@@ -289,89 +239,141 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
             ("Siddharth Verma", "Deal accepted! Track on Strava app."),
             ("Ananya Iyer", "Joined the Strava group! Let's do this."),
         ]),
-        # Carpool & commute coordination (Feb 2024)
+        # Carpool Feb (Feb 14, 2024)
         (datetime(2024, 2, 14, 8, 30, 0), "thread_carpool_feb", [
             ("Vikram Malhotra", "Anyone commuting towards Electronic City phase 1 today? Driving via elevated toll road."),
             ("Rohan Mehta", "Pick me up from Sony World signal at 9:15 AM please."),
             ("Priya Sharma", "Me too from Koramangala water tank!"),
             ("Vikram Malhotra", "Leaving home in 10 mins, be ready at pickup point."),
         ]),
-        # Tax saving & ITR (March 2024)
+        # Tax Saving (March 5, 2024)
         (datetime(2024, 3, 5, 11, 0, 0), "thread_tax_march", [
             ("Priya Sharma", "Friendly reminder guys: March 31 is financial year end. Submit 80C investment proofs on company portal!"),
             ("Kabir Sen", "Arre ELSS mutual fund me last minute invest karna padega tax bachane ke liye."),
             ("Vikram Malhotra", "NPS tier 1 gives extra 50,000 deduction under 80CCD(1B), very useful."),
             ("Siddharth Verma", "Thanks Priya, totally forgot about health insurance premium receipt."),
         ]),
+        # PVR Movie night (Feb 23, 2024)
+        (datetime(2024, 2, 23, 17, 30, 0), "thread_movie_pvr", [
+            ("Siddharth Verma", "Booked 4 tickets for Friday night first-day-first-show at PVR Forum."),
+            ("Kabir Sen", "Popcorn combo on you Sid bhai!"),
+            ("Vikram Malhotra", "What time is the show?"),
+            ("Siddharth Verma", "9:45 PM IMAX screen."),
+        ]),
+        # Helmet challan (Jan 19, 2024)
+        (datetime(2024, 1, 19, 12, 15, 0), "thread_helmet_fine", [
+            ("Kabir Sen", "Arre traffic police caught me for helmet strap not clicked properly, 500 challan lag gaya."),
+            ("Vikram Malhotra", "Always click the strap properly bhai, safety first."),
+            ("Priya Sharma", "Pay it immediately on Bangalore traffic police portal."),
+        ]),
+        # Doctor emergency casualty duty (Dec 4, 2023)
+        (datetime(2023, 12, 4, 21, 0, 0), "thread_doctor_duty", [
+            ("Neha Gupta", "Night shift emergency casualty duty finished, sleeping now do not call."),
+            ("Priya Sharma", "Rest well Neha!"),
+            ("Ananya Iyer", "Take care dear!"),
+        ]),
+        # Silk board traffic jam (Nov 28, 2023)
+        (datetime(2023, 11, 28, 18, 45, 0), "thread_silk_board", [
+            ("Vikram Malhotra", "Silk board signal is completely jammed today, 45 mins stuck already."),
+            ("Tanvi Desai", "Outer ring road is choked too due to rain."),
+            ("Rohan Mehta", "Take the inner HSR layout road."),
+        ]),
+        # Chicory filter coffee (Oct 22, 2023)
+        (datetime(2023, 10, 22, 8, 30, 0), "thread_chicory_coffee", [
+            ("Ananya Iyer", "Made authentic South Indian filter coffee with 80:20 chicory blend, pure bliss."),
+            ("Rohan Mehta", "Send some to my flat!"),
+            ("Tanvi Desai", "Filter coffee aroma in morning is the best."),
+        ]),
+        # Swiggy Instamart 7 mins (Dec 14, 2023)
+        (datetime(2023, 12, 14, 22, 10, 0), "thread_instamart", [
+            ("Kabir Sen", "Bhai Swiggy Instamart delivered ice cream in 7 minutes flat, what a time to be alive."),
+            ("Ananya Iyer", "Which flavor did you get?"),
+            ("Kabir Sen", "Belgian dark chocolate tub!"),
+        ]),
+        # Ananya thrift denim jacket (Oct 16, 2023)
+        (datetime(2023, 10, 16, 17, 20, 0), "thread_thrift_jacket", [
+            ("Ananya Iyer", "Found an incredible vintage thrift store in Koramangala 5th block, bought an oversized denim jacket for 800!"),
+            ("Priya Sharma", "That is such a good steal!"),
+        ]),
+        # Ananya pottery workshop (Nov 4, 2023)
+        (datetime(2023, 11, 4, 11, 10, 0), "thread_pottery", [
+            ("Ananya Iyer", "Pottery workshop happening this Sunday at Ceramic Center, anyone interested?"),
+            ("Tanvi Desai", "I'd love to try it out!"),
+        ]),
+        # Priya flight advice (Feb 6, 2024)
+        (datetime(2024, 2, 6, 14, 0, 0), "thread_flight_advice", [
+            ("Priya Sharma", "Priya's advice: don't book flights on weekends, Tuesday afternoon prices are lowest."),
+            ("Rohan Mehta", "Noted for our next offsite."),
+        ]),
+        # Vikram broadband ticket (Nov 15, 2023)
+        (datetime(2023, 11, 15, 11, 40, 0), "thread_broadband_outage", [
+            ("Vikram Malhotra", "Fiber internet line is down in our sector, raised Airtel broadband complaint ticket #94821."),
+            ("Kabir Sen", "Mobile hotspot se kaam chala raha hoon."),
+        ]),
+        # Vikram mechanical keyboard (Oct 28, 2023)
+        (datetime(2023, 10, 28, 15, 15, 0), "thread_keyboard", [
+            ("Vikram Malhotra", "Bought the mechanical keyboard with brown tactile switches, typing feels so good."),
+            ("Rohan Mehta", "Which brand? Keychron?"),
+        ]),
+        # Rohan airport cab (Dec 8, 2023)
+        (datetime(2023, 12, 8, 19, 0, 0), "thread_airport_cab", [
+            ("Rohan Mehta", "Airport taxi pre-booked for 4 AM flight on MakeMyTrip."),
+            ("Vikram Malhotra", "Safe travels Rohan!"),
+        ]),
+        # Rohan Coorg trek sheet (Jan 24, 2024)
+        (datetime(2024, 1, 24, 10, 30, 0), "thread_coorg_trek", [
+            ("Rohan Mehta", "Shared Google sheet for weekend trekking in Coorg: add your names and contact."),
+            ("Siddharth Verma", "Added my name!"),
+        ]),
+        # Tanvi cab driver details (Feb 20, 2024)
+        (datetime(2024, 2, 20, 20, 30, 0), "thread_cab_driver", [
+            ("Tanvi Desai", "Cab driver assigned for tomorrow morning pickup: Swift Dzire KA-01-MJ-4821."),
+            ("Rohan Mehta", "Perfect, thanks Tanvi."),
+        ]),
+        # Tanvi early check-in (Jan 8, 2024)
+        (datetime(2024, 1, 8, 16, 45, 0), "thread_airbnb_checkin", [
+            ("Tanvi Desai", "Airbnb host replied: early check-in allowed at 11 AM without extra charge."),
+            ("Priya Sharma", "Great, we don't have to carry bags around."),
+        ]),
+        # Priya grocery expenditure (Nov 1, 2023)
+        (datetime(2023, 11, 1, 9, 30, 0), "thread_grocery_expenditure", [
+            ("Priya Sharma", "Total grocery expenditure for October came to 8,420 rupees."),
+            ("Rohan Mehta", "Transferred my 1/4th share."),
+        ]),
     ]
 
-    thread_blocks.extend(mini_threads)
+    all_threads = [
+        (t1_time, "thread_year_end_trip", t1_msgs),
+        (t2_time, "thread_flat_lease", t2_msgs),
+        (t3_time, "thread_farewell_gift", t3_msgs),
+    ] + distinct_threads
 
-    # Let's generate chronological messages across 182 days
-    # We will step day by day and generate between 15-35 messages per day with realistic hours
+    thread_map = {}
+    for tb_time, tb_id, tb_msgs in all_threads:
+        tb_date = tb_time.date()
+        thread_map.setdefault(tb_date, []).append((tb_time, tb_id, tb_msgs))
+
+    all_raw_messages = []
     current_day = START_DATE.date()
     end_day = END_DATE.date()
     day_count = (end_day - current_day).days + 1
-
-    thread_map = {}
-    for tb_time, tb_id, tb_msgs in thread_blocks:
-        tb_date = tb_time.date()
-        if tb_date not in thread_map:
-            thread_map[tb_date] = []
-        thread_map[tb_date].append((tb_time, tb_id, tb_msgs))
-
     all_participants = list(PARTICIPANTS.keys())
 
-    # Pre-crafted realistic message templates for diverse queries
-    SPECIFIC_SCENARIOS = [
-        # Rohan planning
-        ("Rohan Mehta", "Reminder: team offsite survey link fill kar do by 5 PM today."),
-        ("Rohan Mehta", "Shared Google sheet for weekend trekking in Coorg: add your names and contact."),
-        ("Rohan Mehta", "Airport taxi pre-booked for 4 AM flight on MakeMyTrip."),
-        ("Rohan Mehta", "Let's do a quick Google Meet call at 9 PM to sync on travel logistics."),
-        # Priya budgeting
-        ("Priya Sharma", "Splitwise balance settled for electricity and broadband bill. Please check your apps."),
-        ("Priya Sharma", "Priya's advice: don't book flights on weekends, Tuesday afternoon prices are lowest."),
-        ("Priya Sharma", "Total grocery expenditure for October came to 8,420 rupees."),
-        ("Priya Sharma", "Sent 1,450 to Kabir for last night's dinner bill."),
-        # Kabir banter
-        ("Kabir Sen", "Bhai Swiggy Instamart delivered ice cream in 7 minutes flat, what a time to be alive."),
-        ("Kabir Sen", "Arre traffic police caught me for helmet strap not clicked properly, 500 challan lag gaya."),
-        ("Kabir Sen", "Weekend gaming tournament on PS5 at my place, FIFA and Mortal Kombat!"),
-        ("Kabir Sen", "Zomato gold 50% discount coupon code working on Meghana Biryani right now!"),
-        # Ananya aesthetic/food
-        ("Ananya Iyer", "Found an incredible vintage thrift store in Koramangala 5th block, bought an oversized denim jacket for 800!"),
-        ("Ananya Iyer", "Tried the cold brew tonic at Blue Tokai, refreshing in this afternoon heat."),
-        ("Ananya Iyer", "Pottery workshop happening this Sunday at Ceramic Center, anyone interested?"),
-        ("Ananya Iyer", "Made authentic South Indian filter coffee with 80:20 chicory blend, pure bliss."),
-        # Vikram tech/practical
-        ("Vikram Malhotra", "Fiber internet line is down in our sector, raised Airtel broadband complaint ticket #94821."),
-        ("Vikram Malhotra", "Updated the smart home plug schedule to turn off geyser automatically after 20 mins."),
-        ("Vikram Malhotra", "Fastag recharged with 1000 for highway toll booth passing."),
-        ("Vikram Malhotra", "Bought the mechanical keyboard with brown tactile switches, typing feels so good."),
-        # Neha medical/busy
-        ("Neha Gupta", "Surviving on hospital canteen black coffee and adrenaline today."),
-        ("Neha Gupta", "Night shift emergency casualty duty finished, sleeping now do not call."),
-        ("Neha Gupta", "Vaccination drive camp organized at primary health center today."),
-        ("Neha Gupta", "Can someone pick up my parcel from apartment security guard?"),
-        # Siddharth sports/entertainment
-        ("Siddharth Verma", "Champions League semi-final tonight at 1:30 AM, setting alarm!"),
-        ("Siddharth Verma", "Booked 4 tickets for Friday night first-day-first-show at PVR Forum."),
-        ("Siddharth Verma", "RCB team jersey arrived, looking fresh in red and black."),
-        ("Siddharth Verma", "Debate: Cristiano Ronaldo prime vs Lionel Messi prime, stats don't lie."),
-        # Tanvi logistics
-        ("Tanvi Desai", "Cab driver assigned for tomorrow morning pickup: Swift Dzire KA-01-MJ-4821."),
-        ("Tanvi Desai", "Airbnb host replied: early check-in allowed at 11 AM without extra charge."),
-        ("Tanvi Desai", "Train tickets from Bangalore to Mysore on Shatabdi Express confirmed, coach C2 seats 24-27."),
-        ("Tanvi Desai", "Collected all government ID card copies for hotel check-in registration."),
+    # Daily generic chatter templates with date variations
+    DAILY_CHATTER_STARTERS = [
+        "good morning everyone!", "coffee time ☕", "working from cafe today in {place}",
+        "anyone free for lunch near {place}?", "traffic is crazy on {place} road today",
+        "weather is so pleasant today, 22 degrees", "wrap up calls by 6 PM today guys",
+        "who is playing badminton this weekend?", "ordering food on Swiggy, anyone wants anything?",
+        "gym session done for the day 💪", "reading this interesting tech article today",
+        "movie plan for the weekend?", "tea break at chai point!"
     ]
-
-    all_raw_messages = []
+    PLACES_LIST = ["Indiranagar", "Koramangala", "HSR", "MG Road", "Whitefield", "Lavelle Road", "JP Nagar"]
 
     for d_idx in range(day_count):
         date_curr = current_day + timedelta(days=d_idx)
-        
-        # If thread blocks exist on this day, insert them
+
+        # Insert scheduled threads
         if date_curr in thread_map:
             for tb_time, tb_id, tb_msgs in thread_map[date_curr]:
                 msg_time = tb_time
@@ -382,63 +384,40 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
                     all_raw_messages.append((sender, text, msg_time, tb_id, is_dec, False, False))
                     msg_time += timedelta(minutes=random.randint(1, 4), seconds=random.randint(5, 50))
 
-        # Generate background chatter for this day (between 18 to 30 messages)
-        num_msgs = random.randint(18, 28)
-        
-        # Pick 2-3 active conversation clusters during the day (morning 8-11, afternoon 13-16, evening 18-23)
-        clusters = [
-            datetime.combine(date_curr, datetime.min.time()) + timedelta(hours=random.randint(8, 10), minutes=random.randint(0, 45)),
-            datetime.combine(date_curr, datetime.min.time()) + timedelta(hours=random.randint(13, 15), minutes=random.randint(0, 45)),
-            datetime.combine(date_curr, datetime.min.time()) + timedelta(hours=random.randint(18, 22), minutes=random.randint(0, 45)),
-        ]
+        # Daily casual messages (18 to 25 messages)
+        num_msgs = random.randint(18, 24)
+        c_time = datetime.combine(date_curr, datetime.min.time()) + timedelta(hours=8, minutes=random.randint(10, 45))
 
-        for cluster_start in clusters:
-            cluster_len = num_msgs // 3 + random.randint(0, 2)
-            c_time = cluster_start
-            
-            # Select topic or casual chatter
-            if random.random() < 0.4:
-                topic = random.choice(CASUAL_TOPICS)
-                for sender, text in topic:
-                    # Random chance of typo or variation
-                    all_raw_messages.append((sender, text, c_time, None, False, False, False))
-                    c_time += timedelta(minutes=random.randint(1, 3), seconds=random.randint(10, 50))
+        for _ in range(num_msgs):
+            r_val = random.random()
+            if r_val < 0.08:
+                sender = random.choice(all_participants)
+                text = random.choice(FORWARDED_MESSAGES)
+                all_raw_messages.append((sender, text, c_time, None, False, True, False))
+            elif r_val < 0.16:
+                sender = random.choice(all_participants)
+                text = "<Media omitted>"
+                all_raw_messages.append((sender, text, c_time, None, False, False, True))
+            elif r_val < 0.40:
+                sender = random.choice(["Neha Gupta", "Kabir Sen", "Ananya Iyer", "Vikram Malhotra", "Siddharth Verma", "Priya Sharma"])
+                text = random.choice(ONE_WORD_REPLIES)
+                all_raw_messages.append((sender, text, c_time, None, False, False, False))
             else:
-                for _ in range(cluster_len):
-                    r_val = random.random()
-                    if r_val < 0.12:
-                        # Forwarded message
-                        sender = random.choice(["Kabir Sen", "Rohan Mehta", "Priya Sharma", "Siddharth Verma"])
-                        text = random.choice(FORWARDED_MESSAGES)
-                        all_raw_messages.append((sender, text, c_time, None, False, True, False))
-                    elif r_val < 0.22:
-                        # Media omitted
-                        sender = random.choice(all_participants)
-                        text = "<Media omitted>"
-                        all_raw_messages.append((sender, text, c_time, None, False, False, True))
-                    elif r_val < 0.42:
-                        # One word reaction / reply
-                        sender = random.choice(["Neha Gupta", "Kabir Sen", "Ananya Iyer", "Vikram Malhotra", "Siddharth Verma"])
-                        text = random.choice(ONE_WORD_REPLIES)
-                        all_raw_messages.append((sender, text, c_time, None, False, False, False))
-                    else:
-                        # Specific scenario or banter
-                        sender, text = random.choice(SPECIFIC_SCENARIOS)
-                        all_raw_messages.append((sender, text, c_time, None, False, False, False))
-                    
-                    c_time += timedelta(minutes=random.randint(1, 6), seconds=random.randint(5, 55))
+                sender = random.choice(all_participants)
+                starter = random.choice(DAILY_CHATTER_STARTERS).format(place=random.choice(PLACES_LIST))
+                all_raw_messages.append((sender, starter, c_time, None, False, False, False))
 
-    # Sort all messages chronologically
+            c_time += timedelta(minutes=random.randint(20, 50), seconds=random.randint(0, 50))
+
+    # Sort strictly chronologically
     all_raw_messages.sort(key=lambda x: x[2])
 
-    # Convert to structured message dictionaries with IDs
     prev_msg_id = None
     for sender, text, dt, thread_id, is_dec, is_fwd, is_media in all_raw_messages:
-        # Reply to prev message randomly if within 3 minutes
         reply_to = None
-        if prev_msg_id and random.random() < 0.25 and not is_fwd and not is_media:
+        if prev_msg_id and random.random() < 0.20 and not is_fwd and not is_media:
             reply_to = prev_msg_id
-        
+
         msg_obj = create_msg(
             sender=sender,
             text=text,
@@ -456,32 +435,16 @@ def generate_synthetic_chat() -> List[Dict[str, Any]]:
 
 
 def main():
-    print(f"Generating synthetic chat archive (seed={SEED})...")
+    print("Generating comprehensive synthetic chat archive...")
     messages = generate_synthetic_chat()
-    
-    # Verify statistics
-    total = len(messages)
-    senders = set(m["sender"] for m in messages)
-    decisions = [m for m in messages if m["is_decision"]]
-    media_count = sum(1 for m in messages if m["media_omitted"])
-    fwd_count = sum(1 for m in messages if m["is_forward"])
-    first_date = messages[0]["timestamp"]
-    last_date = messages[-1]["timestamp"]
-
-    print(f"✓ Total Messages: {total}")
-    print(f"✓ Total Participants: {len(senders)} ({', '.join(senders)})")
-    print(f"✓ Date Range: {first_date} to {last_date}")
-    print(f"✓ Decision Resolution Messages: {len(decisions)}")
-    print(f"✓ Media Omitted Messages: {media_count}")
-    print(f"✓ Forwarded Messages: {fwd_count}")
+    print(f"✓ Total Messages: {len(messages)}")
+    print(f"✓ Participants: {len(set(m['sender'] for m in messages))}")
+    print(f"✓ Date Range: {messages[0]['timestamp']} to {messages[-1]['timestamp']}")
 
     output_path = "data/chat.json"
-    import os
-    os.makedirs("data", exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(messages, f, indent=2, ensure_ascii=False)
-    
-    print(f"✓ Successfully saved to {output_path}")
+    print(f"✓ Successfully written to {output_path}")
 
 
 if __name__ == "__main__":

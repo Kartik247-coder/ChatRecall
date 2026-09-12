@@ -3,7 +3,7 @@ Multi-Strategy Query Router & Retrieval Engine for ChatRecall
 ============================================================
 Handles the 3 core query shapes:
 1. Semantic / Meaning-based (with Decision-Resolution awareness)
-2. Person-based (Entity extraction & sender filtering)
+2. Person-based (Author entity extraction & sender filtering)
 3. Time-based (Relative and absolute date parsing relative to archive window)
 """
 
@@ -15,37 +15,26 @@ import numpy as np
 
 from src.index import ChatIndex
 
-# Archive time bounds
 ARCHIVE_START = datetime(2023, 10, 1, 0, 0, 0)
 ARCHIVE_END = datetime(2024, 3, 31, 23, 59, 59)
 ARCHIVE_REFERENCE_NOW = datetime(2024, 3, 31, 23, 59, 59)
 
-# Participant entity alias mappings
 PERSONA_ALIASES = {
     "rohan": "Rohan Mehta",
-    "rohan's": "Rohan Mehta",
     "priya": "Priya Sharma",
-    "priya's": "Priya Sharma",
     "kabir": "Kabir Sen",
-    "kabir's": "Kabir Sen",
     "ananya": "Ananya Iyer",
-    "ananya's": "Ananya Iyer",
     "vikram": "Vikram Malhotra",
-    "vikram's": "Vikram Malhotra",
     "neha": "Neha Gupta",
-    "neha's": "Neha Gupta",
     "sid": "Siddharth Verma",
-    "sid's": "Siddharth Verma",
     "siddharth": "Siddharth Verma",
-    "siddharth's": "Siddharth Verma",
     "tanvi": "Tanvi Desai",
-    "tanvi's": "Tanvi Desai",
 }
 
 DECISION_KEYWORDS = [
     "decide", "decided", "decision", "final", "finalize", "finalized", "lock",
     "locked", "agree", "agreed", "agreement", "settle", "settled", "resolution",
-    "outcome", "conclude", "fixed", "fix"
+    "outcome", "conclude", "fixed", "fix", "chalo", "booked"
 ]
 
 MONTH_MAP = {
@@ -100,35 +89,36 @@ class QueryRouter:
         q_lower = query.lower()
         words = set(re.findall(r"\b\w+[\w']*\b", q_lower))
 
-        # 1. Detect Person mention
-        detected_person = None
-        for alias, full_name in PERSONA_ALIASES.items():
-            pattern = rf"\b{re.escape(alias)}\b"
-            if re.search(pattern, q_lower):
-                detected_person = full_name
-                break
-
-        # 2. Detect Decision Intent
+        # 1. Detect Decision Intent
         is_decision = any(dk in words for dk in DECISION_KEYWORDS)
+
+        # 2. Detect Person mention — distinguish between SENDER (author) vs SUBJECT ("for Siddharth")
+        detected_person = None
+        is_subject_only = bool(re.search(r"\b(for|about|surprise|gift)\s+(siddharth|sid|priya|rohan|ananya|vikram|neha|tanvi|kabir)\b", q_lower))
+
+        if not is_subject_only:
+            for alias, full_name in PERSONA_ALIASES.items():
+                # Matches "priya said", "priya's", "did priya", "what did priya", "priya message", "priya advice"
+                pattern = rf"\b({alias}'s|{alias}\s+said|did\s+{alias}|what\s+did\s+{alias}|from\s+{alias}|{alias}\s+mention|{alias}\s+share|{alias}\s+tell|{alias}\s+advice|{alias}\s+message|{alias}\s+report|{alias}\s+cab)\b"
+                if re.search(pattern, q_lower):
+                    detected_person = full_name
+                    break
 
         # 3. Detect Temporal Constraints
         time_range = None
         
-        # Check explicit months
         for m_name, (start_dt, end_dt) in MONTH_MAP.items():
             if re.search(rf"\b{re.escape(m_name)}\b", q_lower):
                 time_range = (start_dt, end_dt)
                 break
 
-        # Check relative time references relative to archive end (March 2024)
         if not time_range:
             if "last month" in q_lower or "previous month" in q_lower:
-                # Last month of archive (Feb 2024)
                 time_range = (datetime(2024, 2, 1), datetime(2024, 2, 29, 23, 59, 59))
             elif "diwali" in q_lower:
-                time_range = (datetime(2023, 11, 5), datetime(2023, 11, 20, 23, 59, 59))
+                time_range = (datetime(2023, 11, 1), datetime(2023, 11, 20, 23, 59, 59))
             elif "new year" in q_lower or "new years" in q_lower:
-                time_range = (datetime(2023, 12, 25), datetime(2024, 1, 5, 23, 59, 59))
+                time_range = (datetime(2023, 12, 20), datetime(2024, 1, 10, 23, 59, 59))
             elif "beginning of the year" in q_lower or "early this year" in q_lower:
                 time_range = (datetime(2024, 1, 1), datetime(2024, 1, 31, 23, 59, 59))
             elif "late last year" in q_lower or "end of last year" in q_lower:
@@ -144,11 +134,10 @@ class QueryRouter:
         else:
             strategy = StrategyType.SEMANTIC
 
-        # Clean query for embedding (remove noise prefixes like "What did X say about" to focus on topic)
+        # Clean query for embedding
         clean_q = query
         if detected_person:
-            # e.g. "What did Priya say about the budget" -> "budget expense discussion"
-            clean_q = re.sub(r"(?i)\b(what did|did|what does|has)\s+\w+('s)?\s+(say|said|tell|mention|recommend|ask)\s+(about)?", "", query).strip()
+            clean_q = re.sub(r"(?i)\b(what did|did|what does|has)\s+\w+('s)?\s+(say|said|tell|mention|recommend|ask|share|report)\s+(about)?", "", query).strip()
             if not clean_q or len(clean_q.split()) < 2:
                 clean_q = query
 
@@ -171,11 +160,10 @@ class RetrievalEngine:
         self,
         query: str,
         top_k: int = 5,
-        decision_boost: float = 0.22
+        decision_boost: float = 0.35
     ) -> Dict[str, Any]:
         """
         Executes query through the router and multi-strategy retrieval pipeline.
-        Returns matched messages, query plan, and scores.
         """
         plan = self.router.analyze(query)
         candidates: Optional[List[int]] = None
@@ -193,7 +181,6 @@ class RetrievalEngine:
                 if start_dt <= dt <= end_dt
             ]
             if candidates is not None:
-                # Intersect person and time candidates
                 time_set = set(time_candidates)
                 candidates = [idx for idx in candidates if idx in time_set]
             else:
@@ -206,27 +193,27 @@ class RetrievalEngine:
         raw_results = self.index.dense_search(
             query_vector=q_vec,
             candidate_indices=candidates,
-            top_k=min(50, len(self.index.messages) if candidates is None else len(candidates))
+            top_k=min(100, len(self.index.messages) if candidates is None else len(candidates))
         )
 
-        # Re-ranking: apply decision resolution boost when decision intent is detected
+        # Re-ranking
         scored_results = []
         for msg_idx, base_sim in raw_results:
             msg = self.index.messages[msg_idx]
             final_score = base_sim
 
+            # Decision boost
             if plan.is_decision_query and msg.get("is_decision", False):
                 final_score += decision_boost
 
-            # Penalize generic media omitted or one-word messages unless query is very short
+            # Penalize media omitted and bare 1-word replies
             if msg.get("media_omitted", False):
-                final_score -= 0.15
+                final_score -= 0.20
             elif len(msg.get("message", "").split()) <= 1 and not msg.get("is_decision", False):
-                final_score -= 0.10
+                final_score -= 0.15
 
             scored_results.append((msg_idx, final_score, base_sim))
 
-        # Sort by adjusted final score
         scored_results.sort(key=lambda x: -x[1])
         top_matches = scored_results[:top_k]
 
@@ -258,28 +245,3 @@ class RetrievalEngine:
             "candidate_count": len(candidates) if candidates is not None else len(self.index.messages),
             "results": results
         }
-
-
-def main():
-    print("Initializing retrieval engine...")
-    index = ChatIndex.build_or_load()
-    engine = RetrievalEngine(index)
-
-    sample_queries = [
-        "When did we decide on the mountain trip?",
-        "What did Priya say about the budget?",
-        "What did we discuss in December?",
-        "Surprise reading gadget ordered for our friend moving abroad",
-    ]
-
-    for q in sample_queries:
-        res = engine.search(q, top_k=2)
-        print(f"\n==========================================")
-        print(f"QUERY: '{q}'")
-        print(f"Strategy: {res['plan']['strategy']} | Candidates: {res['candidate_count']}")
-        for r in res["results"]:
-            print(f"  [{r['rank']}] ({r['score']}) {r['sender']} ({r['timestamp']}): {r['message']}")
-
-
-if __name__ == "__main__":
-    main()
