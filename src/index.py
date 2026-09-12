@@ -76,17 +76,23 @@ class ChatIndex:
         if not os.path.exists(chat_path):
             raise FileNotFoundError(f"Chat data file not found at {chat_path}.")
 
-        # If user passed a .txt file, parse it using Text Chat Parser
+        # If user passed a .txt or .json file, parse it cleanly
         if chat_path.endswith(".txt"):
             from src.parser import parse_chat_txt
             messages = parse_chat_txt(chat_path)
             base_name = os.path.splitext(os.path.basename(chat_path))[0]
             embeddings_path = f"data/{base_name}_embeddings.npy"
             ctx_embeddings_path = f"data/{base_name}_context_embeddings.npy"
-        else:
+        elif chat_path == CHAT_DATA_PATH:
             with open(chat_path, "r", encoding="utf-8") as f:
                 messages = json.load(f)
             ctx_embeddings_path = CONTEXT_EMBEDDINGS_PATH
+        else:
+            from src.parser import parse_chat_json
+            messages = parse_chat_json(chat_path)
+            base_name = os.path.splitext(os.path.basename(chat_path))[0]
+            embeddings_path = f"data/{base_name}_embeddings.npy"
+            ctx_embeddings_path = f"data/{base_name}_context_embeddings.npy"
 
         embedder = MessageEmbedder()
 
@@ -140,7 +146,6 @@ class ChatIndex:
             sub_ctx = self.context_embeddings[candidate_indices]
             direct_scores = np.dot(sub_emb, query_vector)
             ctx_scores = np.dot(sub_ctx, context_query_vector)
-
             blended = 0.45 * direct_scores + 0.55 * ctx_scores
             top_local = np.argsort(-blended)[:top_k]
             return [(candidate_indices[i], float(blended[i]), float(direct_scores[i])) for i in top_local]
@@ -158,15 +163,20 @@ class ChatIndex:
         top_k: int = 10
     ) -> List[Tuple[int, float]]:
         """
-        Performs BM25 keyword search.
+        Performs BM25 keyword search, returning only positive matching scores.
         """
         tokens = re.findall(r"\b\w+\b", query.lower())
+        if not tokens:
+            return []
         raw_scores = self.bm25.get_scores(tokens)
         if candidate_indices is not None:
             candidate_set = set(candidate_indices)
-            filtered_scores = [(idx, float(raw_scores[idx])) for idx in candidate_set]
+            filtered_scores = [(idx, float(raw_scores[idx])) for idx in candidate_set if raw_scores[idx] > 0.0]
             filtered_scores.sort(key=lambda x: -x[1])
             return filtered_scores[:top_k]
         else:
-            top_indices = np.argsort(-raw_scores)[:top_k]
+            positive_indices = [i for i, s in enumerate(raw_scores) if s > 0.0]
+            if not positive_indices:
+                return []
+            top_indices = sorted(positive_indices, key=lambda i: -raw_scores[i])[:top_k]
             return [(int(i), float(raw_scores[i])) for i in top_indices]

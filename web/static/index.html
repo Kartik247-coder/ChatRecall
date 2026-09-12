@@ -860,6 +860,8 @@
       }
     }
 
+    let currentDisplayedItems = [];
+
     // Dynamic Suggestion Rendering
     function renderSuggestions(tab) {
       if (!currentSuggestions) return;
@@ -883,6 +885,8 @@
         items = (currentSuggestions[tab] || []).map(x => ({...x, category: tab, catName: catMap[tab] || tab}));
       }
 
+      currentDisplayedItems = items;
+
       const colorMap = {
         'meaning': 'background: rgba(6, 182, 212, 0.15); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.35);',
         'person': 'background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);',
@@ -890,11 +894,11 @@
         'decision': 'background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35);'
       };
 
-      suggestionsGrid.innerHTML = items.map(item => `
-        <div class="dynamic-query-card" onclick="runSuggestedQuery('${escapeHtml(item.query)}')">
+      suggestionsGrid.innerHTML = items.map((item, idx) => `
+        <div class="dynamic-query-card" data-idx="${idx}">
           <div class="card-top-row">
-            <span class="card-title">${item.icon} ${item.title}</span>
-            <span class="card-type-tag" style="${colorMap[item.category] || ''}">${item.catName}</span>
+            <span class="card-title">${item.icon} ${escapeHtml(item.title)}</span>
+            <span class="card-type-tag" style="${colorMap[item.category] || ''}">${escapeHtml(item.catName)}</span>
           </div>
           <div class="card-query-preview">"${escapeHtml(item.query)}"</div>
         </div>
@@ -908,6 +912,18 @@
         btn.classList.add('active');
         renderSuggestions(btn.dataset.tab);
       });
+    });
+
+    // Suggestion card click delegation
+    suggestionsGrid.addEventListener('click', (e) => {
+      const card = e.target.closest('.dynamic-query-card');
+      if (card && card.dataset.idx !== undefined) {
+        const idx = parseInt(card.dataset.idx, 10);
+        const item = currentDisplayedItems[idx];
+        if (item && item.query) {
+          runSuggestedQuery(item.query);
+        }
+      }
     });
 
     window.runSuggestedQuery = function(queryText) {
